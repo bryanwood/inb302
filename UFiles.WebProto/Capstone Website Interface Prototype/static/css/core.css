@@ -1,0 +1,137 @@
+﻿body
+{
+    margin: 0 0 0 0;
+    background-color: #404040;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.floatFix
+{
+    overflow: hidden;
+}
+
+.floatLeft 
+{
+    float: left;
+}
+
+.floatRight
+{
+    float: right;
+}
+
+.floatClear
+{
+    clear: both;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+.coreMiniContainer
+{
+    margin: 100px auto 0 auto;
+    height: auto;
+    width: 510px;
+}
+
+.coreMiniHeader
+{
+    font-family: Arial;
+    color: #FFFFFF;
+    font-size: 42px;
+    text-align: right;
+}
+
+.coreMiniBox
+{
+    padding-top: 10px;
+    margin: 5px 0 0 0;
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-width: 0px 10px 0px 0px;
+    border-color: #ffbf43;
+}
+
+.coreMiniBoxUserAction
+{
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    border-color: #e5e5e5;
+    margin: 0 0px 0px 0px;
+    padding: 10px 15px 0px 15px;
+    width: 460px;
+    overflow: hidden;
+}
+
+.coreButtonCancel
+{
+    background-color: #8c8c8c;
+    border-style: none;
+    color: #FFFFFF;
+}
+
+.coreButtonAccept
+{
+    background-color: #48abf7;
+    border-style: none;
+    color: #FFFFFF;
+}
+
+.coreContainer
+{
+    width: 970px;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+}
+
+.coreHeader
+{
+    width: 970px;
+    height: 40px;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.coreInternalContainer
+{
+    width: 970px;
+    height: 800px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+}
+
+.coreSidebar
+{
+    float: left;
+    font-family: Arial;
+    font-size: 14px;
+    width: 205px;
+    height: 100%;
+    background-color: #404040;
+    color: #FFFFFF;
+}
+
+.coreSidebarInternal
+{
+    width: 200px;
+    border-style: solid;
+    border-width: 0 0 0 5px;
+    border-color: #ffbf43;
+}
+
+.coreContent
+{
+    float: right;
+    width: 755px;
+    padding: 5px 5px 5px 5px;
+    height: 100%;
+}
