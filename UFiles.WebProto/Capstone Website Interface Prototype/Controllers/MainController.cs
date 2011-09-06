@@ -6,12 +6,17 @@ using System.Web.Mvc;
 
 namespace Capstone_Website_Interface_Prototype.Controllers
 {
-    public class DownloadController : Controller
+    public class MainController : Controller
     {
         //
-        // GET: /Download/
+        // GET: /Main/
 
         public ActionResult Index()
+        {
+            return RedirectToAction("Download");
+        }
+
+        public ActionResult Download()
         {
             return View();
         }
