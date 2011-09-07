@@ -16,7 +16,22 @@ namespace Capstone_Website_Interface_Prototype.Controllers
             return RedirectToAction("Download");
         }
 
+        public ActionResult DownloadLightBox()
+        {
+            return View();
+        }
+
         public ActionResult Download()
+        {
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Home()
         {
             return View();
         }

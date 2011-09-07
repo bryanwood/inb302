@@ -1,7 +1,6 @@
 ﻿body
 {
     margin: 0 0 0 0;
-    background-color: #404040;
     font-family: Arial;
     font-size: 12px;
 }
@@ -11,7 +10,7 @@
     overflow: hidden;
 }
 
-.floatLeft 
+.floatLeft
 {
     float: left;
 }
@@ -24,17 +23,6 @@
 .floatClear
 {
     clear: both;
-}
-
-a
-{
-    color: inherit;
-    text-decoration: none;
-}
-
-a:hover
-{
-    text-decoration: underline;
 }
 
 .coreMiniContainer
@@ -87,74 +75,56 @@ a:hover
     color: #FFFFFF;
 }
 
-.coreContainer
+.miniBoxSection
 {
-    width: 970px;
-    margin: 0 auto 0 auto;
-    overflow: hidden;
+    width: 475px;
+    margin: 0 0 20px 0;
+    padding: 5px 5px 5px 5px;
 }
 
-.coreHeader
+.miniBoxInformationHighlight
 {
-    width: 970px;
-    height: 40px;
-    color: #FFFFFF;
-}
-
-.coreHeaderInternal
-{
-    width: 610px;
-}
-
-.coreHeaderBanner
-{
-    padding-top: 20px;
-    margin-left: 155px;
-    width: 150px;
-    color: #808080;
-}
-
-.coreHeaderUserContainer
-{
-    margin: 20px 0 0 0;
-    text-align: right;
-    color: #808080;
-}
-
-.coreInternalContainer
-{
-    width: 815px;
-    overflow: hidden;
-    background-color: #FFFFFF;
-}
-
-.coreSidebar
-{
-    font-family: Arial;
-    width: 150px;
-    background-color: #404040;
-    color: #FFFFFF;
-}
-
-.coreSidebarInternal
-{
-    width: 140px;
-    padding: 0 0 0 5px;
     border-style: solid;
     border-width: 0 0 0 5px;
-    border-color: #ffbf43;
+    background-color: #cdf0ff;
+    border-color: #59ceff;
 }
 
-.coreContent
+.miniSectionDetail
 {
-    float: right;
-    width: 795px;
-    padding: 5px 5px 5px 5px;
-    height: 100%;
+    margin-bottom: 2px;
 }
 
-.coreExternalHighlight
+.miniLabel
+{
+    padding: 0 5px 0 0;
+    width: 100px;
+    text-align: right;
+    color: #707070;
+}
+
+.miniDescription
 {
     font-weight: bold;
-    color: #FFFFFF !important;
+}
+
+.miniButton
+{
+    width: 125px;
+    height: 30px;
+    font-size: 14px;
+    margin: 0 10px 0 0;
+}
+
+#downloadInfoExpandButton
+{
+    margin: 0 10px 5px 0;
+    width: 200px;
+    height: 20px;
+    font-size: 12px;
+}
+
+.miniBoxImportantHighlight
+{
+    font-size: 16px;
 }
