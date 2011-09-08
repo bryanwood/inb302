@@ -1,0 +1,7 @@
+C:\Users\Carl\Documents\Mercurial\INB302 Capstone Project\UFiles.WebProto\Capstone Website Interface Prototype\bin\Capstone Website Interface Prototype.dll
+C:\Users\Carl\Documents\Mercurial\INB302 Capstone Project\UFiles.WebProto\Capstone Website Interface Prototype\bin\Capstone Website Interface Prototype.pdb
+C:\Users\Carl\Documents\Mercurial\INB302 Capstone Project\UFiles.WebProto\Capstone Website Interface Prototype\bin\EntityFramework.dll
+C:\Users\Carl\Documents\Mercurial\INB302 Capstone Project\UFiles.WebProto\Capstone Website Interface Prototype\bin\EntityFramework.xml
+C:\Users\Carl\Documents\Mercurial\INB302 Capstone Project\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Carl\Documents\Mercurial\INB302 Capstone Project\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.dll
+C:\Users\Carl\Documents\Mercurial\INB302 Capstone Project\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.pdb
