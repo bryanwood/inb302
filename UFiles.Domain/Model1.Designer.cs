@@ -26,6 +26,14 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("Model1", "FileFileAccessEvent", "File", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UFiles.Domain.File), "FileAccessEvent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.FileAccessEvent))]
 [assembly: EdmRelationshipAttribute("Model1", "UserFileAccessEvent", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UFiles.Domain.User), "FileAccessEvent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.FileAccessEvent))]
 [assembly: EdmRelationshipAttribute("Model1", "UserUserEvent", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UFiles.Domain.User), "UserEvent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.UserEvent))]
+[assembly: EdmRelationshipAttribute("Model1", "UserUserRestriction", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.User), "UserRestriction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.UserRestriction))]
+[assembly: EdmRelationshipAttribute("Model1", "TimeRangeRestrictionTimeRange", "TimeRangeRestriction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.TimeRangeRestriction), "TimeRange", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.TimeRange))]
+[assembly: EdmRelationshipAttribute("Model1", "LocationRestrictionLocation", "LocationRestriction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.LocationRestriction), "Location", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.Location))]
+[assembly: EdmRelationshipAttribute("Model1", "IPRestrictionIPAddress", "IPRestriction", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.IPRestriction), "IPAddress", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.IPAddress))]
+[assembly: EdmRelationshipAttribute("Model1", "UserTransmittal", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.User), "Transmittal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.Transmittal))]
+[assembly: EdmRelationshipAttribute("Model1", "UserTransmittal1", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UFiles.Domain.User), "Transmittal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.Transmittal))]
+[assembly: EdmRelationshipAttribute("Model1", "FileTransmittal", "File", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.File), "Transmittal", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.Transmittal))]
+[assembly: EdmRelationshipAttribute("Model1", "TransmittalTransmittalEvent", "Transmittal", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(UFiles.Domain.Transmittal), "TransmittalEvent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(UFiles.Domain.TransmittalEvent))]
 
 #endregion
 
@@ -172,6 +180,70 @@ namespace UFiles.Domain
             }
         }
         private ObjectSet<Event> _Events;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TimeRange> TimeRanges
+        {
+            get
+            {
+                if ((_TimeRanges == null))
+                {
+                    _TimeRanges = base.CreateObjectSet<TimeRange>("TimeRanges");
+                }
+                return _TimeRanges;
+            }
+        }
+        private ObjectSet<TimeRange> _TimeRanges;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Location> Locations
+        {
+            get
+            {
+                if ((_Locations == null))
+                {
+                    _Locations = base.CreateObjectSet<Location>("Locations");
+                }
+                return _Locations;
+            }
+        }
+        private ObjectSet<Location> _Locations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IPAddress> IPAddresses
+        {
+            get
+            {
+                if ((_IPAddresses == null))
+                {
+                    _IPAddresses = base.CreateObjectSet<IPAddress>("IPAddresses");
+                }
+                return _IPAddresses;
+            }
+        }
+        private ObjectSet<IPAddress> _IPAddresses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Transmittal> Transmittals
+        {
+            get
+            {
+                if ((_Transmittals == null))
+                {
+                    _Transmittals = base.CreateObjectSet<Transmittal>("Transmittals");
+                }
+                return _Transmittals;
+            }
+        }
+        private ObjectSet<Transmittal> _Transmittals;
 
         #endregion
         #region AddTo Methods
@@ -223,6 +295,38 @@ namespace UFiles.Domain
         {
             base.AddObject("Events", @event);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TimeRanges EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTimeRanges(TimeRange timeRange)
+        {
+            base.AddObject("TimeRanges", timeRange);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Locations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLocations(Location location)
+        {
+            base.AddObject("Locations", location);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IPAddresses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIPAddresses(IPAddress iPAddress)
+        {
+            base.AddObject("IPAddresses", iPAddress);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Transmittals EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTransmittals(Transmittal transmittal)
+        {
+            base.AddObject("Transmittals", transmittal);
+        }
 
         #endregion
     }
@@ -240,6 +344,7 @@ namespace UFiles.Domain
     [DataContractAttribute(IsReference=true)]
     [KnownTypeAttribute(typeof(FileAccessEvent))]
     [KnownTypeAttribute(typeof(UserEvent))]
+    [KnownTypeAttribute(typeof(TransmittalEvent))]
     public partial class Event : EntityObject
     {
         #region Factory Method
@@ -330,13 +435,13 @@ namespace UFiles.Domain
         /// </summary>
         /// <param name="fileId">Initial value of the FileId property.</param>
         /// <param name="name">Initial value of the Name property.</param>
-        /// <param name="created">Initial value of the Created property.</param>
-        public static File CreateFile(global::System.Int32 fileId, global::System.String name, global::System.String created)
+        /// <param name="createdDateTime">Initial value of the CreatedDateTime property.</param>
+        public static File CreateFile(global::System.Int32 fileId, global::System.String name, global::System.DateTime createdDateTime)
         {
             File file = new File();
             file.FileId = fileId;
             file.Name = name;
-            file.Created = created;
+            file.CreatedDateTime = createdDateTime;
             return file;
         }
 
@@ -399,24 +504,24 @@ namespace UFiles.Domain
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Created
+        public global::System.DateTime CreatedDateTime
         {
             get
             {
-                return _Created;
+                return _CreatedDateTime;
             }
             set
             {
-                OnCreatedChanging(value);
-                ReportPropertyChanging("Created");
-                _Created = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Created");
-                OnCreatedChanged();
+                OnCreatedDateTimeChanging(value);
+                ReportPropertyChanging("CreatedDateTime");
+                _CreatedDateTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedDateTime");
+                OnCreatedDateTimeChanged();
             }
         }
-        private global::System.String _Created;
-        partial void OnCreatedChanging(global::System.String value);
-        partial void OnCreatedChanged();
+        private global::System.DateTime _CreatedDateTime;
+        partial void OnCreatedDateTimeChanging(global::System.DateTime value);
+        partial void OnCreatedDateTimeChanged();
 
         #endregion
     
@@ -538,6 +643,28 @@ namespace UFiles.Domain
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FileAccessEvent>("Model1.FileFileAccessEvent", "FileAccessEvent", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "FileTransmittal", "Transmittal")]
+        public EntityCollection<Transmittal> Transmittals
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Transmittal>("Model1.FileTransmittal", "Transmittal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Transmittal>("Model1.FileTransmittal", "Transmittal", value);
                 }
             }
         }
@@ -709,7 +836,7 @@ namespace UFiles.Domain
         partial void OnFileDataIdChanged();
     
         /// <summary>
-        /// No Metadata Documentation available.
+        /// Size of the File Data in bytes
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
@@ -757,8 +884,11 @@ namespace UFiles.Domain
         partial void OnExtensionChanged();
     
         /// <summary>
-        /// No Metadata Documentation available.
+        /// SHA1 Hash of the file data
         /// </summary>
+        /// <LongDescription>
+        /// SHA1 Hash of the file data, used to stop duplicate file data
+        /// </LongDescription>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Hash
@@ -823,10 +953,12 @@ namespace UFiles.Domain
         /// Create a new Group object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static Group CreateGroup(global::System.Int32 id)
+        /// <param name="name">Initial value of the Name property.</param>
+        public static Group CreateGroup(global::System.Int32 id, global::System.String name)
         {
             Group group = new Group();
             group.Id = id;
+            group.Name = name;
             return group;
         }
 
@@ -859,6 +991,30 @@ namespace UFiles.Domain
         private global::System.Int32 _Id;
         partial void OnIdChanging(global::System.Int32 value);
         partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
 
         #endregion
     
@@ -893,7 +1049,7 @@ namespace UFiles.Domain
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("Model1", "GroupRestrictionGroup", "GroupRestriction")]
-        public EntityCollection<GroupRestriction> GroupRestriction
+        public EntityCollection<GroupRestriction> GroupRestrictions
         {
             get
             {
@@ -964,6 +1120,112 @@ namespace UFiles.Domain
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="IPAddress")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IPAddress : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IPAddress object.
+        /// </summary>
+        /// <param name="iPAddressId">Initial value of the IPAddressId property.</param>
+        /// <param name="iP">Initial value of the IP property.</param>
+        public static IPAddress CreateIPAddress(global::System.Int32 iPAddressId, global::System.String iP)
+        {
+            IPAddress iPAddress = new IPAddress();
+            iPAddress.IPAddressId = iPAddressId;
+            iPAddress.IP = iP;
+            return iPAddress;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IPAddressId
+        {
+            get
+            {
+                return _IPAddressId;
+            }
+            set
+            {
+                if (_IPAddressId != value)
+                {
+                    OnIPAddressIdChanging(value);
+                    ReportPropertyChanging("IPAddressId");
+                    _IPAddressId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("IPAddressId");
+                    OnIPAddressIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _IPAddressId;
+        partial void OnIPAddressIdChanging(global::System.Int32 value);
+        partial void OnIPAddressIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String IP
+        {
+            get
+            {
+                return _IP;
+            }
+            set
+            {
+                OnIPChanging(value);
+                ReportPropertyChanging("IP");
+                _IP = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("IP");
+                OnIPChanged();
+            }
+        }
+        private global::System.String _IP;
+        partial void OnIPChanging(global::System.String value);
+        partial void OnIPChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "IPRestrictionIPAddress", "IPRestriction")]
+        public EntityCollection<IPRestriction> IPRestriction
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IPRestriction>("Model1.IPRestrictionIPAddress", "IPRestriction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IPRestriction>("Model1.IPRestrictionIPAddress", "IPRestriction", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="Model1", Name="IPRestriction")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -975,13 +1237,63 @@ namespace UFiles.Domain
         /// Create a new IPRestriction object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="iPAddress">Initial value of the IPAddress property.</param>
-        public static IPRestriction CreateIPRestriction(global::System.Int32 id, global::System.String iPAddress)
+        public static IPRestriction CreateIPRestriction(global::System.Int32 id)
         {
             IPRestriction iPRestriction = new IPRestriction();
             iPRestriction.Id = id;
-            iPRestriction.IPAddress = iPAddress;
             return iPRestriction;
+        }
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "IPRestrictionIPAddress", "IPAddress")]
+        public EntityCollection<IPAddress> IPAddresses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IPAddress>("Model1.IPRestrictionIPAddress", "IPAddress");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IPAddress>("Model1.IPRestrictionIPAddress", "IPAddress", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Location")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Location : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Location object.
+        /// </summary>
+        /// <param name="locationId">Initial value of the LocationId property.</param>
+        /// <param name="place">Initial value of the Place property.</param>
+        public static Location CreateLocation(global::System.Int32 locationId, global::System.String place)
+        {
+            Location location = new Location();
+            location.LocationId = locationId;
+            location.Place = place;
+            return location;
         }
 
         #endregion
@@ -990,29 +1302,81 @@ namespace UFiles.Domain
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String IPAddress
+        public global::System.Int32 LocationId
         {
             get
             {
-                return _IPAddress;
+                return _LocationId;
             }
             set
             {
-                OnIPAddressChanging(value);
-                ReportPropertyChanging("IPAddress");
-                _IPAddress = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("IPAddress");
-                OnIPAddressChanged();
+                if (_LocationId != value)
+                {
+                    OnLocationIdChanging(value);
+                    ReportPropertyChanging("LocationId");
+                    _LocationId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("LocationId");
+                    OnLocationIdChanged();
+                }
             }
         }
-        private global::System.String _IPAddress;
-        partial void OnIPAddressChanging(global::System.String value);
-        partial void OnIPAddressChanged();
+        private global::System.Int32 _LocationId;
+        partial void OnLocationIdChanging(global::System.Int32 value);
+        partial void OnLocationIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Place
+        {
+            get
+            {
+                return _Place;
+            }
+            set
+            {
+                OnPlaceChanging(value);
+                ReportPropertyChanging("Place");
+                _Place = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Place");
+                OnPlaceChanged();
+            }
+        }
+        private global::System.String _Place;
+        partial void OnPlaceChanging(global::System.String value);
+        partial void OnPlaceChanged();
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "LocationRestrictionLocation", "LocationRestriction")]
+        public EntityCollection<LocationRestriction> LocationRestriction
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LocationRestriction>("Model1.LocationRestrictionLocation", "LocationRestriction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LocationRestriction>("Model1.LocationRestrictionLocation", "LocationRestriction", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>
@@ -1029,44 +1393,40 @@ namespace UFiles.Domain
         /// Create a new LocationRestriction object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="location">Initial value of the Location property.</param>
-        public static LocationRestriction CreateLocationRestriction(global::System.Int32 id, global::System.String location)
+        public static LocationRestriction CreateLocationRestriction(global::System.Int32 id)
         {
             LocationRestriction locationRestriction = new LocationRestriction();
             locationRestriction.Id = id;
-            locationRestriction.Location = location;
             return locationRestriction;
         }
 
         #endregion
-        #region Primitive Properties
+    
+        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        public global::System.String Location
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "LocationRestrictionLocation", "Location")]
+        public EntityCollection<Location> Locations
         {
             get
             {
-                return _Location;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Location>("Model1.LocationRestrictionLocation", "Location");
             }
             set
             {
-                OnLocationChanging(value);
-                ReportPropertyChanging("Location");
-                _Location = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Location");
-                OnLocationChanged();
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Location>("Model1.LocationRestrictionLocation", "Location", value);
+                }
             }
         }
-        private global::System.String _Location;
-        partial void OnLocationChanging(global::System.String value);
-        partial void OnLocationChanged();
 
         #endregion
-    
     }
     
     /// <summary>
@@ -1076,9 +1436,10 @@ namespace UFiles.Domain
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     [KnownTypeAttribute(typeof(GroupRestriction))]
+    [KnownTypeAttribute(typeof(UserRestriction))]
+    [KnownTypeAttribute(typeof(TimeRangeRestriction))]
     [KnownTypeAttribute(typeof(LocationRestriction))]
     [KnownTypeAttribute(typeof(IPRestriction))]
-    [KnownTypeAttribute(typeof(TimeOfDayRestriction))]
     public partial class Restriction : EntityObject
     {
         #region Factory Method
@@ -1172,26 +1533,26 @@ namespace UFiles.Domain
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="TimeOfDayRestriction")]
+    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="TimeRange")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class TimeOfDayRestriction : Restriction
+    public partial class TimeRange : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new TimeOfDayRestriction object.
+        /// Create a new TimeRange object.
         /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="startTime">Initial value of the StartTime property.</param>
-        /// <param name="endTime">Initial value of the EndTime property.</param>
-        public static TimeOfDayRestriction CreateTimeOfDayRestriction(global::System.Int32 id, global::System.DateTimeOffset startTime, global::System.DateTimeOffset endTime)
+        /// <param name="timeRangeId">Initial value of the TimeRangeId property.</param>
+        /// <param name="startDateTime">Initial value of the StartDateTime property.</param>
+        /// <param name="endDateTime">Initial value of the EndDateTime property.</param>
+        public static TimeRange CreateTimeRange(global::System.Int32 timeRangeId, global::System.DateTime startDateTime, global::System.DateTime endDateTime)
         {
-            TimeOfDayRestriction timeOfDayRestriction = new TimeOfDayRestriction();
-            timeOfDayRestriction.Id = id;
-            timeOfDayRestriction.StartTime = startTime;
-            timeOfDayRestriction.EndTime = endTime;
-            return timeOfDayRestriction;
+            TimeRange timeRange = new TimeRange();
+            timeRange.TimeRangeId = timeRangeId;
+            timeRange.StartDateTime = startDateTime;
+            timeRange.EndDateTime = endDateTime;
+            return timeRange;
         }
 
         #endregion
@@ -1200,53 +1561,385 @@ namespace UFiles.Domain
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.DateTimeOffset StartTime
+        public global::System.Int32 TimeRangeId
         {
             get
             {
-                return _StartTime;
+                return _TimeRangeId;
             }
             set
             {
-                OnStartTimeChanging(value);
-                ReportPropertyChanging("StartTime");
-                _StartTime = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("StartTime");
-                OnStartTimeChanged();
+                if (_TimeRangeId != value)
+                {
+                    OnTimeRangeIdChanging(value);
+                    ReportPropertyChanging("TimeRangeId");
+                    _TimeRangeId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TimeRangeId");
+                    OnTimeRangeIdChanged();
+                }
             }
         }
-        private global::System.DateTimeOffset _StartTime;
-        partial void OnStartTimeChanging(global::System.DateTimeOffset value);
-        partial void OnStartTimeChanged();
+        private global::System.Int32 _TimeRangeId;
+        partial void OnTimeRangeIdChanging(global::System.Int32 value);
+        partial void OnTimeRangeIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.DateTimeOffset EndTime
+        public global::System.DateTime StartDateTime
         {
             get
             {
-                return _EndTime;
+                return _StartDateTime;
             }
             set
             {
-                OnEndTimeChanging(value);
-                ReportPropertyChanging("EndTime");
-                _EndTime = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("EndTime");
-                OnEndTimeChanged();
+                OnStartDateTimeChanging(value);
+                ReportPropertyChanging("StartDateTime");
+                _StartDateTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StartDateTime");
+                OnStartDateTimeChanged();
             }
         }
-        private global::System.DateTimeOffset _EndTime;
-        partial void OnEndTimeChanging(global::System.DateTimeOffset value);
-        partial void OnEndTimeChanged();
+        private global::System.DateTime _StartDateTime;
+        partial void OnStartDateTimeChanging(global::System.DateTime value);
+        partial void OnStartDateTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime EndDateTime
+        {
+            get
+            {
+                return _EndDateTime;
+            }
+            set
+            {
+                OnEndDateTimeChanging(value);
+                ReportPropertyChanging("EndDateTime");
+                _EndDateTime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EndDateTime");
+                OnEndDateTimeChanged();
+            }
+        }
+        private global::System.DateTime _EndDateTime;
+        partial void OnEndDateTimeChanging(global::System.DateTime value);
+        partial void OnEndDateTimeChanged();
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "TimeRangeRestrictionTimeRange", "TimeRangeRestriction")]
+        public EntityCollection<TimeRangeRestriction> TimeRangeRestriction
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TimeRangeRestriction>("Model1.TimeRangeRestrictionTimeRange", "TimeRangeRestriction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TimeRangeRestriction>("Model1.TimeRangeRestrictionTimeRange", "TimeRangeRestriction", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="TimeRangeRestriction")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TimeRangeRestriction : Restriction
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TimeRangeRestriction object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static TimeRangeRestriction CreateTimeRangeRestriction(global::System.Int32 id)
+        {
+            TimeRangeRestriction timeRangeRestriction = new TimeRangeRestriction();
+            timeRangeRestriction.Id = id;
+            return timeRangeRestriction;
+        }
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "TimeRangeRestrictionTimeRange", "TimeRange")]
+        public EntityCollection<TimeRange> TimeRanges
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TimeRange>("Model1.TimeRangeRestrictionTimeRange", "TimeRange");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TimeRange>("Model1.TimeRangeRestrictionTimeRange", "TimeRange", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="Transmittal")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Transmittal : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Transmittal object.
+        /// </summary>
+        /// <param name="transmittalId">Initial value of the TransmittalId property.</param>
+        public static Transmittal CreateTransmittal(global::System.Int32 transmittalId)
+        {
+            Transmittal transmittal = new Transmittal();
+            transmittal.TransmittalId = transmittalId;
+            return transmittal;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TransmittalId
+        {
+            get
+            {
+                return _TransmittalId;
+            }
+            set
+            {
+                if (_TransmittalId != value)
+                {
+                    OnTransmittalIdChanging(value);
+                    ReportPropertyChanging("TransmittalId");
+                    _TransmittalId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TransmittalId");
+                    OnTransmittalIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _TransmittalId;
+        partial void OnTransmittalIdChanging(global::System.Int32 value);
+        partial void OnTransmittalIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "UserTransmittal", "User")]
+        public EntityCollection<User> Recipients
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("Model1.UserTransmittal", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("Model1.UserTransmittal", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "UserTransmittal1", "User")]
+        public User Sender
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("Model1.UserTransmittal1", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("Model1.UserTransmittal1", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> SenderReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("Model1.UserTransmittal1", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("Model1.UserTransmittal1", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "FileTransmittal", "File")]
+        public EntityCollection<File> Files
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<File>("Model1.FileTransmittal", "File");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<File>("Model1.FileTransmittal", "File", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "TransmittalTransmittalEvent", "TransmittalEvent")]
+        public EntityCollection<TransmittalEvent> TransmittalEvents
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TransmittalEvent>("Model1.TransmittalTransmittalEvent", "TransmittalEvent");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TransmittalEvent>("Model1.TransmittalTransmittalEvent", "TransmittalEvent", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="TransmittalEvent")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TransmittalEvent : Event
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TransmittalEvent object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="eventDateTime">Initial value of the EventDateTime property.</param>
+        public static TransmittalEvent CreateTransmittalEvent(global::System.Int32 id, global::System.DateTime eventDateTime)
+        {
+            TransmittalEvent transmittalEvent = new TransmittalEvent();
+            transmittalEvent.Id = id;
+            transmittalEvent.EventDateTime = eventDateTime;
+            return transmittalEvent;
+        }
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "TransmittalTransmittalEvent", "Transmittal")]
+        public Transmittal Transmittal
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transmittal>("Model1.TransmittalTransmittalEvent", "Transmittal").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transmittal>("Model1.TransmittalTransmittalEvent", "Transmittal").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Transmittal> TransmittalReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Transmittal>("Model1.TransmittalTransmittalEvent", "Transmittal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Transmittal>("Model1.TransmittalTransmittalEvent", "Transmittal", value);
+                }
+            }
+        }
+
+        #endregion
     }
     
     /// <summary>
@@ -1266,13 +1959,17 @@ namespace UFiles.Domain
         /// <param name="displayName">Initial value of the DisplayName property.</param>
         /// <param name="email">Initial value of the Email property.</param>
         /// <param name="passwordHash">Initial value of the PasswordHash property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String displayName, global::System.String email, global::System.String passwordHash)
+        /// <param name="verificationString">Initial value of the VerificationString property.</param>
+        /// <param name="verified">Initial value of the Verified property.</param>
+        public static User CreateUser(global::System.Int32 id, global::System.String displayName, global::System.String email, global::System.String passwordHash, global::System.String verificationString, global::System.Boolean verified)
         {
             User user = new User();
             user.Id = id;
             user.DisplayName = displayName;
             user.Email = email;
             user.PasswordHash = passwordHash;
+            user.VerificationString = verificationString;
+            user.Verified = verified;
             return user;
         }
 
@@ -1377,6 +2074,54 @@ namespace UFiles.Domain
         private global::System.String _PasswordHash;
         partial void OnPasswordHashChanging(global::System.String value);
         partial void OnPasswordHashChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String VerificationString
+        {
+            get
+            {
+                return _VerificationString;
+            }
+            set
+            {
+                OnVerificationStringChanging(value);
+                ReportPropertyChanging("VerificationString");
+                _VerificationString = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("VerificationString");
+                OnVerificationStringChanged();
+            }
+        }
+        private global::System.String _VerificationString;
+        partial void OnVerificationStringChanging(global::System.String value);
+        partial void OnVerificationStringChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Verified
+        {
+            get
+            {
+                return _Verified;
+            }
+            set
+            {
+                OnVerifiedChanging(value);
+                ReportPropertyChanging("Verified");
+                _Verified = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Verified");
+                OnVerifiedChanged();
+            }
+        }
+        private global::System.Boolean _Verified;
+        partial void OnVerifiedChanging(global::System.Boolean value);
+        partial void OnVerifiedChanged();
 
         #endregion
     
@@ -1469,6 +2214,72 @@ namespace UFiles.Domain
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "UserUserRestriction", "UserRestriction")]
+        public EntityCollection<UserRestriction> UserRestrictions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserRestriction>("Model1.UserUserRestriction", "UserRestriction");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserRestriction>("Model1.UserUserRestriction", "UserRestriction", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "UserTransmittal", "Transmittal")]
+        public EntityCollection<Transmittal> ReceivedTransmittals
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Transmittal>("Model1.UserTransmittal", "Transmittal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Transmittal>("Model1.UserTransmittal", "Transmittal", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "UserTransmittal1", "Transmittal")]
+        public EntityCollection<Transmittal> SentTransmittals
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Transmittal>("Model1.UserTransmittal1", "Transmittal");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Transmittal>("Model1.UserTransmittal1", "Transmittal", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1534,6 +2345,56 @@ namespace UFiles.Domain
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("Model1.UserUserEvent", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="Model1", Name="UserRestriction")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserRestriction : Restriction
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserRestriction object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static UserRestriction CreateUserRestriction(global::System.Int32 id)
+        {
+            UserRestriction userRestriction = new UserRestriction();
+            userRestriction.Id = id;
+            return userRestriction;
+        }
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Model1", "UserUserRestriction", "User")]
+        public EntityCollection<User> Users
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("Model1.UserUserRestriction", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("Model1.UserUserRestriction", "User", value);
                 }
             }
         }
