@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Files" EntityType="Model1.Store.Files" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="Model1.Store.Users" store:Type="Tables" Schema="dbo" />
+    </EntityContainer>
+  <EntityType Name="Files">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Size" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Created" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Files" EntityType="Model1.File" />
+          <EntitySet Name="Users" EntityType="Model1.User" />
+          <EntitySet Name="Groups" EntityType="Model1.Group" />
+          <AssociationSet Name="GroupUser" Association="Model1.GroupUser">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserFile" Association="Model1.UserFile">
+            <End Role="User" EntitySet="Users" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <EntitySet Name="Restrictions" EntityType="Model1.Restriction" />
+          <AssociationSet Name="FileRestriction" Association="Model1.FileRestriction">
+            <End Role="File" EntitySet="Files" />
+            <End Role="Restriction" EntitySet="Restrictions" />
+          </AssociationSet>
+          <EntitySet Name="FileDatas" EntityType="Model1.FileData" />
+          <AssociationSet Name="FileDataFile" Association="Model1.FileDataFile">
+            <End Role="FileData" EntitySet="FileDatas" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="GroupRestrictionGroup" Association="Model1.GroupRestrictionGroup">
+            <End Role="GroupRestriction" EntitySet="Restrictions" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <EntitySet Name="Events" EntityType="Model1.Event" />
+          <AssociationSet Name="FileFileAccessEvent" Association="Model1.FileFileAccessEvent">
+            <End Role="File" EntitySet="Files" />
+            <End Role="FileAccessEvent" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="UserFileAccessEvent" Association="Model1.UserFileAccessEvent">
+            <End Role="User" EntitySet="Users" />
+            <End Role="FileAccessEvent" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="UserUserEvent" Association="Model1.UserUserEvent">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserEvent" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="UserUserRestriction" Association="Model1.UserUserRestriction">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRestriction" EntitySet="Restrictions" />
+          </AssociationSet>
+          <EntitySet Name="TimeRanges" EntityType="Model1.TimeRange" />
+          <AssociationSet Name="TimeRangeRestrictionTimeRange" Association="Model1.TimeRangeRestrictionTimeRange">
+            <End Role="TimeRangeRestriction" EntitySet="Restrictions" />
+            <End Role="TimeRange" EntitySet="TimeRanges" />
+          </AssociationSet>
+          <EntitySet Name="Locations" EntityType="Model1.Location" />
+          <AssociationSet Name="LocationRestrictionLocation" Association="Model1.LocationRestrictionLocation">
+            <End Role="LocationRestriction" EntitySet="Restrictions" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <EntitySet Name="IPAddresses" EntityType="Model1.IPAddress" />
+          <AssociationSet Name="IPRestrictionIPAddress" Association="Model1.IPRestrictionIPAddress">
+            <End Role="IPRestriction" EntitySet="Restrictions" />
+            <End Role="IPAddress" EntitySet="IPAddresses" />
+          </AssociationSet>
+          <EntitySet Name="Transmittals" EntityType="Model1.Transmittal" />
+          <AssociationSet Name="UserTransmittal" Association="Model1.UserTransmittal">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Transmittal" EntitySet="Transmittals" />
+          </AssociationSet>
+          <AssociationSet Name="UserTransmittal1" Association="Model1.UserTransmittal1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Transmittal" EntitySet="Transmittals" />
+          </AssociationSet>
+          <AssociationSet Name="FileTransmittal" Association="Model1.FileTransmittal">
+            <End Role="File" EntitySet="Files" />
+            <End Role="Transmittal" EntitySet="Transmittals" />
+          </AssociationSet>
+          <AssociationSet Name="TransmittalTransmittalEvent" Association="Model1.TransmittalTransmittalEvent">
+            <End Role="Transmittal" EntitySet="Transmittals" />
+            <End Role="TransmittalEvent" EntitySet="Events" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Type="Int32" Name="FileId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDateTime" Nullable="false" />
+          <NavigationProperty Name="Owner" Relationship="Model1.UserFile" FromRole="File" ToRole="User" />
+          <NavigationProperty Name="Restrictions" Relationship="Model1.FileRestriction" FromRole="File" ToRole="Restriction" />
+          <NavigationProperty Name="FileData" Relationship="Model1.FileDataFile" FromRole="File" ToRole="FileData" />
+          <NavigationProperty Name="FileAccessEvents" Relationship="Model1.FileFileAccessEvent" FromRole="File" ToRole="FileAccessEvent" />
+          <NavigationProperty Name="Transmittals" Relationship="Model1.FileTransmittal" FromRole="File" ToRole="Transmittal" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="DisplayName" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="false" />
+          <NavigationProperty Name="Groups" Relationship="Model1.GroupUser" FromRole="User" ToRole="Group" />
+          <NavigationProperty Name="Files" Relationship="Model1.UserFile" FromRole="User" ToRole="File" />
+          <NavigationProperty Name="FileAccessEvents" Relationship="Model1.UserFileAccessEvent" FromRole="User" ToRole="FileAccessEvent" />
+          <NavigationProperty Name="UserEvents" Relationship="Model1.UserUserEvent" FromRole="User" ToRole="UserEvent" />
+          <NavigationProperty Name="UserRestrictions" Relationship="Model1.UserUserRestriction" FromRole="User" ToRole="UserRestriction" />
+          <Property Type="String" Name="VerificationString" Nullable="false" />
+          <Property Type="Boolean" Name="Verified" Nullable="false" />
+          <NavigationProperty Name="ReceivedTransmittals" Relationship="Model1.UserTransmittal" FromRole="User" ToRole="Transmittal" />
+          <NavigationProperty Name="SentTransmittals" Relationship="Model1.UserTransmittal1" FromRole="User" ToRole="Transmittal" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Users" Relationship="Model1.GroupUser" FromRole="Group" ToRole="User" />
+          <NavigationProperty Name="GroupRestrictions" Relationship="Model1.GroupRestrictionGroup" FromRole="Group" ToRole="GroupRestriction" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <Association Name="GroupUser">
+          <End Type="Model1.Group" Role="Group" Multiplicity="*" />
+          <End Type="Model1.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="UserFile">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.File" Role="File" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Restriction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="File" Relationship="Model1.FileRestriction" FromRole="Restriction" ToRole="File" />
+        </EntityType>
+        <Association Name="FileRestriction">
+          <End Type="Model1.File" Role="File" Multiplicity="1" />
+          <End Type="Model1.Restriction" Role="Restriction" Multiplicity="*" />
+        </Association>
+        <EntityType Name="LocationRestriction" BaseType="Model1.Restriction" >
+          <NavigationProperty Name="Locations" Relationship="Model1.LocationRestrictionLocation" FromRole="LocationRestriction" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="IPRestriction" BaseType="Model1.Restriction" >
+          <NavigationProperty Name="IPAddresses" Relationship="Model1.IPRestrictionIPAddress" FromRole="IPRestriction" ToRole="IPAddress" />
+        </EntityType>
+        <EntityType Name="TimeRangeRestriction" BaseType="Model1.Restriction">
+          <NavigationProperty Name="TimeRanges" Relationship="Model1.TimeRangeRestrictionTimeRange" FromRole="TimeRangeRestriction" ToRole="TimeRange" />
+        </EntityType>
+        <EntityType Name="FileData">
+          <Key>
+            <PropertyRef Name="FileDataId" />
+          </Key>
+          <Property Type="Int32" Name="FileDataId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Files" Relationship="Model1.FileDataFile" FromRole="FileData" ToRole="File" />
+          <Property Type="Int32" Name="Size" Nullable="false" >
+            <Documentation>
+              <Summary>Size of the File Data in bytes</Summary>
+            </Documentation>
+          </Property>
+          <Property Type="String" Name="Extension" Nullable="false" />
+          <Property Type="String" Name="Hash" Nullable="false" MaxLength="40" FixedLength="true" >
+            <Documentation>
+              <Summary>SHA1 Hash of the file data</Summary>
+              <LongDescription>SHA1 Hash of the file data, used to stop duplicate file data</LongDescription>
+            </Documentation>
+          </Property>
+        </EntityType>
+        <Association Name="FileDataFile">
+          <End Type="Model1.FileData" Role="FileData" Multiplicity="1" />
+          <End Type="Model1.File" Role="File" Multiplicity="*" />
+        </Association>
+        <EntityType Name="GroupRestriction" BaseType="Model1.Restriction" >
+          <NavigationProperty Name="Groups" Relationship="Model1.GroupRestrictionGroup" FromRole="GroupRestriction" ToRole="Group" />
+        </EntityType>
+        <Association Name="GroupRestrictionGroup">
+          <End Type="Model1.GroupRestriction" Role="GroupRestriction" Multiplicity="*" />
+          <End Type="Model1.Group" Role="Group" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="EventDateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileAccessEvent" BaseType="Model1.Event" >
+          <NavigationProperty Name="File" Relationship="Model1.FileFileAccessEvent" FromRole="FileAccessEvent" ToRole="File" />
+          <NavigationProperty Name="User" Relationship="Model1.UserFileAccessEvent" FromRole="FileAccessEvent" ToRole="User" />
+        </EntityType>
+        <Association Name="FileFileAccessEvent">
+          <End Type="Model1.File" Role="File" Multiplicity="1" />
+          <End Type="Model1.FileAccessEvent" Role="FileAccessEvent" Multiplicity="*" />
+        </Association>
+        <Association Name="UserFileAccessEvent">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.FileAccessEvent" Role="FileAccessEvent" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UserEvent" BaseType="Model1.Event" >
+          <NavigationProperty Name="User" Relationship="Model1.UserUserEvent" FromRole="UserEvent" ToRole="User" />
+        </EntityType>
+        <Association Name="UserUserEvent">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.UserEvent" Role="UserEvent" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UserRestriction" BaseType="Model1.Restriction" >
+          <NavigationProperty Name="Users" Relationship="Model1.UserUserRestriction" FromRole="UserRestriction" ToRole="User" />
+        </EntityType>
+        <Association Name="UserUserRestriction">
+          <End Type="Model1.User" Role="User" Multiplicity="*" />
+          <End Type="Model1.UserRestriction" Role="UserRestriction" Multiplicity="*" />
+        </Association>
+        <EntityType Name="TimeRange">
+          <Key>
+            <PropertyRef Name="TimeRangeId" />
+          </Key>
+          <Property Type="Int32" Name="TimeRangeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="StartDateTime" Nullable="false" />
+          <Property Type="DateTime" Name="EndDateTime" Nullable="false" />
+          <NavigationProperty Name="TimeRangeRestriction" Relationship="Model1.TimeRangeRestrictionTimeRange" FromRole="TimeRange" ToRole="TimeRangeRestriction" />
+        </EntityType>
+        <Association Name="TimeRangeRestrictionTimeRange">
+          <End Type="Model1.TimeRangeRestriction" Role="TimeRangeRestriction" Multiplicity="*" />
+          <End Type="Model1.TimeRange" Role="TimeRange" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Type="Int32" Name="LocationId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="LocationRestriction" Relationship="Model1.LocationRestrictionLocation" FromRole="Location" ToRole="LocationRestriction" />
+          <Property Type="String" Name="Place" Nullable="false" />
+        </EntityType>
+        <Association Name="LocationRestrictionLocation">
+          <End Type="Model1.LocationRestriction" Role="LocationRestriction" Multiplicity="*" />
+          <End Type="Model1.Location" Role="Location" Multiplicity="*" />
+        </Association>
+        <EntityType Name="IPAddress">
+          <Key>
+            <PropertyRef Name="IPAddressId" />
+          </Key>
+          <Property Type="Int32" Name="IPAddressId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="IPRestriction" Relationship="Model1.IPRestrictionIPAddress" FromRole="IPAddress" ToRole="IPRestriction" />
+          <Property Type="String" Name="IP" Nullable="false" />
+        </EntityType>
+        <Association Name="IPRestrictionIPAddress">
+          <End Type="Model1.IPRestriction" Role="IPRestriction" Multiplicity="*" />
+          <End Type="Model1.IPAddress" Role="IPAddress" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Transmittal">
+          <Key>
+            <PropertyRef Name="TransmittalId" />
+          </Key>
+          <Property Type="Int32" Name="TransmittalId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Recipients" Relationship="Model1.UserTransmittal" FromRole="Transmittal" ToRole="User" />
+          <NavigationProperty Name="Sender" Relationship="Model1.UserTransmittal1" FromRole="Transmittal" ToRole="User" />
+          <NavigationProperty Name="Files" Relationship="Model1.FileTransmittal" FromRole="Transmittal" ToRole="File" />
+          <NavigationProperty Name="TransmittalEvents" Relationship="Model1.TransmittalTransmittalEvent" FromRole="Transmittal" ToRole="TransmittalEvent" />
+        </EntityType>
+        <Association Name="UserTransmittal">
+          <End Type="Model1.User" Role="User" Multiplicity="*" />
+          <End Type="Model1.Transmittal" Role="Transmittal" Multiplicity="*" />
+        </Association>
+        <Association Name="UserTransmittal1">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.Transmittal" Role="Transmittal" Multiplicity="*" />
+        </Association>
+        <Association Name="FileTransmittal">
+          <End Type="Model1.File" Role="File" Multiplicity="*" />
+          <End Type="Model1.Transmittal" Role="Transmittal" Multiplicity="*" />
+        </Association>
+        <EntityType Name="TransmittalEvent" BaseType="Model1.Event" >
+          <NavigationProperty Name="Transmittal" Relationship="Model1.TransmittalTransmittalEvent" FromRole="TransmittalEvent" ToRole="Transmittal" />
+        </EntityType>
+        <Association Name="TransmittalTransmittalEvent">
+          <End Type="Model1.Transmittal" Role="Transmittal" Multiplicity="1" />
+          <End Type="Model1.TransmittalEvent" Role="TransmittalEvent" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Files">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.File)">
+        <MappingFragment StoreEntitySet="Files">
+          <ScalarProperty Name="FileId" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedDateTime" ColumnName="Created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model1" DisplayType="true" ZoomLevel="100" >
+        <EntityTypeShape EntityType="Model1.File" Width="1.5" PointX="0.625" PointY="4.625" Height="2.364889322916667" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.User" Width="2.125" PointX="4.875" PointY="4.75" Height="3.1340950520833326" />
+        <EntityTypeShape EntityType="Model1.Group" Width="1.5" PointX="7.75" PointY="6.25" Height="1.7879850260416657" />
+        <AssociationConnector Association="Model1.GroupUser">
+          <ConnectorPoint PointX="7.75" PointY="7.0670475260416659" />
+          <ConnectorPoint PointX="7" PointY="7.0670475260416659" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model1.UserFile">
+          <ConnectorPoint PointX="4.875" PointY="6.0303728263608871" />
+          <ConnectorPoint PointX="2.125" PointY="6.0303728263608871" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.Restriction" Width="1.5" PointX="2.5" PointY="8.25" Height="1.4033821614583335" />
+        <AssociationConnector Association="Model1.FileRestriction">
+          <ConnectorPoint PointX="2.125" PointY="6.7871649235551068" />
+          <ConnectorPoint PointX="3.1249995" PointY="6.7871649235551068" />
+          <ConnectorPoint PointX="3.1249995" PointY="8.25" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.LocationRestriction" Width="2.125" PointX="3" PointY="10.5" Height="1.0187792968749996" />
+        <InheritanceConnector EntityType="Model1.LocationRestriction" ManuallyRouted="false" >
+          <ConnectorPoint PointX="3.25" PointY="9.6533821614583335" />
+          <ConnectorPoint PointX="3.25" PointY="10.125" />
+          <ConnectorPoint PointX="4.0625" PointY="10.125" />
+          <ConnectorPoint PointX="4.0625" PointY="10.5" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Model1.IPRestriction" Width="1.5" PointX="5.375" PointY="10.5" Height="1.0187792968749996" />
+        <InheritanceConnector EntityType="Model1.IPRestriction" ManuallyRouted="false" >
+          <ConnectorPoint PointX="3.25" PointY="9.6533821614583335" />
+          <ConnectorPoint PointX="3.25" PointY="10.125" />
+          <ConnectorPoint PointX="6.125" PointY="10.125" />
+          <ConnectorPoint PointX="6.125" PointY="10.5" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Model1.TimeRangeRestriction" Width="2.25" PointX="0.5" PointY="10.5" Height="1.2110807291666657" />
+        <InheritanceConnector EntityType="Model1.TimeRangeRestriction" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.25" PointY="9.6533821614583335" />
+          <ConnectorPoint PointX="3.25" PointY="10.125" />
+          <ConnectorPoint PointX="1.625" PointY="10.125" />
+          <ConnectorPoint PointX="1.625" PointY="10.5" />
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="Model1.FileData" Width="1.5" PointX="0.625" PointY="7.625" Height="1.9802864583333339" />
+        <AssociationConnector Association="Model1.FileDataFile">
+          <ConnectorPoint PointX="1.375" PointY="7.625" />
+          <ConnectorPoint PointX="1.375" PointY="6.9898893229166674" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.GroupRestriction" Width="2" PointX="7.375" PointY="10.5" Height="1.2110807291666657" />
+        <InheritanceConnector EntityType="Model1.GroupRestriction" ManuallyRouted="false" >
+          <ConnectorPoint PointX="3.25" PointY="9.6533821614583335" />
+          <ConnectorPoint PointX="3.25" PointY="10.125" />
+          <ConnectorPoint PointX="8.375" PointY="10.125" />
+          <ConnectorPoint PointX="8.375" PointY="10.5" />
+        </InheritanceConnector>
+        <AssociationConnector Association="Model1.GroupRestrictionGroup" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.875" PointY="10.5" />
+          <ConnectorPoint PointX="8.875" PointY="8.0379850260416656" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.Event" Width="2.125" PointX="0.5" PointY="0.5" Height="1.4033821614583326" />
+        <EntityTypeShape EntityType="Model1.FileAccessEvent" Width="2.125" PointX="0.5" PointY="2.375" Height="1.4033821614583335" />
+        <InheritanceConnector EntityType="Model1.FileAccessEvent" ManuallyRouted="false" >
+          <ConnectorPoint PointX="1.5625" PointY="1.9033821614583326" />
+          <ConnectorPoint PointX="1.5625" PointY="2.375" />
+        </InheritanceConnector>
+        <AssociationConnector Association="Model1.FileFileAccessEvent">
+          <ConnectorPoint PointX="1.375" PointY="4.625" />
+          <ConnectorPoint PointX="1.375" PointY="3.7783821614583335" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model1.UserFileAccessEvent" ManuallyRouted="true">
+          <ConnectorPoint PointX="5.0122642515917377" PointY="4.7499999999999991" />
+          <ConnectorPoint PointX="5.0122642515917377" PointY="3.8881640625" />
+          <ConnectorPoint PointX="3.7708333333333335" PointY="3.8881640624999996" />
+          <ConnectorPoint PointX="3.6041666666666665" PointY="3.8881640625" />
+          <ConnectorPoint PointX="2.71875" PointY="3.8881640625" />
+          <ConnectorPoint PointX="2.71875" PointY="3.0766910807291667" />
+          <ConnectorPoint PointX="2.625" PointY="3.0766910807291667" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.UserEvent" Width="1.5" PointX="5" PointY="2.375" Height="1.2110807291666665" />
+        <InheritanceConnector EntityType="Model1.UserEvent" ManuallyRouted="false" >
+          <ConnectorPoint PointX="1.5625" PointY="1.9033821614583326" />
+          <ConnectorPoint PointX="1.5625" PointY="2.135" />
+          <ConnectorPoint PointX="5.75" PointY="2.135" />
+          <ConnectorPoint PointX="5.75" PointY="2.375" />
+        </InheritanceConnector>
+        <AssociationConnector Association="Model1.UserUserEvent">
+          <ConnectorPoint PointX="5.8186321257958689" PointY="4.75" />
+          <ConnectorPoint PointX="5.8186321257958689" PointY="3.5860807291666665" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.UserRestriction" Width="1.5" PointX="5.25" PointY="8.5" Height="1.2110807291666657" />
+        <InheritanceConnector EntityType="Model1.UserRestriction" >
+          <ConnectorPoint PointX="4" PointY="9.0766910807291659" />
+          <ConnectorPoint PointX="5.25" PointY="9.0766910807291659" />
+        </InheritanceConnector>
+        <AssociationConnector Association="Model1.UserUserRestriction">
+          <ConnectorPoint PointX="5.9270225226684055" PointY="7.8840950520833317" />
+          <ConnectorPoint PointX="5.9270225226684055" PointY="8.5" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.TimeRange" Width="2.25" PointX="0.5" PointY="12.625" Height="1.7879850260416657" />
+        <AssociationConnector Association="Model1.TimeRangeRestrictionTimeRange">
+          <ConnectorPoint PointX="1.625" PointY="11.711080729166666" />
+          <ConnectorPoint PointX="1.625" PointY="12.625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.Location" Width="2.125" PointX="3" PointY="12.625" Height="1.5956835937499996" />
+        <AssociationConnector Association="Model1.LocationRestrictionLocation">
+          <ConnectorPoint PointX="4.0625" PointY="11.711080729166666" />
+          <ConnectorPoint PointX="4.0625" PointY="12.625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.IPAddress" Width="1.5" PointX="5.5" PointY="12.625" Height="1.5956835937499996" />
+        <AssociationConnector Association="Model1.IPRestrictionIPAddress">
+          <ConnectorPoint PointX="6.1875" PointY="11.711080729166666" />
+          <ConnectorPoint PointX="6.1875" PointY="12.625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.Transmittal" Width="1.5" PointX="2.875" PointY="4.125" Height="1.2110807291666665" />
+        <AssociationConnector Association="Model1.UserTransmittal">
+          <ConnectorPoint PointX="4.875" PointY="5.66835679213206" />
+          <ConnectorPoint PointX="4.375" PointY="5.66835679213206" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model1.UserTransmittal1">
+          <ConnectorPoint PointX="4.875" PointY="5.1466783960660294" />
+          <ConnectorPoint PointX="4.375" PointY="5.1466783960660294" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model1.FileTransmittal">
+          <ConnectorPoint PointX="2.125" PointY="5.3651432291666667" />
+          <ConnectorPoint PointX="2.875" PointY="5.3651432291666667" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.TransmittalEvent" Width="1.5" PointX="3" PointY="2.375" Height="1.2110807291666665" />
+        <InheritanceConnector EntityType="Model1.TransmittalEvent" >
+          <ConnectorPoint PointX="1.5625" PointY="1.9033821614583326" />
+          <ConnectorPoint PointX="1.5625" PointY="2.135" />
+          <ConnectorPoint PointX="3.75" PointY="2.135" />
+          <ConnectorPoint PointX="3.75" PointY="2.375" />
+        </InheritanceConnector>
+        <AssociationConnector Association="Model1.TransmittalTransmittalEvent">
+          <ConnectorPoint PointX="3.6875" PointY="4.125" />
+          <ConnectorPoint PointX="3.6875" PointY="3.5860807291666665" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
