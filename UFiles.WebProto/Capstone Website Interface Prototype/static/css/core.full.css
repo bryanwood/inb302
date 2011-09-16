@@ -53,23 +53,37 @@
     background-color: #808080;
 }
 
+.homeView
+{
+    width: 790px;
+    margin: 20px 10px 10px 10px;
+    padding-left: 4px;
+    border-color: #f2f2f2;
+    border-style: solid;
+    border-width: 0 0 0 1px;
+}
+
+.contentBarFull
+{
+    width: 795px;
+    margin: 10px 10px 10px 10px;
+}
+
 .contentBarMini
 {
     width: 350px;
-    margin: 10px 10px 0 0;
+    background-color: #FFFFFF;
 }
 
 .contentBarMain
 {
-    width: 435px;
-    margin: 10px 0 0 10px;
+    width: 440px;
+    height: 100%;
 }
 
 .contentPanel
 {
     width: 100%;
-    margin-bottom: 20px;
-    background-color: #f2f2f2;
 }
 
 .panelHeading
@@ -77,7 +91,24 @@
     font-size: 16px;
     color: #FFFFFF;
     background-color: #333333;
-    padding: 5px 15px 5px 15px;
+    border-color: #ffbf43;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+}
+
+.panelTab
+{
+    width: 175px;
+    border-color: #333333;
+    border-style: solid;
+    border-width: 0 0 3px 0;
+    text-align: center;
+    padding: 5px 0 5px 0;
+}
+
+.panelTabSelected
+{
+    border-color: #ffbf43;
 }
 
 .panelMiniSection
@@ -88,6 +119,12 @@
     border-color: #e5e5e5;
     border-style: solid;
     border-width: 0 0 1px 0;
+}
+
+.panelSectionSelectedHighlight
+{
+    background-color: #e0f1ff;
+    border-color: #9ed2ff;
 }
 
 .panelDetailHighlight
@@ -127,22 +164,31 @@
     text-align: right;
 }
 
+.uploadHeading
+{
+    width: 100px;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: #333333;
+    padding: 5px 15px 5px 15px;
+}
+
 .uploadUploadButton
 {
     border-style: none;
-    width: 360px;
-    margin: 5px 0 5px 10px;
+    width: 590px;
+    margin: 5px 10px 5px 10px;
     background-color: #FFFFFF;
     border-color: #707070;
     border-width: 1px;
     border-style: solid;
 }
 
-.uploadSectionMajor
+.uploadInternal
 {
     color: #707070;
-    width: 435px;
-    padding: 5px 0 5px 0;
+    width: 660px;
+    padding: 5px 10px 6px 0;
     border-color: #e5e5e5;
     border-style: solid;
     border-width: 0 0 1px 0;
@@ -153,4 +199,31 @@
     margin: 5px 5px 5px 0;
     width: 50px;
     height: 20px;
+}
+
+.detailsSection
+{
+    width: 415px;
+    margin: 5px 0 5px 0;
+    border-color: #e5e5e5;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+}
+
+.detailsInnerSection
+{
+    width: 415px;
+}
+
+.detailsMajor
+{
+    text-indent: 20px;
+    font-size: 16px;
+    color: #707070;
+}
+
+.detailsHighlight
+{
+    color: #000000;
+    font-weight: bold;
 }
