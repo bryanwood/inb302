@@ -10,3 +10,10 @@ C:\Users\bwood\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototy
 C:\Users\bwood\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\bwood\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.dll
 C:\Users\bwood\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.pdb
+C:\Users\Bryan\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\bin\Capstone Website Interface Prototype.dll
+C:\Users\Bryan\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\bin\Capstone Website Interface Prototype.pdb
+C:\Users\Bryan\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\bin\EntityFramework.dll
+C:\Users\Bryan\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\bin\EntityFramework.xml
+C:\Users\Bryan\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Bryan\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.dll
+C:\Users\Bryan\Desktop\inb302\UFiles.WebProto\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.pdb
