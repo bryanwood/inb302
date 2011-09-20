@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Data.Entity;
 
 namespace UFiles.Web
 {
@@ -31,6 +32,7 @@ namespace UFiles.Web
 
         protected void Application_Start()
         {
+            Database.SetInitializer<UFiles.Domain.Entities.UFileContext>(new UFiles.Domain.Entities.UFileInitializer());
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
