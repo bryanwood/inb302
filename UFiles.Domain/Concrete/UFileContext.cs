@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Entity;
+using UFiles.Domain.Entities;
 
-namespace UFiles.Domain.Entities
+namespace UFiles.Domain.Concrete
 {
     public class UFileContext : DbContext
     {
@@ -18,6 +19,7 @@ namespace UFiles.Domain.Entities
         public DbSet<TimeRange> TimeRanges { get; set; }
         public DbSet<Transmittal> Transmittals { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public UFileContext()
         {
            

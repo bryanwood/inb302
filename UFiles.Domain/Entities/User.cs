@@ -16,6 +16,7 @@ namespace UFiles.Domain.Entities
         public string PasswordHash { get; set; }
         public string VerifiedHash { get; set; }
         public bool Verified { get; set; }
+        public Role Role { get; set; }
 
         public virtual ICollection<Group> MemberGroups { get; set; }
         public virtual ICollection<Group> OwnedGroups { get; set; }

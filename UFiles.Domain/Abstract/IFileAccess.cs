@@ -6,10 +6,8 @@ using UFiles.Domain.Entities;
 
 namespace UFiles.Domain.Abstract
 {
-    public interface IFileRepository
+    public interface IFileAccess
     {
-        IQueryable<File> Files { get; }
-        void Save(File file);
-        void Delete(File file);
+        bool UserCanAccess(User user, File file);
     }
 }

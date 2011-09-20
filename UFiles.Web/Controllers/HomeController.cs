@@ -11,8 +11,7 @@ namespace UFiles.Web.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
-            var context = new UFileContext();
-            ViewBag.Users = context.Users.ToList();
+           
             return View();
         }
 
