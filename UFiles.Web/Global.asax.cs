@@ -32,23 +32,11 @@ namespace UFiles.Web
 
         protected void Application_Start()
         {
-            Database.SetInitializer<UFiles.Domain.Entities.UFileContext>(new UFiles.Domain.Entities.UFileInitializer());
+            Database.SetInitializer<UFiles.Domain.Concrete.UFileContext>(new UFiles.Domain.Entities.UFileInitializer());
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-        }
-
-        private void Page_Error()
-        {
-
-            Exception ex = Server.GetLastError();
-
-            if (ex.GetType() == typeof(HttpException))
-            {
-
-            }
-
         }
     }
 }
