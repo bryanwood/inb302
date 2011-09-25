@@ -54,14 +54,44 @@ namespace UFiles.Domain.Entities
                 Users = new User[] { user, user2},
             };
 
-           
+            var fileData = new FileData
+            {
+                Extension = "pdf",
+                Hash = "123",
+                Size = 1048,
+            };
+
+            var file = new File
+            {
+                FileData = fileData,
+                Name = "File Name",
+                Owner = user,
+                DateCreated = DateTime.Now,
+                Revoked = false
+            };
+
+            var transmittal = new Transmittal
+            {
+                Files = new List<File>
+                {
+                    file,
+                },
+                Recipients = new List<User>
+                {
+                    user2,
+                },
+                Sender = user,
+            };
+            
             context.Roles.Add(standardRole);
             context.Roles.Add(adminRole);
             context.Users.Add(user2);
             context.Users.Add(user);
             context.Groups.Add(group);
             context.Groups.Add(group2);
-            
+            context.FileDatas.Add(fileData);
+            context.Files.Add(file);
+            context.Transmittals.Add(transmittal);
             context.SaveChanges();
 
             base.Seed(context);
