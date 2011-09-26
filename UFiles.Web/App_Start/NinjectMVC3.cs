@@ -50,11 +50,7 @@ namespace UFiles.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
-            kernel.Bind<IRepository<User>>().To<Repository<User>>();
-            kernel.Bind<IRepository<Transmittal>>().To<Repository<Transmittal>>();
-            kernel.Bind<IRepository<File>>().To<Repository<File>>();
-            kernel.Bind<IRepository<Role>>().To<Repository<Role>>();
+            kernel.Bind<IUserService>().To<UserService>();
         }        
     }
 }
