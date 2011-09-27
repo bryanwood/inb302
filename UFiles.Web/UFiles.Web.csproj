@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.4.1.10715.0\lib\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -197,16 +198,16 @@
     <Content Include="Areas\Administration\Views\User\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\User\Delete.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
-    <None Include="Content\bootstrap.less" />
-    <None Include="Content\forms.less" />
-    <None Include="Content\mixins.less" />
-    <None Include="Content\patterns.less" />
-    <None Include="Content\reset.less" />
-    <None Include="Content\scaffolding.less" />
-    <None Include="Content\tables.less" />
-    <None Include="Content\type.less" />
-    <None Include="Content\ufiles.less" />
-    <None Include="Content\variables.less" />
+    <Content Include="Content\bootstrap.less" />
+    <Content Include="Content\forms.less" />
+    <Content Include="Content\mixins.less" />
+    <Content Include="Content\patterns.less" />
+    <Content Include="Content\reset.less" />
+    <Content Include="Content\scaffolding.less" />
+    <Content Include="Content\tables.less" />
+    <Content Include="Content\type.less" />
+    <Content Include="Content\ufiles.less" />
+    <Content Include="Content\variables.less" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
