@@ -48,10 +48,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IFileAccess.cs" />
+    <Compile Include="Abstract\IGroupService.cs" />
     <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Abstract\ITransmittalService.cs" />
     <Compile Include="Abstract\IUnitOfWork.cs" />
     <Compile Include="Concrete\FileDataStorage.cs" />
+    <Compile Include="Concrete\GroupService.cs" />
     <Compile Include="Concrete\Repository.cs" />
+    <Compile Include="Concrete\TransmittalService.cs" />
     <Compile Include="Concrete\UFileContext.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Concrete\UserService.cs" />
