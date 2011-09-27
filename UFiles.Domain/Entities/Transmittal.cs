@@ -13,6 +13,7 @@ namespace UFiles.Domain.Entities
 
         public virtual ICollection<User> Recipients { get; set; }
 
+        public bool Sent { get; set; }
 
         public User Sender { get; set; }
         

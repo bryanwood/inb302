@@ -29,19 +29,14 @@ namespace UFiles.Domain.Concrete
             return userRepo.Where(u => u.UserId == id).Single();
         }
 
-        public bool DeleteUser(int id)
+        public void DeleteUser(int id)
         {
-            try
-            {
+        
                 var user = userRepo.Where(u => u.UserId == id).Single();
                 userRepo.Delete(user);
                 unitOfWork.Commit();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+      
+           
         }
 
         public IQueryable<Entities.User> GetAllUsers()
@@ -49,10 +44,8 @@ namespace UFiles.Domain.Concrete
             return userRepo.All();
         }
 
-        public bool SaveUser(Entities.User user)
+        public void SaveUser(Entities.User user)
         {
-            try
-            {
                 if (user.UserId == 0)
                 {
                     userRepo.Add(user);
@@ -62,12 +55,6 @@ namespace UFiles.Domain.Concrete
                     userRepo.Update(user);
                 }
                 unitOfWork.Commit();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         public bool ChangePassword(string email, string newPassword)
@@ -86,18 +73,11 @@ namespace UFiles.Domain.Concrete
             }
         }
 
-        public bool CreateUser(Entities.User user)
+        public User CreateUser(Entities.User user)
         {
-            try
-            {
                 userRepo.Add(user);
                 unitOfWork.Commit();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+                return user;
         }
     }
 }

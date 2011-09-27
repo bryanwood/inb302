@@ -15,7 +15,7 @@ namespace UFiles.Web
     {
 
         private IUserService userService;
-        private IUnitOfWork _unitOfWork;
+        
         public UFilesMembershipProvider()
         {
             userService = new UserService();

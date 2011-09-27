@@ -51,7 +51,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
             {
                 try
                 {
-                    // TODO: Add insert logic here
+                 
                     userService.CreateUser(user);
                     return RedirectToAction("Index");
                 }
@@ -81,7 +81,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
             {
                 try
                 {
-                    // TODO: Add update logic here
+                    
                     userService.SaveUser(user);
                     return RedirectToAction("Index");
                 }
@@ -111,7 +111,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
             {
                 try
                 {
-                    // TODO: Add delete logic here
+                    userService.DeleteUser(user.UserId);
 
                     return RedirectToAction("Index");
                 }

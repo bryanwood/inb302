@@ -11,29 +11,19 @@ namespace UFiles.Web.Controllers
 {
     public class TransmittalController : Controller
     {
-        private IRepository<File> _fileRepo;
-        private IRepository<User> _userRepo;
-        private IRepository<Transmittal> _transmittalRepo;
+        private ITransmittalService transmittalService;
+        private IUserService userService;
 
-        private IUnitOfWork _unitOfWork;
-
-        public TransmittalController(IUnitOfWork unitOfWork, IRepository<File> fileRepository, IRepository<User> userRepository, IRepository<Transmittal> transmittalRepository)
+        public TransmittalController(ITransmittalService transmittalService, IUserService userService)
         {
-            _unitOfWork = unitOfWork;
-
-            _fileRepo = fileRepository;
-            _userRepo = userRepository;
-            _transmittalRepo = transmittalRepository;
-
-            _fileRepo.UnitOfWork = _unitOfWork;
-            _userRepo.UnitOfWork = _unitOfWork;
-            _transmittalRepo.UnitOfWork = _unitOfWork;
+            this.transmittalService = transmittalService;
+            this.userService = userService;
         }
         [Authorize]
         public ActionResult List()
         {
-
-            var transmittals = _transmittalRepo.All().Include(t=>t.Files).Where(t=>t.Sender.Email == User.Identity.Name);
+            var user = userService.GetUserByEmail(User.Identity.Name);
+            var transmittals = transmittalService.GetTransmittalsByUser(user);
 
             return View(transmittals);
         }
@@ -43,9 +33,9 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult View(int id)
         {
-            var user = _userRepo.All().Where(u => u.Email == User.Identity.Name).Single();
+            var user = userService.GetUserByEmail(User.Identity.Name);
 
-            var transmittal = _transmittalRepo.All().Where(t=>t.TransmittalId==id).Include(u=>u.Files).Include(u=>u.Files.Select(f=>f.FileData)).Single();
+            var transmittal = transmittalService.GetTransmittalById(id);
 
             //Check if the user is the sender or recipient
             if (transmittal.Recipients.Contains(user) || transmittal.Sender==user)

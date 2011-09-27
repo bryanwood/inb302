@@ -51,6 +51,8 @@ namespace UFiles.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<IGroupService>().To<GroupService>();
+            kernel.Bind<ITransmittalService>().To<TransmittalService>();
         }        
     }
 }
