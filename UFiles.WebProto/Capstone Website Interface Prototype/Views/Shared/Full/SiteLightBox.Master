@@ -1,0 +1,29 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="lightBoxTitle" runat="server" />
+    </title>
+    <link rel="Stylesheet" type="text/css" href="../../../static/css/core.lightbox.css" />
+    <asp:ContentPlaceHolder ID="lightBoxCSS" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript" src="../../static/js/jquery-1.5.1.js"></script>
+    <asp:ContentPlaceHolder ID="lightBoxJS" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="coreMiniContainer">
+        <div class="coreMiniHeader">
+            <asp:ContentPlaceHolder ID="lightBoxHeading" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="coreMiniBox" id="miniBox">
+            <asp:ContentPlaceHolder ID="lightBoxContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+</body>
+<asp:contentplaceholder id="lightBoxInnerJS" runat="server"></asp:contentplaceholder>
+</html>

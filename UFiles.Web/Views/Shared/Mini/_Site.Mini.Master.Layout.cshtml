@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Site.Master.Layout.cshtml";
+}
+@section HeaderStylesheet {
+    <link rel="Stylesheet" type="text/css" href="../../../Content/CSS/site.core.mini.css" />
+}
+<div class="coreMiniContainer">
+    <div class="coreMiniHeader">
+        @RenderSection("InnerTitle")
+    </div>
+    <div class="coreMiniBox" id="miniBox">
+        @RenderBody()
+    </div>
+</div>
+@section InPageJavascript
+{
+    @RenderSection("InPageJavascript", false);
+}
