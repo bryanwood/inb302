@@ -11,24 +11,16 @@
 <div class="topbar" data-dropdown="dropdown">
     <div class="topbar-inner">
         <div class="container">
-            <a class="brand" href="@Url.Action("Index","Home")">UFiles</a>
+            <a class="brand" href="@Url.Action("Index","Home")">UFiles - Admin</a>
             <ul class="nav">
                 <li class="dropdown">
-                    <a class="dropdown-toggle">Files</a>
+                    <a class="dropdown-toggle">Users</a>
                     <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("My Files","MyFiles","UserFiles")</li>
-                        <li>@Html.ActionLink("Received Files","Receieved","UserFiles")</li>
-                        <li>@Html.ActionLink("Sent Files","Sent","UserFiles")</li>
+                        <li>@Html.ActionLink("All Users","Index","User")</li>
+                        <li>@Html.ActionLink("New User","Create","User")</li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle">Groups</a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("My Groups","Index","Groups")</li>
-                        <li>@Html.ActionLink("New Group","Create","Groups")</li>
-                    </ul>
-                </li>
-                <li>@Html.ActionLink("Send Files","Send","Transmittal")</li>
+                <li>@Html.ActionLink("Files","File","Index")</li>
             </ul>
             <ul class="nav secondary-nav">
                 @Html.Partial("_LogOnPartial")

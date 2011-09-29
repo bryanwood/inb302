@@ -14,13 +14,12 @@ namespace UFiles.Web
     public class UFilesMembershipProvider : MembershipProvider
     {
 
-        private IRepository<User> _userRepo;
-        private IUnitOfWork _unitOfWork;
+        private IUserService userService;
+        
         public UFilesMembershipProvider()
         {
-            _userRepo = new Repository<User>();
-            _unitOfWork = new UnitOfWork();
-            _userRepo.UnitOfWork = _unitOfWork;
+            userService = new UserService();
+            
         }
         private string _applicationName = "UFiles";
         public override string ApplicationName
@@ -40,22 +39,11 @@ namespace UFiles.Web
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            var user = _userRepo.All().Where(u => u.Email == username).Single();
             if (oldPassword != newPassword)
             {
-                user.PasswordHash = newPassword;
-                return true;
+                return userService.ChangePassword(username, newPassword); ;
             }
-            _userRepo.Update(user);
-            _unitOfWork.Commit();
             return false;
-        }
-        private string _hashPassword(string password)
-        {
-            var hash = SHA256.Create();
-            var bytes = Encoding.UTF8.GetBytes(password);
-            hash.ComputeHash(bytes, 0, bytes.Length);
-            return Encoding.UTF8.GetString(hash.Hash, 0, hash.Hash.Length);
         }
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)
         {
@@ -67,8 +55,7 @@ namespace UFiles.Web
             var user = new User();
             user.Email = email;
             user.PasswordHash = password;
-            _userRepo.Add(user);
-            _unitOfWork.Commit();
+            userService.CreateUser(user);
             
             var membershipUser = new MembershipUser("UFilesMembershipProvider",email,user.UserId,email,"","",true,false,DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
             status = MembershipCreateStatus.Success;
@@ -119,7 +106,7 @@ namespace UFiles.Web
         {
             try
             {
-                var user = _userRepo.Where(u => u.Email == username).SingleOrDefault();
+                var user = userService.GetUserByEmail(username);
                 if (user!=null)
                 {
                     return new MembershipUser("UFilesMembershipProvider", username, user.UserId, username, null, null, true, false, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
@@ -204,8 +191,8 @@ namespace UFiles.Web
         public override bool ValidateUser(string username, string password)
         {
             var pass = password;
-            var user = _userRepo.All().Where(u => u.Email == username && u.PasswordHash == pass);
-            if (user.Count() == 1)
+            var user = userService.GetUserByEmail(username);
+            if (user.PasswordHash==password)
             {
                 return true;
             }
