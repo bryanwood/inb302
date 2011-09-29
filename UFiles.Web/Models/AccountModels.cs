@@ -46,6 +46,14 @@ namespace UFiles.Web.Models
     {
 
         [Required]
+        [DataType(DataType.Text)]
+        public string FName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string LName { get; set; }
+
+        [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email address")]
         public string Email { get; set; }

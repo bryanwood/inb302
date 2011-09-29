@@ -15,6 +15,11 @@ namespace UFiles.Web.Controllers
             return View();
         }
 
+        public ActionResult Overview()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();
