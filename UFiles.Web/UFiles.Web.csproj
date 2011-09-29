@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -82,6 +83,7 @@
   <ItemGroup>
     <Content Include="Content\CSS\site.core.css" />
     <Content Include="Content\CSS\site.core.mini.css" />
+    <Content Include="Content\CSS\site.full.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\jquery.ui.accordion.css" />
     <Content Include="Content\themes\base\jquery.ui.all.css" />
@@ -161,7 +163,6 @@
     <Folder Include="Areas\Administration\Controllers\" />
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
-    <Folder Include="Views\Shared\Full\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -188,11 +189,14 @@
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
-    <Content Include="Views\Account\LogOn.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Authentication\Create.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\Shared\_Site.Master.Layout.cshtml" />
+    <Content Include="Views\Shared\Full\_Site.Full.Master.Layout.cshtml" />
+    <Content Include="Views\Home\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Mini\_Site.Mini.Master.Layout.cshtml" />
