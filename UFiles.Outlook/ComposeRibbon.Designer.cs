@@ -38,6 +38,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl1 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl2 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl3 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl4 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl5 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl6 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl7 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl8 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl9 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl10 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl11 = this.Factory.CreateRibbonDropDownItem();
+            Microsoft.Office.Tools.Ribbon.RibbonDropDownItem ribbonDropDownItemImpl12 = this.Factory.CreateRibbonDropDownItem();
             this.uFile = this.Factory.CreateRibbonTab();
             this.manageuFile = this.Factory.CreateRibbonGroup();
             this.upload = this.Factory.CreateRibbonButton();
@@ -50,17 +62,6 @@
             this.signOutButton = this.Factory.CreateRibbonButton();
             this.signInButton = this.Factory.CreateRibbonButton();
             this.separator1 = this.Factory.CreateRibbonSeparator();
-            this.uploaduFile = new System.Windows.Forms.OpenFileDialog();
-            this.uFileRestrictions = this.Factory.CreateRibbonTab();
-            this.restrictionsGroup = this.Factory.CreateRibbonGroup();
-            this.presetDropDown = this.Factory.CreateRibbonDropDown();
-            this.savePresetButton = this.Factory.CreateRibbonButton();
-            this.deletePresetButton = this.Factory.CreateRibbonButton();
-            this.timeRestrictionGroup = this.Factory.CreateRibbonGroup();
-            this.otherRestrictionGroup = this.Factory.CreateRibbonGroup();
-            this.ipRestrictionComboBox = this.Factory.CreateRibbonComboBox();
-            this.locationMenu = this.Factory.CreateRibbonMenu();
-            this.groupMenu = this.Factory.CreateRibbonMenu();
             this.box1 = this.Factory.CreateRibbonBox();
             this.serverIP = this.Factory.CreateRibbonEditBox();
             this.serverConnectlabel = this.Factory.CreateRibbonLabel();
@@ -68,14 +69,49 @@
             this.userStatus = this.Factory.CreateRibbonLabel();
             this.usernameEditBox = this.Factory.CreateRibbonEditBox();
             this.passwordEditBox = this.Factory.CreateRibbonEditBox();
+            this.uploaduFile = new System.Windows.Forms.OpenFileDialog();
+            this.uFileRestrictions = this.Factory.CreateRibbonTab();
+            this.restrictionsGroup = this.Factory.CreateRibbonGroup();
+            this.presetDropDown = this.Factory.CreateRibbonDropDown();
+            this.savePresetButton = this.Factory.CreateRibbonButton();
+            this.deletePresetButton = this.Factory.CreateRibbonButton();
+            this.timeRestrictionGroup = this.Factory.CreateRibbonGroup();
+            this.box4 = this.Factory.CreateRibbonBox();
+            this.startTimeIncludeCheckBox = this.Factory.CreateRibbonCheckBox();
+            this.label1 = this.Factory.CreateRibbonLabel();
+            this.startTimeDayDropDownBox = this.Factory.CreateRibbonDropDown();
+            this.startTimeMonthDropDownBox = this.Factory.CreateRibbonDropDown();
+            this.startTimeYearTextBox = this.Factory.CreateRibbonEditBox();
+            this.box3 = this.Factory.CreateRibbonBox();
+            this.endTimeIncludeCheckBox = this.Factory.CreateRibbonCheckBox();
+            this.label2 = this.Factory.CreateRibbonLabel();
+            this.endTimeDayDropDownBox = this.Factory.CreateRibbonDropDown();
+            this.endTimeMonthDropDownBox = this.Factory.CreateRibbonDropDown();
+            this.endTimeYearTextBox = this.Factory.CreateRibbonEditBox();
+            this.separator3 = this.Factory.CreateRibbonSeparator();
+            this.box5 = this.Factory.CreateRibbonBox();
+            this.startTimeHoursEditBox = this.Factory.CreateRibbonEditBox();
+            this.startTimeMinutesEditBox = this.Factory.CreateRibbonEditBox();
+            this.box6 = this.Factory.CreateRibbonBox();
+            this.endTimeHourTextBox = this.Factory.CreateRibbonEditBox();
+            this.endTimeMinutesTextBox = this.Factory.CreateRibbonEditBox();
+            this.otherRestrictionGroup = this.Factory.CreateRibbonGroup();
+            this.ipRestrictionComboBox = this.Factory.CreateRibbonComboBox();
+            this.locationMenu = this.Factory.CreateRibbonMenu();
+            this.groupMenu = this.Factory.CreateRibbonMenu();
             this.uFile.SuspendLayout();
             this.manageuFile.SuspendLayout();
             this.manageAccount.SuspendLayout();
-            this.uFileRestrictions.SuspendLayout();
-            this.restrictionsGroup.SuspendLayout();
-            this.otherRestrictionGroup.SuspendLayout();
             this.box1.SuspendLayout();
             this.box2.SuspendLayout();
+            this.uFileRestrictions.SuspendLayout();
+            this.restrictionsGroup.SuspendLayout();
+            this.timeRestrictionGroup.SuspendLayout();
+            this.box4.SuspendLayout();
+            this.box3.SuspendLayout();
+            this.box5.SuspendLayout();
+            this.box6.SuspendLayout();
+            this.otherRestrictionGroup.SuspendLayout();
             // 
             // uFile
             // 
@@ -157,71 +193,6 @@
             // 
             this.separator1.Name = "separator1";
             // 
-            // uploaduFile
-            // 
-            this.uploaduFile.Title = "Upload uFile";
-            // 
-            // uFileRestrictions
-            // 
-            this.uFileRestrictions.Groups.Add(this.restrictionsGroup);
-            this.uFileRestrictions.Groups.Add(this.timeRestrictionGroup);
-            this.uFileRestrictions.Groups.Add(this.otherRestrictionGroup);
-            this.uFileRestrictions.Label = "uFile Restrictions";
-            this.uFileRestrictions.Name = "uFileRestrictions";
-            this.uFileRestrictions.Visible = false;
-            // 
-            // restrictionsGroup
-            // 
-            this.restrictionsGroup.Items.Add(this.presetDropDown);
-            this.restrictionsGroup.Items.Add(this.savePresetButton);
-            this.restrictionsGroup.Items.Add(this.deletePresetButton);
-            this.restrictionsGroup.Label = "File Restrictions";
-            this.restrictionsGroup.Name = "restrictionsGroup";
-            // 
-            // presetDropDown
-            // 
-            this.presetDropDown.Label = "Preset:";
-            this.presetDropDown.Name = "presetDropDown";
-            // 
-            // savePresetButton
-            // 
-            this.savePresetButton.Label = "Save Preset";
-            this.savePresetButton.Name = "savePresetButton";
-            // 
-            // deletePresetButton
-            // 
-            this.deletePresetButton.Label = "Delete Preset";
-            this.deletePresetButton.Name = "deletePresetButton";
-            // 
-            // timeRestrictionGroup
-            // 
-            this.timeRestrictionGroup.Label = "Time Restriction";
-            this.timeRestrictionGroup.Name = "timeRestrictionGroup";
-            // 
-            // otherRestrictionGroup
-            // 
-            this.otherRestrictionGroup.Items.Add(this.ipRestrictionComboBox);
-            this.otherRestrictionGroup.Items.Add(this.locationMenu);
-            this.otherRestrictionGroup.Items.Add(this.groupMenu);
-            this.otherRestrictionGroup.Label = "Other";
-            this.otherRestrictionGroup.Name = "otherRestrictionGroup";
-            // 
-            // ipRestrictionComboBox
-            // 
-            this.ipRestrictionComboBox.Label = "IP";
-            this.ipRestrictionComboBox.Name = "ipRestrictionComboBox";
-            this.ipRestrictionComboBox.Text = null;
-            // 
-            // locationMenu
-            // 
-            this.locationMenu.Label = "Location";
-            this.locationMenu.Name = "locationMenu";
-            // 
-            // groupMenu
-            // 
-            this.groupMenu.Label = "Group";
-            this.groupMenu.Name = "groupMenu";
-            // 
             // box1
             // 
             this.box1.Items.Add(this.serverIP);
@@ -264,6 +235,212 @@
             this.passwordEditBox.Name = "passwordEditBox";
             this.passwordEditBox.Text = null;
             // 
+            // uploaduFile
+            // 
+            this.uploaduFile.Title = "Upload uFile";
+            // 
+            // uFileRestrictions
+            // 
+            this.uFileRestrictions.Groups.Add(this.restrictionsGroup);
+            this.uFileRestrictions.Groups.Add(this.timeRestrictionGroup);
+            this.uFileRestrictions.Groups.Add(this.otherRestrictionGroup);
+            this.uFileRestrictions.Label = "uFile Restrictions";
+            this.uFileRestrictions.Name = "uFileRestrictions";
+            this.uFileRestrictions.Visible = false;
+            // 
+            // restrictionsGroup
+            // 
+            this.restrictionsGroup.Items.Add(this.presetDropDown);
+            this.restrictionsGroup.Items.Add(this.savePresetButton);
+            this.restrictionsGroup.Items.Add(this.deletePresetButton);
+            this.restrictionsGroup.Label = "File Restrictions";
+            this.restrictionsGroup.Name = "restrictionsGroup";
+            // 
+            // presetDropDown
+            // 
+            this.presetDropDown.Label = "Preset:";
+            this.presetDropDown.Name = "presetDropDown";
+            // 
+            // savePresetButton
+            // 
+            this.savePresetButton.Label = "Add Preset";
+            this.savePresetButton.Name = "savePresetButton";
+            // 
+            // deletePresetButton
+            // 
+            this.deletePresetButton.Label = "Delete Preset";
+            this.deletePresetButton.Name = "deletePresetButton";
+            // 
+            // timeRestrictionGroup
+            // 
+            this.timeRestrictionGroup.Items.Add(this.box4);
+            this.timeRestrictionGroup.Items.Add(this.box3);
+            this.timeRestrictionGroup.Items.Add(this.separator3);
+            this.timeRestrictionGroup.Items.Add(this.box5);
+            this.timeRestrictionGroup.Items.Add(this.box6);
+            this.timeRestrictionGroup.Label = "Time Restriction";
+            this.timeRestrictionGroup.Name = "timeRestrictionGroup";
+            // 
+            // box4
+            // 
+            this.box4.Items.Add(this.startTimeIncludeCheckBox);
+            this.box4.Items.Add(this.label1);
+            this.box4.Items.Add(this.startTimeDayDropDownBox);
+            this.box4.Items.Add(this.startTimeMonthDropDownBox);
+            this.box4.Items.Add(this.startTimeYearTextBox);
+            this.box4.Name = "box4";
+            // 
+            // startTimeIncludeCheckBox
+            // 
+            this.startTimeIncludeCheckBox.Label = "Include";
+            this.startTimeIncludeCheckBox.Name = "startTimeIncludeCheckBox";
+            this.startTimeIncludeCheckBox.ScreenTip = "Incude the start time within the restructions";
+            // 
+            // label1
+            // 
+            this.label1.Label = "Start Time:";
+            this.label1.Name = "label1";
+            // 
+            // startTimeDayDropDownBox
+            // 
+            this.startTimeDayDropDownBox.Label = "Day";
+            this.startTimeDayDropDownBox.Name = "startTimeDayDropDownBox";
+            // 
+            // startTimeMonthDropDownBox
+            // 
+            ribbonDropDownItemImpl1.Label = "January";
+            ribbonDropDownItemImpl2.Label = "February";
+            ribbonDropDownItemImpl3.Label = "March";
+            ribbonDropDownItemImpl4.Label = "April";
+            ribbonDropDownItemImpl5.Label = "May";
+            ribbonDropDownItemImpl6.Label = "June";
+            ribbonDropDownItemImpl7.Label = "July";
+            ribbonDropDownItemImpl8.Label = "August";
+            ribbonDropDownItemImpl9.Label = "September";
+            ribbonDropDownItemImpl10.Label = "October";
+            ribbonDropDownItemImpl11.Label = "November";
+            ribbonDropDownItemImpl12.Label = "December";
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl1);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl2);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl3);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl4);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl5);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl6);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl7);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl8);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl9);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl10);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl11);
+            this.startTimeMonthDropDownBox.Items.Add(ribbonDropDownItemImpl12);
+            this.startTimeMonthDropDownBox.Label = "Month";
+            this.startTimeMonthDropDownBox.Name = "startTimeMonthDropDownBox";
+            // 
+            // startTimeYearTextBox
+            // 
+            this.startTimeYearTextBox.Label = "Year";
+            this.startTimeYearTextBox.Name = "startTimeYearTextBox";
+            this.startTimeYearTextBox.Text = null;
+            // 
+            // box3
+            // 
+            this.box3.Items.Add(this.endTimeIncludeCheckBox);
+            this.box3.Items.Add(this.label2);
+            this.box3.Items.Add(this.endTimeDayDropDownBox);
+            this.box3.Items.Add(this.endTimeMonthDropDownBox);
+            this.box3.Items.Add(this.endTimeYearTextBox);
+            this.box3.Name = "box3";
+            // 
+            // endTimeIncludeCheckBox
+            // 
+            this.endTimeIncludeCheckBox.Label = "Include";
+            this.endTimeIncludeCheckBox.Name = "endTimeIncludeCheckBox";
+            this.endTimeIncludeCheckBox.ScreenTip = "Incude the start time within the restructions";
+            // 
+            // label2
+            // 
+            this.label2.Label = "End Time: ";
+            this.label2.Name = "label2";
+            // 
+            // endTimeDayDropDownBox
+            // 
+            this.endTimeDayDropDownBox.Label = "Day";
+            this.endTimeDayDropDownBox.Name = "endTimeDayDropDownBox";
+            // 
+            // endTimeMonthDropDownBox
+            // 
+            this.endTimeMonthDropDownBox.Label = "Month";
+            this.endTimeMonthDropDownBox.Name = "endTimeMonthDropDownBox";
+            // 
+            // endTimeYearTextBox
+            // 
+            this.endTimeYearTextBox.Label = "Year";
+            this.endTimeYearTextBox.Name = "endTimeYearTextBox";
+            this.endTimeYearTextBox.Text = null;
+            // 
+            // separator3
+            // 
+            this.separator3.Name = "separator3";
+            // 
+            // box5
+            // 
+            this.box5.Items.Add(this.startTimeHoursEditBox);
+            this.box5.Items.Add(this.startTimeMinutesEditBox);
+            this.box5.Name = "box5";
+            // 
+            // startTimeHoursEditBox
+            // 
+            this.startTimeHoursEditBox.Label = "Hour";
+            this.startTimeHoursEditBox.Name = "startTimeHoursEditBox";
+            this.startTimeHoursEditBox.Text = null;
+            // 
+            // startTimeMinutesEditBox
+            // 
+            this.startTimeMinutesEditBox.Label = "Minutes";
+            this.startTimeMinutesEditBox.Name = "startTimeMinutesEditBox";
+            this.startTimeMinutesEditBox.Text = null;
+            // 
+            // box6
+            // 
+            this.box6.Items.Add(this.endTimeHourTextBox);
+            this.box6.Items.Add(this.endTimeMinutesTextBox);
+            this.box6.Name = "box6";
+            // 
+            // endTimeHourTextBox
+            // 
+            this.endTimeHourTextBox.Label = "Hour";
+            this.endTimeHourTextBox.Name = "endTimeHourTextBox";
+            this.endTimeHourTextBox.Text = null;
+            // 
+            // endTimeMinutesTextBox
+            // 
+            this.endTimeMinutesTextBox.Label = "Minutes";
+            this.endTimeMinutesTextBox.Name = "endTimeMinutesTextBox";
+            this.endTimeMinutesTextBox.Text = null;
+            // 
+            // otherRestrictionGroup
+            // 
+            this.otherRestrictionGroup.Items.Add(this.ipRestrictionComboBox);
+            this.otherRestrictionGroup.Items.Add(this.locationMenu);
+            this.otherRestrictionGroup.Items.Add(this.groupMenu);
+            this.otherRestrictionGroup.Label = "Other";
+            this.otherRestrictionGroup.Name = "otherRestrictionGroup";
+            // 
+            // ipRestrictionComboBox
+            // 
+            this.ipRestrictionComboBox.Label = "Server IP";
+            this.ipRestrictionComboBox.Name = "ipRestrictionComboBox";
+            this.ipRestrictionComboBox.Text = null;
+            // 
+            // locationMenu
+            // 
+            this.locationMenu.Label = "Location";
+            this.locationMenu.Name = "locationMenu";
+            // 
+            // groupMenu
+            // 
+            this.groupMenu.Label = "Group";
+            this.groupMenu.Name = "groupMenu";
+            // 
             // ComposeRibbon
             // 
             this.Name = "ComposeRibbon";
@@ -277,16 +454,26 @@
             this.manageuFile.PerformLayout();
             this.manageAccount.ResumeLayout(false);
             this.manageAccount.PerformLayout();
-            this.uFileRestrictions.ResumeLayout(false);
-            this.uFileRestrictions.PerformLayout();
-            this.restrictionsGroup.ResumeLayout(false);
-            this.restrictionsGroup.PerformLayout();
-            this.otherRestrictionGroup.ResumeLayout(false);
-            this.otherRestrictionGroup.PerformLayout();
             this.box1.ResumeLayout(false);
             this.box1.PerformLayout();
             this.box2.ResumeLayout(false);
             this.box2.PerformLayout();
+            this.uFileRestrictions.ResumeLayout(false);
+            this.uFileRestrictions.PerformLayout();
+            this.restrictionsGroup.ResumeLayout(false);
+            this.restrictionsGroup.PerformLayout();
+            this.timeRestrictionGroup.ResumeLayout(false);
+            this.timeRestrictionGroup.PerformLayout();
+            this.box4.ResumeLayout(false);
+            this.box4.PerformLayout();
+            this.box3.ResumeLayout(false);
+            this.box3.PerformLayout();
+            this.box5.ResumeLayout(false);
+            this.box5.PerformLayout();
+            this.box6.ResumeLayout(false);
+            this.box6.PerformLayout();
+            this.otherRestrictionGroup.ResumeLayout(false);
+            this.otherRestrictionGroup.PerformLayout();
 
         }
 
@@ -322,6 +509,25 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel userStatus;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox usernameEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox passwordEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox startTimeIncludeCheckBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel label1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonDropDown startTimeDayDropDownBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonDropDown startTimeMonthDropDownBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox startTimeYearTextBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox endTimeIncludeCheckBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel label2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonDropDown endTimeDayDropDownBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonDropDown endTimeMonthDropDownBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeYearTextBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box5;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox startTimeHoursEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox startTimeMinutesEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box6;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeHourTextBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeMinutesTextBox;
     }
 
     partial class ThisRibbonCollection
