@@ -2,6 +2,9 @@
     ViewBag.Title = "Create New Account";
     Layout = "~/Views/Shared/Mini/_Site.Mini.Master.Layout.cshtml";
 }
+@section HeaderJavascript {
+    <script type="text/javascript" src="../../Scripts/JS/site.auth.js"></script>
+}
 @section InnerTitle {
 create new account
 }
@@ -42,8 +45,8 @@ create new account
         <input type="password" class="miniInput floatRight" name="ConfirmPassword" />
     </div>
 </div>
-<div class="miniBoxInformationHighlight informationHighlightError" style="display: none; opacity: 0.0;"
-    id="validateFail">
+<div class="miniBoxInformationHighlight informationHighlightError" style="display: none;
+    opacity: 0.0;" id="validateFail">
 </div>
 <div class="coreMiniBoxUserAction floatFix">
     <input type="submit" class="coreButtonAccept miniButton" value="create" />
@@ -56,31 +59,6 @@ create new account
 </form>
 @section InPageJavascript
 {
-$("#authCreate").submit(function() { 
-
-var serialized = $(this).serialize();
-
-$.ajax({ 
-    type: "POST",
-    url: "@Url.Action("AccountCreation")",
-    data: serialized,
-    statusCode: {
-
-    201: function() {
-    window.location.assign("@Url.Action("Login", (RouteValueDictionary)ViewBag.PassthroughRoute)");
-    },
-    400: function(data) {
-    var div = "#validateFail"
-    var reply = $.parseJSON(data.responseText)
-    $(div).html(reply.FailureReason);
-    $(div).slideDown(500);
-    $(div).animate({ opacity: 1.0 }, 500);
-
-    }
-
-    }
-    })
-return false;
-
-});
+    $("#authCreate").submit(function() { AjaxValidateAndGo(this, "@Url.Action("AccountCreation")",
+"#validateFail"); return false; });
 }
