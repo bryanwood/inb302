@@ -2,6 +2,9 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/Mini/_Site.Mini.Master.Layout.cshtml";
 }
+@section HeaderJavascript {
+    <script type="text/javascript" src="../../Scripts/JS/site.auth.js"></script>
+}
 @section InnerTitle {
 login
 }
@@ -19,7 +22,7 @@ login
     </div>
    }
 }
-<form name="authLogin" action="@Url.Action("CheckAuth")" method="post">
+<form id="authLogin" name="authLogin" action="#" method="post">
 <div class="miniBoxSection floatFix" id="emailSection">
     <div class="miniLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
         Email Address</div>
@@ -30,11 +33,20 @@ login
         Password</div>
     <input type="password" class="miniInput floatRight" name="Password" />
 </div>
+<div class="miniBoxInformationHighlight informationHighlightError" style="display: none;
+    opacity: 0.0;" id="validateFail">
+</div>
 <div class="coreMiniBoxUserAction floatFix">
     <input type="submit" class="coreButtonAccept miniButton" value="login" />
     <div id="loginCreateLead" class="floatRight">
-        <a href="@Url.Action("Create", (RouteValueDictionary)ViewBag.PassthroughRoute)">don't have an account?</a>
+        <a href="@Url.Action("Create", (RouteValueDictionary)ViewBag.PassthroughRoute)">don't
+            have an account?</a>
     </div>
 </div>
 <input type="hidden" name="passthrough" value="@ViewBag.Passthrough" />
 </form>
+@section InPageJavascript
+{
+    $("#authLogin").submit(function() { AjaxValidateAndGo(this, "@Url.Action("CheckAuth")",
+"#validateFail"); return false; });
+}
