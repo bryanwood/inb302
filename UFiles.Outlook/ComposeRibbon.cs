@@ -6,6 +6,8 @@ using Microsoft.Office.Tools.Ribbon;
 
 namespace UFiles.Outlook
 {
+
+
     public partial class ComposeRibbon
     {
         private String userName;
@@ -111,7 +113,7 @@ namespace UFiles.Outlook
             //retrieve the user's username
 
 
-            
+
 
         }
         private void signOutButton_Click(object sender, RibbonControlEventArgs e)
@@ -124,7 +126,7 @@ namespace UFiles.Outlook
             this.passwordEditBox.Enabled = true;
         }
 
-        
+
 
 
         private void addLink_Click(object sender, RibbonControlEventArgs e)
@@ -133,14 +135,70 @@ namespace UFiles.Outlook
         }
 
         #endregion
-        #endregion 
+        #endregion
 
         #region Restrictions ribbon section
+        #region Supporting methods
+        public RestrictionPreset getCurrentPreset()
+        {
+            RestrictionPreset RP = new RestrictionPreset();
+            int startYear, startMonth, startDay, startHour, startMinute;
+
+            RP.includeStartTime = this.startTimeIncludeCheckBox.Checked;
+            RP.includeFinishTime = this.endTimeIncludeCheckBox.Checked;
+
+            if (!int.TryParse(this.startTimeYearTextBox.Text, out startYear))
+            {
+                startYear = System.DateTime.Now.Year;
+            }
+            if (!int.TryParse(this.startTimeMonthDropDownBox.SelectedItem.Label, out startMonth))
+            {
+                startYear = System.DateTime.Now.Month;
+            }
+            if (!int.TryParse(this.startTimeDayDropDownBox.SelectedItem.Label, out startDay))
+            {
+                startYear = System.DateTime.Now.Day;
+            }
+            if (!int.TryParse(this.startTimeHoursEditBox.Text, out startHour))
+            {
+                startYear = System.DateTime.Now.Hour;
+            }
+            if (!int.TryParse(this.startTimeMinutesEditBox.Text, out startMinute))
+            {
+                startYear = System.DateTime.Now.Minute;
+            }
+
+            //RP.startTime = new DateTime(int year, int month, int day, int hour, int minute, int second);
+            //RP.finishTime = new DateTime(int year, int month, int day, int hour, int minute, int second);
+            return RP;
+        }//returns the current state of the preset reibbon tab as a RestrictionPreset class
+        #endregion
+        #region events
         private void presetDropDown_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
 
         }
         #endregion
+        #endregion
+
+
+    }
+
+    public class RestrictionPreset
+    {
+        public string name;
+
+        public Boolean includeStartTime = false;
+        public Boolean includeFinishTime = false;
+        public DateTime startTime;
+        public DateTime finishTime;
+        public String serverIP;
+        public String Group;
+        public String Location;
+
+        public RestrictionPreset()
+        {
+        }
 
     }
 }
