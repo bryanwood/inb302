@@ -87,14 +87,14 @@
             this.label2 = this.Factory.CreateRibbonLabel();
             this.endTimeDayDropDownBox = this.Factory.CreateRibbonDropDown();
             this.endTimeMonthDropDownBox = this.Factory.CreateRibbonDropDown();
-            this.endTimeYearTextBox = this.Factory.CreateRibbonEditBox();
+            this.endTimeYearEditBox = this.Factory.CreateRibbonEditBox();
             this.separator3 = this.Factory.CreateRibbonSeparator();
             this.box5 = this.Factory.CreateRibbonBox();
             this.startTimeHoursEditBox = this.Factory.CreateRibbonEditBox();
             this.startTimeMinutesEditBox = this.Factory.CreateRibbonEditBox();
             this.box6 = this.Factory.CreateRibbonBox();
-            this.endTimeHourTextBox = this.Factory.CreateRibbonEditBox();
-            this.endTimeMinutesTextBox = this.Factory.CreateRibbonEditBox();
+            this.endTimeHoursEditBox = this.Factory.CreateRibbonEditBox();
+            this.endTimeMinutesEditBox = this.Factory.CreateRibbonEditBox();
             this.otherRestrictionGroup = this.Factory.CreateRibbonGroup();
             this.ipRestrictionComboBox = this.Factory.CreateRibbonComboBox();
             this.locationMenu = this.Factory.CreateRibbonMenu();
@@ -347,7 +347,7 @@
             this.box3.Items.Add(this.label2);
             this.box3.Items.Add(this.endTimeDayDropDownBox);
             this.box3.Items.Add(this.endTimeMonthDropDownBox);
-            this.box3.Items.Add(this.endTimeYearTextBox);
+            this.box3.Items.Add(this.endTimeYearEditBox);
             this.box3.Name = "box3";
             // 
             // endTimeIncludeCheckBox
@@ -371,11 +371,12 @@
             this.endTimeMonthDropDownBox.Label = "Month";
             this.endTimeMonthDropDownBox.Name = "endTimeMonthDropDownBox";
             // 
-            // endTimeYearTextBox
+            // endTimeYearEditBox
             // 
-            this.endTimeYearTextBox.Label = "Year";
-            this.endTimeYearTextBox.Name = "endTimeYearTextBox";
-            this.endTimeYearTextBox.Text = null;
+            this.endTimeYearEditBox.Label = "Year";
+            this.endTimeYearEditBox.Name = "endTimeYearEditBox";
+            this.endTimeYearEditBox.Text = null;
+            this.endTimeYearEditBox.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.endTimeYearTextBox_TextChanged);
             // 
             // separator3
             // 
@@ -401,21 +402,21 @@
             // 
             // box6
             // 
-            this.box6.Items.Add(this.endTimeHourTextBox);
-            this.box6.Items.Add(this.endTimeMinutesTextBox);
+            this.box6.Items.Add(this.endTimeHoursEditBox);
+            this.box6.Items.Add(this.endTimeMinutesEditBox);
             this.box6.Name = "box6";
             // 
-            // endTimeHourTextBox
+            // endTimeHoursEditBox
             // 
-            this.endTimeHourTextBox.Label = "Hour";
-            this.endTimeHourTextBox.Name = "endTimeHourTextBox";
-            this.endTimeHourTextBox.Text = null;
+            this.endTimeHoursEditBox.Label = "Hour";
+            this.endTimeHoursEditBox.Name = "endTimeHoursEditBox";
+            this.endTimeHoursEditBox.Text = null;
             // 
-            // endTimeMinutesTextBox
+            // endTimeMinutesEditBox
             // 
-            this.endTimeMinutesTextBox.Label = "Minutes";
-            this.endTimeMinutesTextBox.Name = "endTimeMinutesTextBox";
-            this.endTimeMinutesTextBox.Text = null;
+            this.endTimeMinutesEditBox.Label = "Minutes";
+            this.endTimeMinutesEditBox.Name = "endTimeMinutesEditBox";
+            this.endTimeMinutesEditBox.Text = null;
             // 
             // otherRestrictionGroup
             // 
@@ -520,14 +521,14 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel label2;
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown endTimeDayDropDownBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown endTimeMonthDropDownBox;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeYearTextBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeYearEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator3;
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box5;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox startTimeHoursEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox startTimeMinutesEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box6;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeHourTextBox;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeMinutesTextBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeHoursEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeMinutesEditBox;
     }
 
     partial class ThisRibbonCollection
