@@ -143,33 +143,111 @@ namespace UFiles.Outlook
         {
             RestrictionPreset RP = new RestrictionPreset();
             int startYear, startMonth, startDay, startHour, startMinute;
+            int endYear, endMonth, endDay, endHour, endMinute;
 
             RP.includeStartTime = this.startTimeIncludeCheckBox.Checked;
             RP.includeFinishTime = this.endTimeIncludeCheckBox.Checked;
 
-            if (!int.TryParse(this.startTimeYearTextBox.Text, out startYear))
+            #region retrieve start time restriction times
+            if(startTimeIncludeCheckBox.Checked==true)
             {
-                startYear = System.DateTime.Now.Year;
+                if (!int.TryParse(this.startTimeYearTextBox.Text, out startYear))
+                {
+                    startYear = System.DateTime.Now.Year;
+                    this.startTimeYearTextBox.Text= startYear.ToString();
+                }
+                else if (startYear < 2000 || startYear > 3000)
+                { 
+                    this.startTimeYearTextBox.Text = "Invalid"; 
+                }
+                if (!int.TryParse(this.startTimeMonthDropDownBox.SelectedItem.Label, out startMonth))
+                {
+                    startMonth = System.DateTime.Now.Month;
+                }
+                if (!int.TryParse(this.startTimeDayDropDownBox.SelectedItem.Label, out startDay))
+                {
+                    startDay = System.DateTime.Now.Day;
+                }
+                if (!int.TryParse(this.startTimeHoursEditBox.Text, out startHour))
+                {
+                    startHour = System.DateTime.Now.Hour;
+                }
+                else if (startHour > 24 || startHour < 0)
+                {
+                    startTimeHoursEditBox.Text = "Invalid";
+                }
+                if (!int.TryParse(this.startTimeMinutesEditBox.Text, out startMinute))
+                {
+                    startMinute = System.DateTime.Now.Minute;
+                }
+                else if (startMinute > 60 || startMinute < 0)
+                {
+                    startTimeMinutesEditBox.Text = "Invalid";
+                }
+                RP.startTime = new DateTime(startYear,  startMonth,  startDay, startHour, startMinute, 0);
             }
-            if (!int.TryParse(this.startTimeMonthDropDownBox.SelectedItem.Label, out startMonth))
+            #endregion
+            #region retrive end time restriction times
+            do
             {
-                startYear = System.DateTime.Now.Month;
+                Boolean invalidEndTime = false;
+                if (!int.TryParse(this.startTimeYearTextBox.Text, out endYear))
+                {
+                    invalidEndTime = true;
+                    this.endTimeYearEditBox.Text = "Invalid";
+                }
+                else if (endYear < 2000 || endYear > 3000)
+                {
+                    invalidEndTime = true;
+                    this.endTimeYearEditBox.Text = "Invalid";
+                }
+                if (!int.TryParse(this.endTimeMonthDropDownBox.SelectedItem.Label, out endMonth))
+                {
+                    invalidEndTime = true;
+                }
+                if (!int.TryParse(this.endTimeDayDropDownBox.SelectedItem.Label, out endDay))
+                {
+                    invalidEndTime = true;
+                }
+                if (!int.TryParse(this.endTimeHoursEditBox.Text, out endHour))
+                {
+                    endTimeHoursEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                else if (endHour > 24 || endHour < 0)
+                {
+                    endTimeHoursEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                if (!int.TryParse(this.endTimeMinutesEditBox.Text, out endMinute))
+                {
+                    endTimeMinutesEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                else if (endMinute > 60 || endMinute < 0)
+                    {
+                    endTimeMinutesEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                if (invalidEndTime == true)
+                {
+                    break;
+                }
+                else
+                {
+                    try
+                    {
+                        RP.finishTime = new DateTime(endYear, endMonth, endDay, endHour, endMinute, 0);
+                    }
+                    catch(NullReferenceException e){
+                        break;
+                    }
+                }
             }
-            if (!int.TryParse(this.startTimeDayDropDownBox.SelectedItem.Label, out startDay))
-            {
-                startYear = System.DateTime.Now.Day;
-            }
-            if (!int.TryParse(this.startTimeHoursEditBox.Text, out startHour))
-            {
-                startYear = System.DateTime.Now.Hour;
-            }
-            if (!int.TryParse(this.startTimeMinutesEditBox.Text, out startMinute))
-            {
-                startYear = System.DateTime.Now.Minute;
-            }
-
-            //RP.startTime = new DateTime(int year, int month, int day, int hour, int minute, int second);
-            //RP.finishTime = new DateTime(int year, int month, int day, int hour, int minute, int second);
+            while (false);
+            
+            #endregion
+            
             return RP;
         }//returns the current state of the preset reibbon tab as a RestrictionPreset class
         #endregion
@@ -179,6 +257,11 @@ namespace UFiles.Outlook
 
         }
         #endregion
+
+        private void endTimeYearTextBox_TextChanged(object sender, RibbonControlEventArgs e)
+        {
+
+        }
         #endregion
 
 
