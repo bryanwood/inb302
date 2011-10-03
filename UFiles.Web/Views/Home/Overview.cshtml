@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UFiles.Web.Models.OverviewModel
+@{
     ViewBag.Title = "Overview";
     Layout = "~/Views/Shared/Full/_Site.Full.Master.Layout.cshtml";
 }
@@ -7,12 +8,12 @@
 }
 @section PageHeader {
     <div class="coreHeaderUserContainer floatRight">
-        logged in as <span class="coreExternalHighlight">example@company.com</span> | <a
-            href="#">logout</a></div>
+        logged in as <span class="coreExternalHighlight">@Model.LoggedInUser.Email</span>
+        | <a href="#">logout</a></div>
 }
 @section PageSidebar{
     <div class="sideBarHeading">
-        Example User</div>
+        @Model.LoggedInUser.FName @Model.LoggedInUser.LName</div>
     <div class="sidebarTabGroup">
         <div class="sidebarTab coreExternalHighlight">
             home</div>
@@ -23,7 +24,7 @@
         <div class="sidebarTab" id="tabMyFiles">
             <a href="#">my files</a></div>
         <div class="sidebarTab" id="tabOtherFiles">
-            <a href="#">files sent to me</a> <span class="sidebarTabBalloon">12</span></div>
+            <a href="#">files sent to me</a></div>
     </div>
     <div class="sidebarTabGroup">
         <div class="sidebarTab" id="tabAdmin">
@@ -64,100 +65,59 @@
                     <a href="#"><div class="panelTab panelTabSelected floatLeft" id="recievedTab">recently recieved</div></a>
                     <a href="#"><div class="panelTab floatRight" id="sentTab">recently sent</div></a></div>
                 <div class="floatFix" id="recentlySent">
-                    <div class="panelMiniSection floatFix">
+                @{ 
+                    if (Model.RecentlySentTransmittals == null || Model.RecentlySentTransmittals.Count < 1)
+                    {
+                                               <div class="panelMiniSection floatFix">
                         <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Example File.doc</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            important@company.com</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            1:31PM 6/09/2011</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#" onclick="fakeAJAXPopup();">download</a></div>
+                            <p>You don't have any recently sent files.</p></div>
                     </div>
-                    <div class="panelMiniSection panelSectionSelectedHighlight floatFix">
+                    }
+                    else
+                    {
+                        foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlySentTransmittals.AsEnumerable())
+                        {
+                       <div class="panelMiniSection floatFix">
                         <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Important Document.doc</div>
+                            @t.FileName</div>
                         <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            another@company.com</div>
+                            @t.Email</div>
                         <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            9:03AM 6/09/2011</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">download</a></div>
-                    </div>
-                    <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Pricing.doc</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            sales@example.com</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            11:56AM 5/09/2011</div>
+                            @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
                         <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
                             <a href="#">download</a></div>
                     </div>
+                        }
+                    }
+                    }
                 </div>
             </div>
             <div class="contentPanel floatRight" id="recentlyRecieved" style="display: none; opacity: 0.0;">
-                <div class="floatFix" id="recentlySent">
-                    <div class="panelMiniSection floatFix">
+                <div class="floatFix" id="recentlyReceived">
+                                  @{   if (Model.RecentlyReceivedTransmittals == null || Model.RecentlyReceivedTransmittals.Count < 1)
+                                       {
+                                               <div class="panelMiniSection floatFix">
                         <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Example File.doc</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            multiple recipients</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            4:23PM 2/09/2011</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">edit</a></div>
+                            <p>You don't have any recently received files.</p></div>
                     </div>
-                                        <div class="panelMiniSection floatFix">
+                                       }
+                                       else
+                                       {
+                                           foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlyReceivedTransmittals.AsEnumerable())
+                                           {
+                       <div class="panelMiniSection floatFix">
                         <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Example File.doc</div>
+                            @t.FileName</div>
                         <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            multiple recipients</div>
+                            @t.Email</div>
                         <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            4:23PM 2/09/2011</div>
+                            @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
                         <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">edit</a></div>
+                            <a href="#">download</a></div>
                     </div>
-                                        <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Example File.doc</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            multiple recipients</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            4:23PM 2/09/2011</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">edit</a></div>
-                    </div>
-                                        <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Example File.doc</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            multiple recipients</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            4:23PM 2/09/2011</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">edit</a></div>
-                    </div>
-                                        <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Example File.doc</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            multiple recipients</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            4:23PM 2/09/2011</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">edit</a></div>
-                    </div>
-                                        <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            Example File.doc</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            multiple recipients</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            4:23PM 2/09/2011</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">edit</a></div>
-                    </div>
+                                           }
+                                       }
+                                       }
                 </div>
             </div>
         </div>
