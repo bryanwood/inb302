@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Text.RegularExpressions;
 using UFiles.Web.Models;
 using System.Web.Security;
+using UFiles.Domain.Abstract;
+using UFiles.Domain.Concrete;
 
 namespace UFiles.Web.Controllers
 {
@@ -19,13 +20,11 @@ namespace UFiles.Web.Controllers
 
         }
 
-        [RequireHttps]
         public RedirectToRouteResult Index()
         {
             return RedirectToAction("Login");
         }
 
-        [RequireHttps]
         public ViewResult Login(string authFail = "", string passthrough = "")
         {
             RouteValueDictionary routeParams = new RouteValueDictionary();
@@ -48,7 +47,6 @@ namespace UFiles.Web.Controllers
             return View();
         }
 
-        [RequireHttps]
         public ViewResult Create(string passthrough = "")
         {
             RouteValueDictionary routeParams = new RouteValueDictionary();
@@ -67,7 +65,7 @@ namespace UFiles.Web.Controllers
             return View();
         }
 
-        [HttpPost, RequireHttps]
+        [HttpPost]
         public JsonResult CheckAuth(LogOnModel authModel, string passthrough)
         {
             const int errorStatusCode = 400;
@@ -110,7 +108,7 @@ namespace UFiles.Web.Controllers
 
             }
 
-            string goToAddress = Url.Action("Overview", "HomeController");
+            string goToAddress = Url.Action("Overview", "Home");
 
             if (!String.IsNullOrWhiteSpace(passthrough))
             {
@@ -139,14 +137,13 @@ namespace UFiles.Web.Controllers
             }
         }
 
-        [HttpPost, RequireHttps]
+        [HttpPost]
         public JsonResult AccountCreation(RegisterModel regModel, string passthrough)
         {
 
             const int errorStatusCode = 400;
             const int successStatusCode = 201;
 
-            JsonResult jsonReply = new JsonResult();
             Dictionary<String, String> jsonDictionary = new Dictionary<string, string>();
 
             jsonDictionary.Add("ReplyingFor", "ValidationResults");
@@ -163,9 +160,7 @@ namespace UFiles.Web.Controllers
                     jsonDictionary.Add("FailureReason", "<p>You must fill out all of the fields.</p>");
                     Response.StatusCode = errorStatusCode;
 
-                    jsonReply = Json(jsonDictionary);
-
-                    return jsonReply;
+                    return Json(jsonDictionary);;
                 }
 
                 foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
@@ -179,9 +174,7 @@ namespace UFiles.Web.Controllers
                 jsonDictionary.Add("FailureReason", errorTemp);
                 Response.StatusCode = errorStatusCode;
 
-                jsonReply = Json(jsonDictionary);
-
-                return jsonReply;
+                return Json(jsonDictionary);
 
             }
 
@@ -193,6 +186,23 @@ namespace UFiles.Web.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(regModel.Email, false /* createPersistentCookie */);
+
+                    // Set user's first name and last name.
+                    try
+                    {
+                        IUserService userService = new UserService();
+                        UFiles.Domain.Entities.User newUser = userService.GetUserByEmail(regModel.Email);
+                        newUser.FirstName = regModel.FName;
+                        newUser.LastName = regModel.LName;
+
+                        userService.SaveUser(newUser);
+
+                    }
+                    catch (Exception e)
+                    {
+                        // Give up on giving the user a first name and last name.
+                    }
+
                     UrlHelper url = new UrlHelper(Request.RequestContext);
                     jsonDictionary.Add("GoTo", url.RouteUrl("Home"));
                 }
@@ -201,9 +211,7 @@ namespace UFiles.Web.Controllers
                     jsonDictionary.Add("FailureReason", createStatus.ToString());
                     Response.StatusCode = errorStatusCode;
 
-                    jsonReply = Json(jsonDictionary);
-
-                    return jsonReply;
+                    return Json(jsonDictionary);
                 }
             }
             else
@@ -211,25 +219,22 @@ namespace UFiles.Web.Controllers
                 jsonDictionary.Add("FailureReason", "Email already exists");
                 Response.StatusCode = errorStatusCode;
 
-                jsonReply = Json(jsonDictionary);
-
-                return jsonReply;
+                return Json(jsonDictionary);
             }
 
-            string goToAddress = Url.Action("Overview", "HomeController");
+            string goToAddress = Url.Action("Overview", "Home");
 
             if (!String.IsNullOrWhiteSpace(passthrough))
             {
                 RouteValueDictionary passthroughValue = new RouteValueDictionary();
                 passthroughValue.Add("id", passthrough);
-                goToAddress = Url.Action("View", "TransmittalController", passthroughValue);
+                goToAddress = Url.Action("View", "Transmittal", passthroughValue);
             }
 
             jsonDictionary.Add("GoTo", goToAddress);
             Response.StatusCode = successStatusCode;
 
-            jsonReply = Json(jsonDictionary);
-            return jsonReply;
+            return Json(jsonDictionary);
         }
 
     }

@@ -8,9 +8,8 @@ $.ajax({
     data: serialized,
     statusCode: {
 
-    201: function() {
-    var reply = $.parseJSON(data.responseText);
-    window.location.assign(reply.GoTo);
+    201: function(data) {
+    window.location.assign(data.GoTo);
     },
     400: function(data) {
     var reply = $.parseJSON(data.responseText);

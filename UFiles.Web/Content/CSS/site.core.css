@@ -158,3 +158,22 @@ a:hover
     font-weight: bold;
     color: #FFFFFF !important;
 }
+
+.footer 
+{
+    margin-top: 30px;
+    padding-top: 5px;
+    border-color: #4d4d4d;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    width: 100%;
+}
+
+.footerContainer
+{
+    margin: 0 auto 0 auto;
+    padding: 0 20px 0 20px;
+    color: #666666;
+    font-size: 11px;
+    text-align: center;
+}

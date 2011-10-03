@@ -23,15 +23,22 @@ login
    }
 }
 <form id="authLogin" name="authLogin" action="#" method="post">
-<div class="miniBoxSection floatFix" id="emailSection">
-    <div class="miniLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
-        Email Address</div>
-    <input type="text" class="miniInput floatRight" name="Email" />
-</div>
-<div class="miniBoxSection floatFix" id="passwordSection">
-    <div class="miniLabel loginAuthBoxLabelOverride floatLeft" id="passwordLabel">
-        Password</div>
-    <input type="password" class="miniInput floatRight" name="Password" />
+<div class="miniBoxSection floatFix" id="entrySection">
+    <div class="miniBoxMinorSection floatFix">
+        <div class="miniLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+            Email Address</div>
+        <input type="text" class="miniInput floatRight" name="Email" />
+    </div>
+    <div class="miniBoxMinorSection floatFix">
+        <div class="miniLabel loginAuthBoxLabelOverride floatLeft" id="passwordLabel">
+            Password</div>
+        <input type="password" class="miniInput floatRight" name="Password" />
+    </div>
+    <div class="miniBoxMinorSection floatFix">
+        <input type="checkbox" checked="checked" class="floatRight" name="RememberMe" />
+        <div class="miniLabel loginAuthBoxLabelOverride floatRight" id="rememberLabel">
+            Remember Me?</div>
+    </div>
 </div>
 <div class="miniBoxInformationHighlight informationHighlightError" style="display: none;
     opacity: 0.0;" id="validateFail">
