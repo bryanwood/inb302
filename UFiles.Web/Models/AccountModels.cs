@@ -30,8 +30,8 @@ namespace UFiles.Web.Models
     public class LogOnModel
     {
         [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -44,21 +44,27 @@ namespace UFiles.Web.Models
 
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
 
-        [Required]
-        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "You must enter a first name.")]
+        [DataType(DataType.Text)]
+        public string FName { get; set; }
+
+        [Required(ErrorMessage = "You must enter a last name.")]
+        [DataType(DataType.Text)]
+        public string LName { get; set; }
+
+        [Required(ErrorMessage = "You must enter an email address.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "You must enter a valid email address.")]
         [Display(Name = "Email address")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must enter a password.")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "You must confirm your entered password.")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]

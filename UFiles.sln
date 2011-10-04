@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFiles.Domain", "UFiles.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFiles.WebProto", "UFiles.WebProto\Capstone Website Interface Prototype\UFiles.WebProto.csproj", "{BBA3A7F5-E986-4066-9F81-EE142D3D4CCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFiles.Outlook", "UFiles.Outlook\UFiles.Outlook.csproj", "{ED7F4158-53BD-4A72-B712-5119C8A5A21A}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = UFiles.vsmdi
@@ -41,6 +43,10 @@ Global
 		{BBA3A7F5-E986-4066-9F81-EE142D3D4CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA3A7F5-E986-4066-9F81-EE142D3D4CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA3A7F5-E986-4066-9F81-EE142D3D4CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED7F4158-53BD-4A72-B712-5119C8A5A21A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED7F4158-53BD-4A72-B712-5119C8A5A21A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED7F4158-53BD-4A72-B712-5119C8A5A21A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED7F4158-53BD-4A72-B712-5119C8A5A21A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
