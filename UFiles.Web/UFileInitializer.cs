@@ -398,11 +398,11 @@ namespace UFiles.Domain.Entities
             {
                 User = user1,
                 File = file1,
-                Occured = DateTime.Now,
+                Occurred = DateTime.Now,
             });
 
             file1.FileAccessEvents.Add(new FileAccessEvent{
-                Occured = DateTime.Now.AddHours(-2),
+                Occurred = DateTime.Now.AddHours(-2),
                 File = file1,
                 User = user2
             });

@@ -10,7 +10,7 @@ namespace UFiles.Domain.Entities
     {
         [Key]
         public int EventId { get; set; }
-        public DateTime Occured { get; set; }
+        public DateTime Occurred { get; set; }
     }
     [Table("FileAccessEvents")]
     public class FileAccessEvent : Event
