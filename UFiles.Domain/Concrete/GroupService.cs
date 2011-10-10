@@ -9,51 +9,50 @@ namespace UFiles.Domain.Concrete
 {
     public class GroupService : IGroupService
     {
-        private IRepository<Group> groupRepo = new Repository<Group>();
-        private IUnitOfWork unitOfWork = new UnitOfWork();
+        private IUnitOfWork unitOfWork;
 
-        public GroupService()
+        public GroupService(IUnitOfWork unitOfWork)
         {
-            groupRepo.UnitOfWork = unitOfWork;
+            this.unitOfWork = unitOfWork;
         }
 
         public IQueryable<Group> GetGroupsByOwner(Entities.User owner)
         {
-            return groupRepo.Where(g => g.Owner.UserId == owner.UserId);
+            return unitOfWork.GroupRepository.Where(g => g.Owner.UserId == owner.UserId);
         }
 
         public Entities.Group GetGroup(int id)
         {
-            return groupRepo.Where(g => g.GroupId == id).Single();
+            return unitOfWork.GroupRepository.Where(g => g.GroupId == id).Single();
         }
 
         public Entities.Group CreateGroup(Entities.User owner)
         {
             var group = new Group();
             group.Owner = owner;
-            groupRepo.Add(group);
-            unitOfWork.Commit();
+            unitOfWork.GroupRepository.Add(group);
+            unitOfWork.Save();
             return group;
         }
 
         public void AddMember(Group group, User member)
         {
             group.Users.Add(member);
-            groupRepo.Update(group);
-            unitOfWork.Commit();
+            unitOfWork.GroupRepository.Update(group);
+            unitOfWork.Save();
         }
 
         public void RemoveMember(Group group, User member)
         {
             group.Users.Remove(member);
-            groupRepo.Update(group);
-            unitOfWork.Commit();
+            unitOfWork.GroupRepository.Update(group);
+            unitOfWork.Save();
         }
 
         public void DeleteGroup(Group group)
         {
-            groupRepo.Delete(group);
-            unitOfWork.Commit();
+            unitOfWork.GroupRepository.Delete(group);
+            unitOfWork.Save();
         }
     }
 }

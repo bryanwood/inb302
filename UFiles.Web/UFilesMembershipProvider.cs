@@ -8,17 +8,25 @@ using UFiles.Domain.Concrete;
 using System.Security.Cryptography;
 using System.Text;
 using UFiles.Domain.Entities;
+using Ninject;
 
 namespace UFiles.Web
 {
     public class UFilesMembershipProvider : MembershipProvider
     {
-
+        [Inject]
+        public IUserService UserService
+        {
+            set
+            {
+                this.userService = value;
+            }
+        }
         private IUserService userService;
         
         public UFilesMembershipProvider()
         {
-            userService = new UserService();
+            
             
         }
         private string _applicationName = "UFiles";

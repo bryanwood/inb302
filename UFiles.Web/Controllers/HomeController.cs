@@ -8,6 +8,11 @@ namespace UFiles.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IUserService userService;
+        public HomeController(IUserService userService)
+        {
+            this.userService = userService;
+        }
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
@@ -18,7 +23,7 @@ namespace UFiles.Web.Controllers
         public ActionResult Overview()
         {
             OverviewModel overviewModel = new OverviewModel();
-            IUserService userService = new UserService();
+            
 
             User currentUser = userService.GetUserByEmail(User.Identity.Name);
 

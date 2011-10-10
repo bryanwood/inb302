@@ -14,10 +14,10 @@ namespace UFiles.Web.Controllers
     {
         //
         // GET: /Authentication/
-
-        public AuthenticationController()
+        private IUserService userService;
+        public AuthenticationController(IUserService userService)
         {
-
+            this.userService = userService;
         }
 
         public RedirectToRouteResult Index()
@@ -190,7 +190,7 @@ namespace UFiles.Web.Controllers
                     // Set user's first name and last name.
                     try
                     {
-                        IUserService userService = new UserService();
+                        
                         UFiles.Domain.Entities.User newUser = userService.GetUserByEmail(regModel.Email);
                         newUser.FirstName = regModel.FName;
                         newUser.LastName = regModel.LName;
