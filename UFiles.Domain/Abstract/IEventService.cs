@@ -15,5 +15,5 @@ namespace UFiles.Domain.Abstract
         void AddFileAccessEvent(File file, User user);
         void AddTransmittalEvent(Transmittal transmittal);
         void AddUserEvent(User user);
-        
+    } 
 }

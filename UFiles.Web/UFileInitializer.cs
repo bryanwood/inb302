@@ -386,10 +386,10 @@ namespace UFiles.Domain.Entities
                 Groups = new Group[]{group,group2}
                 },
                 new IPRestriction{
-                    IPAddress = new IPAddress[]{ip1}
+                    IPAddress = new List<IPAddress>{ip1}
                 }
                 },
-                FileAccessEvents = new FileAccessEvent[] {
+                FileAccessEvents = new List<FileAccessEvent> {
 
                 }
             };

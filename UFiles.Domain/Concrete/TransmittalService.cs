@@ -9,24 +9,22 @@ namespace UFiles.Domain.Concrete
 {
     public class TransmittalService : ITransmittalService
     {
-        private IRepository<Transmittal> transmittalRepo = new Repository<Transmittal>();
-        private IRepository<User> userRepo = new Repository<User>();
-        private IUnitOfWork unitOfWork = new UnitOfWork();
+        private IUnitOfWork unitOfWork;
 
-        public TransmittalService()
+        public TransmittalService(IUnitOfWork unitOfWork)
         {
-            userRepo.UnitOfWork = unitOfWork;
-            transmittalRepo.UnitOfWork = unitOfWork;
+            
+            this.unitOfWork = unitOfWork;
         }
 
         public IQueryable<Transmittal> GetTransmittalsByUser(User user)
         {
-            return transmittalRepo.Where(t => t.Sender.UserId == user.UserId);
+            return unitOfWork.TransmittalRepository.Where(t => t.Sender.UserId == user.UserId);
         }
 
         public Transmittal GetTransmittalById(int id)
         {
-            return transmittalRepo.Where(t => t.TransmittalId == id).Single();
+            return unitOfWork.TransmittalRepository.Where(t => t.TransmittalId == id).Single();
         }
     }
 }

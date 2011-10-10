@@ -10,12 +10,12 @@ namespace UFiles.Domain.Concrete
     public class EventService : IEventService
     
     {
-        private IRepository<Event> eventRepo = new Repository<Event>();
-        private IUnitOfWork unitOfWork = new UnitOfWork();
 
-        public EventService()
+        private IUnitOfWork unitOfWork;
+
+        public EventService(IUnitOfWork unitOfWork)
         {
-            eventRepo.UnitOfWork = unitOfWork;
+            this.unitOfWork = unitOfWork;
         }
 
         public IQueryable<Entities.Event> GetEventsByUser(Entities.User user)
@@ -35,7 +35,7 @@ namespace UFiles.Domain.Concrete
 
         public Entities.Event GetEvent(int id)
         {
-            return eventRepo.Where(e => e.EventId == id).Single();
+            return unitOfWork.EventRepository.Where(e => e.EventId == id).Single();
         }
 
         public void AddFileAccessEvent(Entities.File file, Entities.User user)
