@@ -20,18 +20,6 @@
     text-align: center;
 }
 
-.informationHighlightAdditional
-{
-    background-color: #cdf0ff;
-    border-color: #59ceff;
-}
-
-.informationHighlightError
-{
-    background-color: #ffd9d9;
-    border-color: #ff9292;
-}
-
 .miniSectionDetail
 {
     margin-bottom: 2px;

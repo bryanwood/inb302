@@ -15,21 +15,13 @@ namespace UFiles.Web.Controllers
         }
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
-           
-            return View();
+            return RedirectToActionPermanent("Overview");
         }
 
+        [Authorize]
         public ActionResult Overview()
         {
-            OverviewModel overviewModel = new OverviewModel();
-            
-
-            User currentUser = userService.GetUserByEmail(User.Identity.Name);
-
-            overviewModel.LoggedInUser.FName = currentUser.FirstName;
-            overviewModel.LoggedInUser.LName = currentUser.LastName;
-            overviewModel.LoggedInUser.Email = currentUser.Email;
+            OverviewModel overviewModel = new OverviewModel(userService, User.Identity.Name);
 
             // Test data -- Delete after logging in works.
             TransmittalListingModel testTransmittal = new TransmittalListingModel();
@@ -52,11 +44,6 @@ namespace UFiles.Web.Controllers
             // End test data
 
             return View(overviewModel);
-        }
-
-        public ActionResult About()
-        {
-            return View();
         }
     }
 }

@@ -8,32 +8,33 @@
 }
 @section PageHeader {
     <div class="coreHeaderUserContainer floatRight">
-        logged in as <span class="coreExternalHighlight">@Model.LoggedInUser.Email</span>
+        logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span>
         | <a href="#">logout</a></div>
 }
 @section PageSidebar{
     <div class="sideBarHeading">
-        @Model.LoggedInUser.FName @Model.LoggedInUser.LName</div>
+        @Model.getUser().FName @Model.getUser().LName</div>
     <div class="sidebarTabGroup">
         <div class="sidebarTab coreExternalHighlight">
-            home</div>
+            <a href="@Url.Action("Overview", "Home")">home</a></div>
+        <div class="sidebarTab">
+            <a href="@Url.Action("SendFile", "Transmittal")">send a file</div>
+    </div>
+    <div class="sidebarTabGroup">
         <div class="sidebarTab" id="tabMyGroup">
-            <a href="#">my groups</a></div>
+            <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
     </div>
     <div class="sidebarTabGroup">
         <div class="sidebarTab" id="tabMyFiles">
-            <a href="#">my files</a></div>
+            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
         <div class="sidebarTab" id="tabOtherFiles">
-            <a href="#">files sent to me</a></div>
+            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
     </div>
     <div class="sidebarTabGroup">
-        <div class="sidebarTab" id="tabAdmin">
-            <a href="#">administration</a></div>
         <div class="sidebarTab" id="tabSettings">
-            <a href="#">settings</a></div>
+            <a href="@Url.Action("Settings", "Account")">settings</a></div>
     </div>
 }
-<asp:content id="homePageContent" contentplaceholderid="pageContent" runat="server">
     <div class="contentBarFull">
         <div class="contentPanel floatFix floatLeft">
             <div class="uploadHeading floatLeft">

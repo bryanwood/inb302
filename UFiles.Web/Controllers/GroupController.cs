@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
+using UFiles.Web.Models;
 
 namespace UFiles.Web.Controllers
 {
@@ -28,6 +29,13 @@ namespace UFiles.Web.Controllers
             var groups = groupService.GetGroupsByOwner(user);
 
             return View(groups);
+        }
+
+        public ActionResult MyGroups()
+        {
+            GroupViewModel model = new GroupViewModel(userService, groupService, User.Identity.Name);
+
+            return View(model);
         }
 
         //

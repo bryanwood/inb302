@@ -25,6 +25,13 @@ namespace UFiles.Web.Controllers
             return RedirectToAction("Login");
         }
 
+        public RedirectToRouteResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Login");
+        }
+
         public ViewResult Login(string authFail = "", string passthrough = "")
         {
             RouteValueDictionary routeParams = new RouteValueDictionary();

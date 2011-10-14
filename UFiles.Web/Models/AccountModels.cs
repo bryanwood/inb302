@@ -7,7 +7,6 @@ using System.Web.Security;
 
 namespace UFiles.Web.Models
 {
-
     public class ChangePasswordModel
     {
         [Required]
