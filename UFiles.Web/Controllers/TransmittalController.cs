@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
+using UFiles.Web.Models;
 
 namespace UFiles.Web.Controllers
 {
@@ -19,6 +20,14 @@ namespace UFiles.Web.Controllers
             this.transmittalService = transmittalService;
             this.userService = userService;
         }
+
+        [Authorize]
+        public ActionResult SendFile()
+        {
+            BaseAuthenticatedModel model = new BaseAuthenticatedModel(userService, User.Identity.Name);
+            return View(model);
+        }
+
         [Authorize]
         public ActionResult List()
         {

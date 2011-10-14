@@ -11,7 +11,7 @@
     overflow: hidden;
 }
 
-.floatLeft 
+.floatLeft
 {
     float: left;
 }
@@ -114,6 +114,15 @@ a:hover
     color: #808080;
 }
 
+.coreSectionHeader
+{
+    font-family: Arial;
+    color: #FFFFFF;
+    font-size: 42px;
+    text-align: right;
+    margin: 10px 10px 0px 0px;
+}
+
 .coreHeaderUserContainer
 {
     margin: 20px 0 0 0;
@@ -128,12 +137,23 @@ a:hover
     background-color: #FFFFFF;
 }
 
+.coreSectionContainer
+{
+    width: 815px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-width: 0 0 5px 0;
+    border-color: #ffbf43;
+}
+
 .coreSidebar
 {
     font-family: Arial;
     width: 150px;
     background-color: #404040;
     color: #FFFFFF;
+    margin-top: 35px;
 }
 
 .coreSidebarInternal
@@ -159,7 +179,7 @@ a:hover
     color: #FFFFFF !important;
 }
 
-.footer 
+.footer
 {
     margin-top: 30px;
     padding-top: 5px;
@@ -176,4 +196,49 @@ a:hover
     color: #666666;
     font-size: 11px;
     text-align: center;
+}
+
+.informationHighlightAdditional
+{
+    background-color: #cdf0ff;
+    border-color: #59ceff;
+}
+
+.informationHighlightError
+{
+    background-color: #ffd9d9;
+    border-color: #ff9292;
+}
+
+.coreSectionTabGroup
+{
+    width: 815px;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: #333333;
+    border-color: #48abf7;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+}
+
+.coreSectionTab
+{
+    height: 20px;
+    border-color: #333333;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    text-align: center;
+    padding: 5px 0 5px 0;
+}
+
+.coreTabSelected, .coreTabSelected:hover
+{
+    border-color: #48abf7 !important;
+}
+
+.coreSectionTab:hover
+{
+    height: 21px;
+    border-width: 0 0 1px 0;
+    border-color: #48abf7;
 }

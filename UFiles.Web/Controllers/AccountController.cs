@@ -6,110 +6,27 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using UFiles.Web.Models;
+using UFiles.Domain.Abstract;
+using UFiles.Domain.Entities;
 
 namespace UFiles.Web.Controllers
 {
     public class AccountController : Controller
     {
 
-        //
-        // GET: /Account/LogOn
+        private IUserService userService;
 
-        public ActionResult LogOn()
+        public AccountController(IUserService userService)
         {
-            return View();
+            this.userService = userService;
         }
-
-        //
-        // POST: /Account/LogOn
-
-        [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                if (Membership.ValidateUser(model.Email, model.Password))
-                {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        //
-        // GET: /Account/LogOff
-
-        public ActionResult LogOff()
-        {
-            FormsAuthentication.SignOut();
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        //
-        // GET: /Account/Register
-
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-
-        [HttpPost]
-        public ActionResult Register(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                if (Membership.GetUser(model.Email) == null)
-                {
-                    Membership.CreateUser(model.Email, model.Password, model.Email, null, null, true, null, out createStatus);
-                    Roles.AddUsersToRole(new string[] { model.Email }, "Standard");
-                    if (createStatus == MembershipCreateStatus.Success)
-                    {
-                        FormsAuthentication.SetAuthCookie(model.Email, false /* createPersistentCookie */);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Email already Exists");
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        //
-        // GET: /Account/ChangePassword
 
         [Authorize]
-        public ActionResult ChangePassword()
+        public ActionResult Settings()
         {
-            return View();
+            BaseAuthenticatedModel model = new BaseAuthenticatedModel(userService, User.Identity.Name);
+
+            return View(model);
         }
 
         //
@@ -147,14 +64,6 @@ namespace UFiles.Web.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        //
-        // GET: /Account/ChangePasswordSuccess
-
-        public ActionResult ChangePasswordSuccess()
-        {
-            return View();
         }
 
         #region Status Codes
