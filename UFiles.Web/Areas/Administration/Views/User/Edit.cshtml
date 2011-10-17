@@ -48,7 +48,16 @@
             @Html.EditorFor(model => model.Verified)
             @Html.ValidationMessageFor(model => model.Verified)
         </div>
-
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Role)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model=>model.RoleId, ((IEnumerable<UFiles.Domain.Entities.Role>)ViewBag.PossibleRoles).Select(c=>new SelectListItem{
+          Text = c.Name,
+          Value = c.RoleId.ToString(),
+          Selected = c.RoleId == Model.RoleId ? true : false 
+       }))
+        </div>
         <p>
             <input type="submit" value="Save" />
         </p>

@@ -5,24 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
+using UFiles.Domain.Concrete;
 
 namespace UFiles.Web.Areas.Administration.Controllers
 {
     public class UserController : Controller
     {
-        private IUserService userService;
-
-        public UserController(IUserService userService)
-        {
-            this.userService = userService;
-        }
+        UFileContext db = new UFileContext();
 
         //
         // GET: /Administration/User/
 
         public ActionResult Index()
         {
-            return View(userService.GetAllUsers());
+            return View(db.Users.ToList());
         }
 
         //
@@ -30,7 +26,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
 
         public ActionResult Details(int id)
         {
-            return View(userService.GetUserById(id));
+            return View(db.Users.Find(id));
         }
 
         //
@@ -38,6 +34,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.PossibleRoles = db.Roles.ToList();
             return View(new User());
         } 
 
@@ -52,15 +49,17 @@ namespace UFiles.Web.Areas.Administration.Controllers
                 try
                 {
                  
-                    userService.CreateUser(user);
+                    db.Users.Add(user);
+                    db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch
                 {
-                    return View();
+                    //do nothing
                 }
             }
-            return View();
+            ViewBag.PossibleRoles = db.Roles.ToList();
+            return View(user);
         }
         
         //
@@ -68,7 +67,8 @@ namespace UFiles.Web.Areas.Administration.Controllers
  
         public ActionResult Edit(int id)
         {
-            return View(userService.GetUserById(id));
+            ViewBag.PossibleRoles = db.Roles.ToList();
+            return View(db.Users.Find(id));
         }
 
         //
@@ -82,15 +82,17 @@ namespace UFiles.Web.Areas.Administration.Controllers
                 try
                 {
                     
-                    userService.SaveUser(user);
+                    db.Entry(user).State = System.Data.EntityState.Modified;
+                    db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch
                 {
-                    return View();
+                    //do nothing
                 }
             }
-            return View();
+            ViewBag.PossibleRoles = db.Roles.ToList();
+            return View(user);
         }
 
         //
@@ -98,7 +100,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View(userService.GetUserById(id));
+            return View(db.Users.Find(id));
         }
 
         //
@@ -111,16 +113,18 @@ namespace UFiles.Web.Areas.Administration.Controllers
             {
                 try
                 {
-                    userService.DeleteUser(user.UserId);
+                    db.Users.Remove(user);
+                    db.SaveChanges();
 
                     return RedirectToAction("Index");
                 }
                 catch
                 {
-                    return View();
+                    //do nothing
                 }
             }
-            return View();
+            ViewBag.PossibleRoles = db.Roles.ToList();
+            return View(user);
         }
     }
 }

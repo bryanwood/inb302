@@ -25,7 +25,8 @@ namespace UFiles.Web
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Overview", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Home", action = "Overview", id = UrlParameter.Optional }, // Parameter defaults,
+                  new string[]{"UFiles.Web.Controllers"}
             );
 
         }
