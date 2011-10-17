@@ -1,0 +1,39 @@
+﻿@model IEnumerable<UFiles.Domain.Entities.Transmittal>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "../Shared/_Layout.cshtml";
+    }
+
+<h2>Index</h2>
+
+
+<table>
+    <tr>
+        <th>
+            Sent
+        </th>
+        <th>Sender</th>
+        <th>Recipients</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sender.FirstName) @Html.DisplayFor(modelItem => item.Sender.LastName)
+        </td>
+        <td>
+           @item.Recipients.Count
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TransmittalId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TransmittalId })
+        </td>
+    </tr>
+}
+
+</table>
