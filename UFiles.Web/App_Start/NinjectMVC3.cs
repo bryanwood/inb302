@@ -53,7 +53,7 @@ namespace UFiles.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IRepository<File>>().To<Repository<File>>();
-            kernel.Bind<IRepository<FileData>>().To<Repository<FileData>>();
+            
             kernel.Bind<IRepository<Event>>().To<Repository<Event>>();
             kernel.Bind<IRepository<Group>>().To<Repository<Group>>();
             kernel.Bind<IRepository<IPAddress>>().To<Repository<IPAddress>>();

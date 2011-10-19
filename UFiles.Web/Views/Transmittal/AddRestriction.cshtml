@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "AddRestriction";
+}
+
+<h2>Restrictions</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+    <div class="span8">
+        <h3>Current Restrictions</h3>
+        <ul>
+            <li>Users: Bryan, Carl, Dylan</li>
+            <li>Groups: Team19</li>
+            <li>Locations: Brisbane</li>
+        </ul>
+    </div>
+    <div class="span8">
+        <h3>Add Restriction</h3>
+    <ul class="tabs" data-tabs="tabs">
+        <li class="active"><a href="#group">Group</a></li>
+        <li><a href="#ip">IP Address</a></li>
+        <li><a href="#time">Time Range</a></li>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#user">User</a></li>
+    </ul>
+    
+    <div class="pill-content">
+        <div class="active" id="group">
+            <p>Add a group restriction to this file.</p>
+        </div>
+        <div id="ip">
+            <p>Add an IP restriction to this file.</p>
+        </div>
+        <div id="time">
+            <p>Add a time range restriction to this file.</p>
+        </div>
+        <div id="location">
+            <p>Add a location restriction ot this file.</p>
+
+        </div>
+        <div id="user">
+            <p>Add a user restriction to this file.</p>
+        </div>
+    </div>
+    <input type="submit" value="Add Restriction" />
+    </div>
+    </div>
+    
+
+}
+
+@using (Html.BeginForm(new { action = "Send", id = 0 }))
+{
+    <input type="submit" value="Send Transmittal" />
+}

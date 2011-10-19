@@ -13,7 +13,7 @@ namespace UFiles.Domain.Concrete
         private DbContext context;
         public IRepository<Event> EventRepository { get; private set; }
         public IRepository<File> FileRepository { get; private set; }
-        public IRepository<FileData> FileDataRepository { get; private set; }
+       
         public IRepository<Group> GroupRepository { get; private set; }
         public IRepository<IPAddress> IPAddressRepository { get; private set; }
         public IRepository<Location> LocationRepository { get; private set; }
@@ -26,7 +26,7 @@ namespace UFiles.Domain.Concrete
         public UnitOfWork(
             IRepository<Event> eventRepository, 
             IRepository<File> fileRepository, 
-            IRepository<FileData> fileDataRepository, 
+       
             IRepository<Group> groupRepository, 
             IRepository<IPAddress> iPAddressRepository, 
             IRepository<Location> locationRepository, 
@@ -38,7 +38,7 @@ namespace UFiles.Domain.Concrete
         {
             context = new UFileContext();
             this.EventRepository = eventRepository;
-            this.FileDataRepository = fileDataRepository;
+          
             this.FileRepository = fileRepository;
             this.GroupRepository = groupRepository;
             this.IPAddressRepository = iPAddressRepository;

@@ -93,6 +93,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\CallbackController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\TransmittalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -113,8 +114,11 @@
     </Compile>
     <Compile Include="UFilesMembershipProvider.cs" />
     <Compile Include="UFilesRoleProvider.cs" />
+    <Compile Include="ViewModels\CreateTransmittal.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CSS\site.core.css" />
     <Content Include="Content\CSS\site.core.mini.css" />
     <Content Include="Content\CSS\site.full.css" />
@@ -164,7 +168,13 @@
     <Content Include="Global.asax" />
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\bootstrap-alerts.js" />
     <Content Include="Scripts\bootstrap-dropdown.js" />
+    <Content Include="Scripts\bootstrap-modal.js" />
+    <Content Include="Scripts\bootstrap-popover.js" />
+    <Content Include="Scripts\bootstrap-scrollspy.js" />
+    <Content Include="Scripts\bootstrap-tabs.js" />
+    <Content Include="Scripts\bootstrap-twipsy.js" />
     <Content Include="Scripts\jquery-1.6.3-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.3.js" />
     <Content Include="Scripts\jquery-1.6.3.min.js" />
@@ -287,6 +297,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Administration\Views\File\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Transmittal\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Transmittal\AddFile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Transmittal\AddRestriction.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
