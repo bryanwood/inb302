@@ -26,5 +26,15 @@ namespace UFiles.Domain.Concrete
         {
             return unitOfWork.TransmittalRepository.Where(t => t.TransmittalId == id).Single();
         }
+
+
+        
+
+        public Transmittal AddRestriction(Transmittal transmittal, Restriction restriction)
+        {
+            throw new NotImplementedException();
+        }
+
+      
     }
 }
