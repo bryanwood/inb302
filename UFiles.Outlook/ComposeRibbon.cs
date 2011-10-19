@@ -16,8 +16,8 @@ namespace UFiles.Outlook
         private void ComposeRibbon_Load(object sender, RibbonUIEventArgs e)
         {
             this.upload.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.upload_Click);
-            this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOut_Click);
-            this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signIn_Click);
+            this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOutButton_Click);
+            this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signInButton_Click);
 
 
             updateuFileGallery();
@@ -35,6 +35,8 @@ namespace UFiles.Outlook
 
         private Boolean ServerConnect(string p, string p_2, string p_3, string p_4)
         {
+
+            throw new NotImplementedException();
             return false;
         }
 
