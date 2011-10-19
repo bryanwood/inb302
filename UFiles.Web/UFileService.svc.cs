@@ -29,16 +29,13 @@ namespace UFiles.Web
 
         public void AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData)
         {
-            var filedata = new FileData();
-            filedata.Size = fileData.Length;
-            filedata.Extension = fileType;
+           
             var file = new File();
             file.Name = fileName;
             file.Owner = db.Users.Find(userId);
             file.Transmittals.Add(db.Transmittals.Find(transmittalId));
             db.Files.Add(file);
-            db.FileDatas.Add(filedata);
-            db.SaveChanges();
+                      db.SaveChanges();
 
         }
 

@@ -18,7 +18,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
             var vm = new AdminDashboard
             {
                 Files = db.Files.Count(),
-                TotalStorageSize = db.FileDatas.Sum(x=>x.Size),
+                TotalStorageSize = db.Files.Sum(x=>x.Size),
                 RegisteredUsers = db.Users.Count(),
                 TransmittalsSent = db.Transmittals.Where(x=>x.Sent).Count()
                    
