@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Office.Tools.Ribbon;
+using UFiles.Outlook.UFileService;
 
 namespace UFiles.Outlook
 {
@@ -10,8 +11,9 @@ namespace UFiles.Outlook
 
     public partial class ComposeRibbon
     {
-        private String userName;
-        private String password;
+        private static String userName;
+        private static String password;
+        private static UFileServiceClient UClient;
 
         private void ComposeRibbon_Load(object sender, RibbonUIEventArgs e)
         {
@@ -19,8 +21,6 @@ namespace UFiles.Outlook
             this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOutButton_Click);
             this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signInButton_Click);
 
-
-            updateuFileGallery();
         }//Called when the ribbon is loaded
 
 
@@ -290,6 +290,11 @@ namespace UFiles.Outlook
 
         }
         #endregion
+
+        private void IPButton_Click_1(object sender, RibbonControlEventArgs e)
+        {
+
+        }
 
 
 
