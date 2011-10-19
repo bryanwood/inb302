@@ -63,8 +63,9 @@
             this.signInButton = this.Factory.CreateRibbonButton();
             this.signOutButton = this.Factory.CreateRibbonButton();
             this.separator1 = this.Factory.CreateRibbonSeparator();
-            this.userStatus = this.Factory.CreateRibbonLabel();
+            this.usernameEditBox = this.Factory.CreateRibbonEditBox();
             this.passwordEditBox = this.Factory.CreateRibbonEditBox();
+            this.userStatus = this.Factory.CreateRibbonLabel();
             this.manageServerGroup = this.Factory.CreateRibbonGroup();
             this.connectButton = this.Factory.CreateRibbonButton();
             this.disconnectButton = this.Factory.CreateRibbonButton();
@@ -108,7 +109,6 @@
             this.ipRestrictionComboBox = this.Factory.CreateRibbonComboBox();
             this.locationMenu = this.Factory.CreateRibbonMenu();
             this.groupMenu = this.Factory.CreateRibbonMenu();
-            this.usernameEditBox = this.Factory.CreateRibbonEditBox();
             this.uFile.SuspendLayout();
             this.manageuFile.SuspendLayout();
             this.manageAccount.SuspendLayout();
@@ -212,17 +212,23 @@
             // 
             this.separator1.Name = "separator1";
             // 
-            // userStatus
+            // usernameEditBox
             // 
-            this.userStatus.Label = "Guest Account";
-            this.userStatus.Name = "userStatus";
-            this.userStatus.ScreenTip = "What type of account you are currently using";
+            this.usernameEditBox.Label = "User Name";
+            this.usernameEditBox.Name = "usernameEditBox";
+            this.usernameEditBox.Text = null;
             // 
             // passwordEditBox
             // 
             this.passwordEditBox.Label = "Password";
             this.passwordEditBox.Name = "passwordEditBox";
             this.passwordEditBox.Text = null;
+            // 
+            // userStatus
+            // 
+            this.userStatus.Label = "Guest Account";
+            this.userStatus.Name = "userStatus";
+            this.userStatus.ScreenTip = "What type of account you are currently using";
             // 
             // manageServerGroup
             // 
@@ -294,6 +300,7 @@
             // 
             this.IPButton.Label = "IP";
             this.IPButton.Name = "IPButton";
+            this.IPButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.IPButton_Click_1);
             // 
             // URLButton
             // 
@@ -512,12 +519,6 @@
             // 
             this.groupMenu.Label = "Group";
             this.groupMenu.Name = "groupMenu";
-            // 
-            // usernameEditBox
-            // 
-            this.usernameEditBox.Label = "User Name";
-            this.usernameEditBox.Name = "usernameEditBox";
-            this.usernameEditBox.Text = null;
             // 
             // ComposeRibbon
             // 
