@@ -17,6 +17,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFiles.WebProto", "UFiles.WebProto\Capstone Website Interface Prototype\UFiles.WebProto.csproj", "{BBA3A7F5-E986-4066-9F81-EE142D3D4CCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFiles.Outlook", "UFiles.Outlook\UFiles.Outlook.csproj", "{ED7F4158-53BD-4A72-B712-5119C8A5A21A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0869748C-B89C-484D-A940-E702D3A6D87C} = {0869748C-B89C-484D-A940-E702D3A6D87C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
