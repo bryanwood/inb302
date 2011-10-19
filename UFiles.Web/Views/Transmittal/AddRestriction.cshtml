@@ -28,29 +28,34 @@
     <div class="pill-content">
         <div class="active" id="group">
             <p>Add a group restriction to this file.</p>
+                <input type="submit" value="Add Restriction" />
         </div>
         <div id="ip">
             <p>Add an IP restriction to this file.</p>
+                <input type="submit" value="Add Restriction" />
         </div>
         <div id="time">
             <p>Add a time range restriction to this file.</p>
+                <input type="submit" value="Add Restriction" />
         </div>
         <div id="location">
             <p>Add a location restriction ot this file.</p>
+                <input type="submit" value="Add Restriction" />
 
         </div>
         <div id="user">
             <p>Add a user restriction to this file.</p>
+                <input type="submit" value="Add Restriction" />
         </div>
     </div>
-    <input type="submit" value="Add Restriction" />
+
     </div>
     </div>
     
 
 }
 
-@using (Html.BeginForm(new { action = "Send", id = 0 }))
+@using (Html.BeginForm(new { action = "AddFile", id = 1 }))
 {
-    <input type="submit" value="Send Transmittal" />
+    <input type="submit" value="Back" />
 }
