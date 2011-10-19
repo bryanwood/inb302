@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>uFiles | @ViewBag.Title</title>
+    <link rel="Stylesheet" type="text/css" href="../../Content/CSS/site.core.css" />
+    @RenderSection("HeaderStylesheet", false)
+    <script type="text/javascript" src="../../Scripts/jquery-1.6.3.js"></script>
+    @RenderSection("HeaderJavascript", false)
+    @RenderSection("AdditionalHeaderContent", false)
+</head>
+<body>
+    @RenderBody()
+    <div class="footer">
+        <div class="footerContainer floatFix">
+            uFiles | Team 19 | Bryan Wood, Carl Francia, Daniel Smith, Dylan Toohey & Mitchell Pearson
+        </div>
+    </div>
+</body>
+<script type="text/javascript" runat="server">
+@RenderSection("InPageJavascript", false)
+</script>
+</html>
