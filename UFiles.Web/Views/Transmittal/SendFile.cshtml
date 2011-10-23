@@ -3,6 +3,10 @@
     ViewBag.Title = "Send a File";
     Layout = "~/Views/Shared/Full/_Site.Sectioned.Master.Layout.cshtml";
 }
+@section HeaderJavascript {
+    <script type="text/javascript" src="../../Scripts/JS/plupload.js"></script>
+    <script type="text/javascript" src="../../Scripts/JS/plupload.html5.js"></script>
+}
 @section PageHeader {
     <div class="coreHeaderUserContainer floatRight">
         logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span> |
@@ -39,11 +43,9 @@
 <div class="coreSectionContainer floatRight" id="fileUpload">
     <div class="coreContent floatFix">
         <div class="uploadSectionMajor floatFix">
-            <input type="submit" class="uploadSendButton coreButtonAccept floatRight" value="send file" />
-            <input type="file" name="uploadedFile" class="uploadUploadButton floatRight" />
-        </div>
-        <div class="boxInformationHighlight informationHighlightError" style="display: none;
-            opacity: 0.0;" id="validateFail">
+            <div id="fileUploadContainer">
+            </div>
+            <input type="button" id="fileUpload" name="uploadedFile" value="select file" class="uploadSendButton coreButtonAccept floatRight" />
         </div>
     </div>
 </div>
@@ -185,9 +187,8 @@
                         }
                     }
                 </select>
-                <span class="floatLeft boxSpanLabel">minute(s)</span>
+                <span class="floatLeft boxSpanLabel">minute(s) on </span>
                 <input class="boxSelect floatLeft" name="startTimeDate" />
-                <span class="floatLeft boxSpanLabel">date</span>
             </div>
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeEndRestrictionLabel">
@@ -209,9 +210,8 @@
                         }
                     }
                 </select>
-                <span class="floatLeft boxSpanLabel">minute(s)</span>
+                <span class="floatLeft boxSpanLabel">minute(s) on </span>
                 <input class="boxSelect floatLeft" name="endTimeDate" />
-                <span class="floatLeft boxSpanLabel">date</span>
             </div>
         </div>
         <div class="boxInformationHighlight informationHighlightError" style="display: none;
@@ -219,17 +219,65 @@
         </div>
     </div>
 </div>
+<div class="coreSectionHeader floatRight">
+    send file
+</div>
+<div class="coreSectionContainer floatRight" id="fileUpload">
+    <div class="coreContent floatFix">
+        <div class="uploadSectionMajor floatFix">
+            <input type="submit" class="uploadSendButton coreButtonAccept floatRight" onclick="uploader.start(); return false;"
+                value="send" />
+        </div>
+        <div class="boxSection floatFix">
+            <div class="boxInformationHighlight informationHighlightError" style="display: none;
+                opacity: 0.0;" id="validateFail">
+            </div>
+        </div>
+    </div>
+</div>
 </form>
 @section inPageJavascript {
-    $("#transmittalDetails").submit(function() { AjaxValidateAndGo(this, "@Url.Action("Upload")",
-"#validateFail"); return false; }); var currentRecipientTab = "email"; var currentRestrictionTab
-= "userRestriction"; function hasInput(input, tab) { if($(input).val() != "") {
-$('#' + tab + 'Tab').css("font-weight", "bold"); } else { $('#' + tab + 'Tab').css("font-weight",
-"normal"); } } function swapTab(toTab, isRecipientTab) { if(isRecipientTab) { $('#sendTo').val(toTab);
-$('#' + currentRecipientTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRecipientTab
-+ 'Section').css("display", "none"); currentRecipientTab = toTab; } else { $('#'
-+ currentRestrictionTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRestrictionTab
-+ 'Section').css("display", "none"); currentRestrictionTab = toTab; } $('#' + toTab
-+ 'Tab').addClass("coreTabSelected"); $('#' + toTab + 'Section').css("display",
-"block"); };
+
+$('[name="startTimeHour"]').val(@DateTime.Now.Hour);
+$('[name="startTimeMinute"]').val(@DateTime.Now.Minute);
+$('[name="startTimeDate"]').val('@DateTime.Now.ToShortDateString()');
+
+$('[name="endTimeHour"]').val(@DateTime.Now.Hour);
+$('[name="endTimeMinute"]').val(@DateTime.Now.Minute);
+$('[name="endTimeDate"]').val('@DateTime.Now.ToShortDateString()');
+
+    var currentRecipientTab = "email"; var currentRestrictionTab = "userRestriction";
+    function hasInput(input, tab) { if($(input).val() != "") { $('#' + tab + 'Tab').css("font-weight",
+    "bold"); } else { $('#' + tab + 'Tab').css("font-weight", "normal"); } } function
+    swapTab(toTab, isRecipientTab) { if(isRecipientTab) { $('#sendTo').val(toTab); $('#'
+    + currentRecipientTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRecipientTab
+    + 'Section').css("display", "none"); currentRecipientTab = toTab; } else { $('#'
+    + currentRestrictionTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRestrictionTab
+    + 'Section').css("display", "none"); currentRestrictionTab = toTab; } $('#' + toTab
+    + 'Tab').addClass("coreTabSelected"); $('#' + toTab + 'Section').css("display",
+    "block"); }; var uploader = new plupload.Uploader({ runtimes: 'html5', browse_button:
+    'fileUpload', max_file_count: 1, multipart: true, multipart_params: { 'recipientEmail':
+    '', 'recipientGroups': '', 'sendTo': '', 'emailRestriction': '', 'groupRestriction':
+    '', 'locationString': '', 'ipString': '', 'timeIsEnabled': '', 'startTimeHour':
+    '', 'startTimeMinute': '', '': 'startTimeDate', 'endTimeHour':'', 'endTimeMinute':
+    '', 'endTimeDate': '' }, url: '@Url.Action("Upload")' }); uploader.init(); uploader.bind('FilesAdded',
+    function(up, files) { $('#fileUploadContainer').html('<span class="boxSpanLabel">' +
+        files[0].name + '</span>'); }); uploader.bind('BeforeUpload', function(up,
+file) { up.settings.multipart_params.recipientEmail = $('input[name="recipientEmail"]').val();
+up.settings.multipart_params.recipientGroups = $('input[name="recipientGroups"]').val();
+up.settings.multipart_params.sendTo = $('input[name="sendTo"]').val(); up.settings.multipart_params.emailRestriction
+= $('[name="emailRestriction"]').val(); up.settings.multipart_params.groupRestriction
+= $('[name="groupRestriction"]').val(); up.settings.multipart_params.locationString
+= $('[name="locationString"]').val(); up.settings.multipart_params.ipString
+= $('[name="ipString"]').val(); up.settings.multipart_params.timeIsEnabled
+= $('[name="timeIsEnabled"]').val(); up.settings.multipart_params.startTimeHour
+= $('[name="startTimeHour"]').val(); up.settings.multipart_params.startTimeMinute
+= $('[name="startTimeMinute"]').val(); up.settings.multipart_params.startTimeDate
+= $('[name="startTimeDate"]').val(); up.settings.multipart_params.endTimeHour
+= $('[name="endTimeHour"]').val(); up.settings.multipart_params.endTimeMinute
+= $('[name="endTimeMinute"]').val(); up.settings.multipart_params.endTimeDate
+= $('[name="endTimeDate"]').val(); }); uploader.bind('FileUploaded', function(up,
+file, response) { var reply = $.parseJSON(response.response); if(reply.Success ==
+'false') { $('#validateFail').html(reply.FailureReason); $('#validateFail').slideDown(500);
+$('#validateFail').animate({ opacity: 1.0 }, 500); } });
 }
