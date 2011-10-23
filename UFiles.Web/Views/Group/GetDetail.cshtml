@@ -1,0 +1,25 @@
+﻿@model UFiles.Web.Models.GroupDetailModel
+@{
+    Layout = null;
+}
+<form id="groupDetail" name="groupDetail" action="#" method="post">
+<div class="boxSection floatFix" id="entrySection">
+    <div class="boxMinorSection floatFix">
+        <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+            Group Name</div>
+        <input type="text" class="boxInput floatRight" value="@Model.groupName" name="groupName" />
+    </div>
+    <div class="boxBoxMinorSection floatFix">
+        <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="passwordLabel">
+            Users</div>
+        <input type="text" class="boxInput floatRight" value="@Model.groupUsers" name="groupUsers" />
+    </div>
+</div>
+<div class="boxoxInformationHighlight informationHighlightError" style="display: none;
+    opacity: 0.0;" id="validateFail">
+</div>
+<div class="coreMiniBoxUserAction floatFix">
+    <input type="submit" class="coreButtonAccept boxButton floatLeft" value="save" />
+    <input type="button" class="coreButtonAccept boxButton floatRight" value="cancel" />
+</div>
+</form>

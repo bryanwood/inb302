@@ -1,0 +1,104 @@
+﻿@model UFiles.Web.Models.GroupViewModel
+@{
+    ViewBag.Title = "My Groups";
+    Layout = "~/Views/Shared/Full/_Site.Full.Master.Layout.cshtml";
+}
+@section PageHeading {
+    <a class="coreExternalHighlight" href="Home">home</a>/my groups
+}
+@section PageHeader {
+    <div class="coreHeaderUserContainer floatRight">
+        logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span> |
+        <a href="#">logout</a></div>
+}
+@section PageSidebar{
+    <div class="sideBarHeading">
+        @Model.getUser().FName @Model.getUser().LName</div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab">
+            <a href="@Url.Action("Overview", "Home")">home</a></div>
+        <div class="sidebarTab">
+            <a href="@Url.Action("SendFile", "Transmittal")">send a file</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab coreExternalHighlight" id="tabMyGroup">
+            <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyFiles">
+            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
+        <div class="sidebarTab" id="tabOtherFiles">
+            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabSettings">
+            <a href="@Url.Action("Settings", "Account")">settings</a></div>
+    </div>
+}
+@{ if (Model.groupList.Count < 1)
+   {
+    <div class="contentBarFull floatLeft">
+        <div class="contentPanel floatFix floatLeft">
+            <div class="panelLead">
+                no groups</div>
+            <div class="panelBacking">
+                <p>You don't seem to have any groups at the moment.</p>
+            </div>
+        </div>
+    </div>
+   }
+   else
+   {
+       foreach (UFiles.Web.Models.GroupListingModel g in Model.groupList)
+       {
+    <div class="contentBarMini floatLeft">
+        <div class="contentPanel floatFix floatLeft">
+            <div class="panelLead">
+                @g.groupName<span class="panelInlineControls floatRight"><a href="#" onclick="lightsOut('@Url.Action("GetDetail")?groupID=@g.groupID');">edit</a> | delete</span></div>
+            @if (g.includedUsers.Count < 1)
+            {
+                <div class="panelBacking">
+                    <p>There doesn't seem to be any members in this group.</p>
+                </div>
+            }
+            else
+            {
+                <div class="panelBacking floatFix">
+                    @foreach (UFiles.Domain.Entities.User u in g.includedUsers)
+                    {
+                        <p><div class="groupUserName">@u.FirstName @u.LastName</div><div class="groupUserName">@u.Email</div></p>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+       }
+   }
+}
+@section InPageJavascript {
+
+function lightsOut(address) {
+
+$('#lightBox').css('display','block');
+$('#lightBoxContainer').css('display','block');
+
+$.ajax({
+    type: "GET",
+    url: address,
+    statusCode: {
+
+    200: function(data) {
+$('#lightBoxContainer').html(data);
+    },
+    400: function(data) {
+$('#lightBox').css('display','none');
+$('#lightBoxContainer').css('display','none');
+
+    }
+
+    }
+    })
+
+}
+
+}
