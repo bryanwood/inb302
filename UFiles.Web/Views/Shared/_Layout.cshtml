@@ -31,7 +31,7 @@
                 <li>@Html.ActionLink("Send Files","Send","Transmittal")</li>
             </ul>
             <ul class="nav secondary-nav">
-                @Html.Partial("_LogOnPartial")
+                Html.Partial("_LogOnPartial")
             </ul>
         </div>
     </div>
@@ -42,6 +42,7 @@
     </div>
 </div>
    <script src="@Url.Content("~/Scripts/bootstrap-dropdown.js")"></script>
+   <script src="@Url.Content("~/Scripts/bootstrap-tabs.js")"></script>
    <script src="@Url.Content("~/Scripts/tablesorter.js")"></script>
 </body>
 </html>

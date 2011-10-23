@@ -7,11 +7,14 @@ using System.Data.Entity;
 using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
 using UFiles.Web.Models;
+using UFiles.Domain.Concrete;
 
 namespace UFiles.Web.Controllers
 {
+    
     public class TransmittalController : Controller
     {
+        private UFileContext db = new UFileContext();
         private ITransmittalService transmittalService;
         private IUserService userService;
 
@@ -99,10 +102,68 @@ namespace UFiles.Web.Controllers
             
             return RedirectToAction("Unavailable");
         }
-
+        
         public ActionResult Unavailable()
         {
             return View();
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost,ActionName("Create")]
+        public ActionResult CreatePost()
+        {
+            var transmittal = new Transmittal();
+            transmittal.Sender = db.Users.Where(u=>u.Email==User.Identity.Name).Single();
+            db.Transmittals.Add(transmittal);
+            db.SaveChanges();
+            return RedirectToAction("AddFile", new { id = transmittal.TransmittalId });
+        }
+        public ActionResult AddFile(int id)
+        {
+            return View(db.Transmittals.Find(id));
+        }
+        [HttpPost]
+        public ActionResult AddFile(Transmittal transmittal, HttpPostedFileBase file)
+        {
+            var dfile = new File();
+            dfile.Owner = db.Users.Where(u => u.Email == User.Identity.Name).Single();
+            dfile.Revoked = false;
+            dfile.Name = file.FileName;
+            dfile.DateCreated = DateTime.Now;
+            
+            dfile.ContentType = file.ContentType;
+            dfile.Size = file.ContentLength;
+            dfile.FileData = new byte[file.ContentLength];
+
+            file.InputStream.Read(dfile.FileData, 0, file.ContentLength);
+
+            db.Files.Add(dfile);
+            db.SaveChanges();
+            return RedirectToAction("AddRestriction", new { id = dfile.FileId });
+        }
+        public ActionResult AddRestriction(int id)
+        {
+            //TODO: Add Restrictions View Model needs to be worked out
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddRestriction(File file)
+        {
+            //TODO: Adding Restrictions from the View Model
+            return RedirectToAction("AddRestriction", new { id = file.FileId });
+        }
+        [HttpPost]
+        public ActionResult Send(int id)
+        {
+            //TODO: Email notifications
+            var transmittal = db.Transmittals.Find(id);
+            transmittal.Sent = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+  
     }
 }

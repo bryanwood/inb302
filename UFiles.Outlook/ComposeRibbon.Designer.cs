@@ -58,17 +58,27 @@
             this.separator2 = this.Factory.CreateRibbonSeparator();
             this.uFileMenu = this.Factory.CreateRibbonMenu();
             this.manageAccount = this.Factory.CreateRibbonGroup();
+            this.createUserButton = this.Factory.CreateRibbonButton();
             this.changeUser = this.Factory.CreateRibbonButton();
-            this.signOutButton = this.Factory.CreateRibbonButton();
             this.signInButton = this.Factory.CreateRibbonButton();
+            this.signOutButton = this.Factory.CreateRibbonButton();
             this.separator1 = this.Factory.CreateRibbonSeparator();
-            this.box1 = this.Factory.CreateRibbonBox();
-            this.serverIP = this.Factory.CreateRibbonEditBox();
-            this.serverConnectlabel = this.Factory.CreateRibbonLabel();
-            this.box2 = this.Factory.CreateRibbonBox();
-            this.userStatus = this.Factory.CreateRibbonLabel();
             this.usernameEditBox = this.Factory.CreateRibbonEditBox();
             this.passwordEditBox = this.Factory.CreateRibbonEditBox();
+            this.userStatus = this.Factory.CreateRibbonLabel();
+            this.manageServerGroup = this.Factory.CreateRibbonGroup();
+            this.connectButton = this.Factory.CreateRibbonButton();
+            this.disconnectButton = this.Factory.CreateRibbonButton();
+            this.separator4 = this.Factory.CreateRibbonSeparator();
+            this.box1 = this.Factory.CreateRibbonBox();
+            this.serverIPEditBox1 = this.Factory.CreateRibbonEditBox();
+            this.serverIPEditBox2 = this.Factory.CreateRibbonEditBox();
+            this.serverIPEditBox3 = this.Factory.CreateRibbonEditBox();
+            this.serverIPEditBox4 = this.Factory.CreateRibbonEditBox();
+            this.box7 = this.Factory.CreateRibbonBox();
+            this.IPButton = this.Factory.CreateRibbonButton();
+            this.URLButton = this.Factory.CreateRibbonButton();
+            this.serverConnectlabel = this.Factory.CreateRibbonLabel();
             this.uploaduFile = new System.Windows.Forms.OpenFileDialog();
             this.uFileRestrictions = this.Factory.CreateRibbonTab();
             this.restrictionsGroup = this.Factory.CreateRibbonGroup();
@@ -102,8 +112,9 @@
             this.uFile.SuspendLayout();
             this.manageuFile.SuspendLayout();
             this.manageAccount.SuspendLayout();
+            this.manageServerGroup.SuspendLayout();
             this.box1.SuspendLayout();
-            this.box2.SuspendLayout();
+            this.box7.SuspendLayout();
             this.uFileRestrictions.SuspendLayout();
             this.restrictionsGroup.SuspendLayout();
             this.timeRestrictionGroup.SuspendLayout();
@@ -117,6 +128,7 @@
             // 
             this.uFile.Groups.Add(this.manageuFile);
             this.uFile.Groups.Add(this.manageAccount);
+            this.uFile.Groups.Add(this.manageServerGroup);
             this.uFile.Label = "uFile";
             this.uFile.Name = "uFile";
             // 
@@ -159,21 +171,35 @@
             // 
             // manageAccount
             // 
+            this.manageAccount.Items.Add(this.createUserButton);
             this.manageAccount.Items.Add(this.changeUser);
-            this.manageAccount.Items.Add(this.signOutButton);
             this.manageAccount.Items.Add(this.signInButton);
+            this.manageAccount.Items.Add(this.signOutButton);
             this.manageAccount.Items.Add(this.separator1);
-            this.manageAccount.Items.Add(this.box1);
-            this.manageAccount.Items.Add(this.box2);
+            this.manageAccount.Items.Add(this.usernameEditBox);
             this.manageAccount.Items.Add(this.passwordEditBox);
+            this.manageAccount.Items.Add(this.userStatus);
             this.manageAccount.Label = "Manage Account";
             this.manageAccount.Name = "manageAccount";
+            // 
+            // createUserButton
+            // 
+            this.createUserButton.Label = "Create User";
+            this.createUserButton.Name = "createUserButton";
             // 
             // changeUser
             // 
             this.changeUser.Label = "Change User";
             this.changeUser.Name = "changeUser";
             this.changeUser.ScreenTip = "Change the user currently logged into uFile";
+            // 
+            // signInButton
+            // 
+            this.signInButton.Label = "Sign In";
+            this.signInButton.Name = "signInButton";
+            this.signInButton.ScreenTip = "Sign In";
+            this.signInButton.Visible = false;
+            this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signInButton_Click);
             // 
             // signOutButton
             // 
@@ -182,46 +208,9 @@
             this.signOutButton.ScreenTip = "Sign Out";
             this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOutButton_Click);
             // 
-            // signInButton
-            // 
-            this.signInButton.Label = "Sign In";
-            this.signInButton.Name = "signInButton";
-            this.signInButton.ScreenTip = "Sign In";
-            this.signInButton.Visible = false;
-            // 
             // separator1
             // 
             this.separator1.Name = "separator1";
-            // 
-            // box1
-            // 
-            this.box1.Items.Add(this.serverIP);
-            this.box1.Items.Add(this.serverConnectlabel);
-            this.box1.Name = "box1";
-            // 
-            // serverIP
-            // 
-            this.serverIP.Label = "Server IP:";
-            this.serverIP.Name = "serverIP";
-            this.serverIP.ScreenTip = "Designate the IP/URL of the uFile server";
-            this.serverIP.Text = null;
-            // 
-            // serverConnectlabel
-            // 
-            this.serverConnectlabel.Label = "Disconnected";
-            this.serverConnectlabel.Name = "serverConnectlabel";
-            // 
-            // box2
-            // 
-            this.box2.Items.Add(this.userStatus);
-            this.box2.Items.Add(this.usernameEditBox);
-            this.box2.Name = "box2";
-            // 
-            // userStatus
-            // 
-            this.userStatus.Label = "Guest Account";
-            this.userStatus.Name = "userStatus";
-            this.userStatus.ScreenTip = "What type of account you are currently using";
             // 
             // usernameEditBox
             // 
@@ -231,9 +220,98 @@
             // 
             // passwordEditBox
             // 
-            this.passwordEditBox.Label = "  Password";
+            this.passwordEditBox.Label = "Password";
             this.passwordEditBox.Name = "passwordEditBox";
             this.passwordEditBox.Text = null;
+            // 
+            // userStatus
+            // 
+            this.userStatus.Label = "Guest Account";
+            this.userStatus.Name = "userStatus";
+            this.userStatus.ScreenTip = "What type of account you are currently using";
+            // 
+            // manageServerGroup
+            // 
+            this.manageServerGroup.Items.Add(this.connectButton);
+            this.manageServerGroup.Items.Add(this.disconnectButton);
+            this.manageServerGroup.Items.Add(this.separator4);
+            this.manageServerGroup.Items.Add(this.box1);
+            this.manageServerGroup.Items.Add(this.box7);
+            this.manageServerGroup.Items.Add(this.serverConnectlabel);
+            this.manageServerGroup.Label = "Manage Server";
+            this.manageServerGroup.Name = "manageServerGroup";
+            // 
+            // connectButton
+            // 
+            this.connectButton.Label = "Connect";
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.connectButton_Click);
+            // 
+            // disconnectButton
+            // 
+            this.disconnectButton.Label = "Disconnect";
+            this.disconnectButton.Name = "disconnectButton";
+            this.disconnectButton.Visible = false;
+            // 
+            // separator4
+            // 
+            this.separator4.Name = "separator4";
+            // 
+            // box1
+            // 
+            this.box1.Items.Add(this.serverIPEditBox1);
+            this.box1.Items.Add(this.serverIPEditBox2);
+            this.box1.Items.Add(this.serverIPEditBox3);
+            this.box1.Items.Add(this.serverIPEditBox4);
+            this.box1.Name = "box1";
+            // 
+            // serverIPEditBox1
+            // 
+            this.serverIPEditBox1.Label = "Server Address:";
+            this.serverIPEditBox1.Name = "serverIPEditBox1";
+            this.serverIPEditBox1.ScreenTip = "Designate the IP/URL of the uFile server";
+            this.serverIPEditBox1.Text = null;
+            // 
+            // serverIPEditBox2
+            // 
+            this.serverIPEditBox2.Label = ".";
+            this.serverIPEditBox2.Name = "serverIPEditBox2";
+            this.serverIPEditBox2.Text = null;
+            // 
+            // serverIPEditBox3
+            // 
+            this.serverIPEditBox3.Label = ".";
+            this.serverIPEditBox3.Name = "serverIPEditBox3";
+            this.serverIPEditBox3.Text = null;
+            // 
+            // serverIPEditBox4
+            // 
+            this.serverIPEditBox4.Label = ".";
+            this.serverIPEditBox4.Name = "serverIPEditBox4";
+            this.serverIPEditBox4.Text = null;
+            // 
+            // box7
+            // 
+            this.box7.Items.Add(this.IPButton);
+            this.box7.Items.Add(this.URLButton);
+            this.box7.Name = "box7";
+            // 
+            // IPButton
+            // 
+            this.IPButton.Label = "IP";
+            this.IPButton.Name = "IPButton";
+            this.IPButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.IPButton_Click_1);
+            // 
+            // URLButton
+            // 
+            this.URLButton.Label = "URL";
+            this.URLButton.Name = "URLButton";
+            this.URLButton.Visible = false;
+            // 
+            // serverConnectlabel
+            // 
+            this.serverConnectlabel.Label = "Disconnected";
+            this.serverConnectlabel.Name = "serverConnectlabel";
             // 
             // uploaduFile
             // 
@@ -428,13 +506,13 @@
             // 
             // ipRestrictionComboBox
             // 
-            this.ipRestrictionComboBox.Label = "Server IP";
+            this.ipRestrictionComboBox.Label = "IP";
             this.ipRestrictionComboBox.Name = "ipRestrictionComboBox";
             this.ipRestrictionComboBox.Text = null;
             // 
             // locationMenu
             // 
-            this.locationMenu.Label = "Location";
+            this.locationMenu.Label = "PostCode";
             this.locationMenu.Name = "locationMenu";
             // 
             // groupMenu
@@ -445,7 +523,8 @@
             // ComposeRibbon
             // 
             this.Name = "ComposeRibbon";
-            this.RibbonType = "Microsoft.Outlook.Mail.Compose";
+            this.RibbonType = "Microsoft.Outlook.Mail.Compose, Microsoft.Outlook.Mail.Read, Microsoft.Outlook.Po" +
+                "st.Compose, Microsoft.Outlook.Post.Read";
             this.Tabs.Add(this.uFile);
             this.Tabs.Add(this.uFileRestrictions);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.ComposeRibbon_Load);
@@ -455,10 +534,12 @@
             this.manageuFile.PerformLayout();
             this.manageAccount.ResumeLayout(false);
             this.manageAccount.PerformLayout();
+            this.manageServerGroup.ResumeLayout(false);
+            this.manageServerGroup.PerformLayout();
             this.box1.ResumeLayout(false);
             this.box1.PerformLayout();
-            this.box2.ResumeLayout(false);
-            this.box2.PerformLayout();
+            this.box7.ResumeLayout(false);
+            this.box7.PerformLayout();
             this.uFileRestrictions.ResumeLayout(false);
             this.uFileRestrictions.PerformLayout();
             this.restrictionsGroup.ResumeLayout(false);
@@ -503,13 +584,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonMenu locationMenu;
         internal Microsoft.Office.Tools.Ribbon.RibbonMenu groupMenu;
         internal Microsoft.Office.Tools.Ribbon.RibbonMenu uFileMenu;
-        internal Microsoft.Office.Tools.Ribbon.RibbonBox box1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox serverIP;
-        internal Microsoft.Office.Tools.Ribbon.RibbonLabel serverConnectlabel;
-        internal Microsoft.Office.Tools.Ribbon.RibbonBox box2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonLabel userStatus;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox usernameEditBox;
-        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox passwordEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box4;
         internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox startTimeIncludeCheckBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel label1;
@@ -529,6 +603,23 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonBox box6;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeHoursEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox endTimeMinutesEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton createUserButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel userStatus;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox passwordEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup manageServerGroup;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton connectButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton disconnectButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonSeparator separator4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox serverIPEditBox1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox serverIPEditBox2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox serverIPEditBox3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox serverIPEditBox4;
+        internal Microsoft.Office.Tools.Ribbon.RibbonBox box7;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton IPButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton URLButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel serverConnectlabel;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox usernameEditBox;
     }
 
     partial class ThisRibbonCollection
