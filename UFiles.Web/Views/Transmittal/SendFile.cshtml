@@ -15,7 +15,7 @@
         <div class="sidebarTab">
             <a href="@Url.Action("Overview", "Home")">home</a></div>
         <div class="sidebarTab coreExternalHighlight">
-            <a href="@Url.Action("SendFile", "Transmittal")">send a file</div>
+            <a href="@Url.Action("SendFile", "Transmittal")">send a file</a></div>
     </div>
     <div class="sidebarTabGroup">
         <div class="sidebarTab" id="tabMyGroup">
@@ -32,20 +32,21 @@
             <a href="@Url.Action("Settings", "Account")">settings</a></div>
     </div>
 }
+<form id="transmittalDetails" action="#" method="post" enctype="multipart/form-data">
 <div class="coreSectionHeader floatRight">
     attach file
 </div>
-<div class="coreSectionContainer floatRight" id="personalSettings">
-    <div class="coreContent">
-        <div class="uploadSectionMajor floatLeft floatFix">
-            <form name="fileUpload">
-            <input type="submit" class="uploadSendButton coreButtonAccept floatRight" value="attach" />
-            <input type="file" class="uploadUploadButton floatRight" />
-            </form>
+<div class="coreSectionContainer floatRight" id="fileUpload">
+    <div class="coreContent floatFix">
+        <div class="uploadSectionMajor floatFix">
+            <input type="submit" class="uploadSendButton coreButtonAccept floatRight" value="send file" />
+            <input type="file" name="uploadedFile" class="uploadUploadButton floatRight" />
+        </div>
+        <div class="boxInformationHighlight informationHighlightError" style="display: none;
+            opacity: 0.0;" id="validateFail">
         </div>
     </div>
 </div>
-<form id="transmittalDetails" name="settingsProfile" action="#" method="post">
 <input type="hidden" id="sendTo" name="sendTo" value="email" />
 <div class="coreSectionHeader floatRight">
     send to
@@ -67,7 +68,8 @@
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
                     Email Address</div>
-                <input type="text" class="boxInput floatRight" onblur="hasInput(this, 'email');" name="Email" />
+                <input type="text" class="boxInput floatRight" onblur="hasInput(this, 'email');"
+                    name="recipientEmail" />
             </div>
         </div>
         <div class="boxSection floatFix" style="display: none;" id="groupSection">
@@ -75,7 +77,7 @@
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
                     Group</div>
                 <input type="text" class="boxInput floatRight" onblur="hasInput(this, 'group');"
-                    name="Group" />
+                    name="recipientGroups" />
             </div>
         </div>
         <div class="boxInformationHighlight informationHighlightError" style="display: none;
@@ -112,38 +114,104 @@
     </div>
     <div class="coreContent">
         <div class="boxSection floatFix" id="userRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to specific users by their email address below.<p>
+                    Seperate each email address with a <b>;</b>.</p>
+            </div>
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="userRestrictionLabel">
-                    User</div>
-                <input type="text" class="boxInput floatRight" name="UserRestriction" />
+                    Email Address</div>
+                <input type="text" class="boxInput floatRight" name="emailRestriction" />
             </div>
         </div>
         <div class="boxSection floatFix" style="display: none;" id="groupRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the group names listed below.<p>
+                    Seperate each group name with a <b>;</b>.</p>
+            </div>
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="GroupRestrictionLabel">
-                    Group</div>
-                <input type="text" class="boxInput floatRight" name="LocationRestriction" />
+                    Group Name</div>
+                <input type="text" class="boxInput floatRight" name="groupRestriction" />
             </div>
         </div>
         <div class="boxSection floatFix" style="display: none;" id="locationRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the locations by their post code below.<p>
+                    Seperate each post code with a <b>;</b>.</p>
+            </div>
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="LocationRestrictionLabel">
                     Location</div>
-                <input type="text" class="boxInput floatRight" name="LocationRestriction" />
+                <input type="text" class="boxInput floatRight" name="locationString" />
             </div>
         </div>
         <div class="boxSection floatFix" style="display: none;" id="ipRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the IP Addresses listed below.<p>
+                    Seperate each group name with a <b>;</b>.</p>
+            </div>
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="ipRestrictionLabel">
                     IP Address</div>
-                <input type="text" class="boxInput floatRight" name="LocationRestriction" />
+                <input type="text" class="boxInput floatRight" name="ipString" />
             </div>
         </div>
         <div class="boxSection floatFix" style="display: none;" id="timeRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the time range displayed below.</div>
             <div class="boxMinorSection floatFix">
-                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeRestrictionLabel">
-                    Time Range</div>
-                <input type="text" class="boxInput floatRight" name="TimeRestriction" />
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeRestrictionEnabledLabel">
+                    Enable</div>
+                <input type="checkbox" class="floatLeft" name="timeIsEnabled" />
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeStartRestrictionLabel">
+                    Start Time</div>
+                <select class="boxSelect floatLeft" name="startTimeHour">
+                    @{
+                        for (int i = 0; i < 24; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">hour(s)</span>
+                <select class="boxSelect floatLeft" name="startTimeMinute">
+                    @{
+                        for (int i = 0; i < 60; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">minute(s)</span>
+                <input class="boxSelect floatLeft" name="startTimeDate" />
+                <span class="floatLeft boxSpanLabel">date</span>
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeEndRestrictionLabel">
+                    End Time</div>
+                <select class="boxSelect floatLeft" name="endTimeHour">
+                    @{
+                        for (int i = 0; i < 24; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">hour(s)</span>
+                <select class="boxSelect floatLeft" name="endTimeMinute">
+                    @{
+                        for (int i = 0; i < 60; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">minute(s)</span>
+                <input class="boxSelect floatLeft" name="endTimeDate" />
+                <span class="floatLeft boxSpanLabel">date</span>
             </div>
         </div>
         <div class="boxInformationHighlight informationHighlightError" style="display: none;
@@ -153,11 +221,12 @@
 </div>
 </form>
 @section inPageJavascript {
-var currentRecipientTab = "email"; var currentRestrictionTab = "userRestriction";
-function hasInput(input, tab) { if($(input).val() != "") { $('#' + tab + 'Tab').css("font-weight",
-"bold"); } else { $('#' + tab + 'Tab').css("font-weight", "normal"); } } function
-swapTab(toTab, isRecipientTab) { if(isRecipientTab) { $('#sendTo').val(toTab); $('#'
-+ currentRecipientTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRecipientTab
+    $("#transmittalDetails").submit(function() { AjaxValidateAndGo(this, "@Url.Action("Upload")",
+"#validateFail"); return false; }); var currentRecipientTab = "email"; var currentRestrictionTab
+= "userRestriction"; function hasInput(input, tab) { if($(input).val() != "") {
+$('#' + tab + 'Tab').css("font-weight", "bold"); } else { $('#' + tab + 'Tab').css("font-weight",
+"normal"); } } function swapTab(toTab, isRecipientTab) { if(isRecipientTab) { $('#sendTo').val(toTab);
+$('#' + currentRecipientTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRecipientTab
 + 'Section').css("display", "none"); currentRecipientTab = toTab; } else { $('#'
 + currentRestrictionTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRestrictionTab
 + 'Section').css("display", "none"); currentRestrictionTab = toTab; } $('#' + toTab

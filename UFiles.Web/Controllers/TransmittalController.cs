@@ -28,6 +28,51 @@ namespace UFiles.Web.Controllers
             return View(model);
         }
 
+        [Authorize, HttpPost]
+        public JsonResult Upload(TransmittalSendModel model)
+        {
+            const int errorStatusCode = 400;
+            const int successStatusCode = 201;
+
+            Dictionary<String, String> jsonDictionary = new Dictionary<string, string>();
+
+            jsonDictionary.Add("ReplyingFor", "SendFile");
+
+            if (!ModelState.IsValid)
+            {
+
+                string errorTemp = "";
+
+                if (String.IsNullOrWhiteSpace(model.recipientEmail) && String.IsNullOrWhiteSpace(model.recipientGroups))
+                {
+                    jsonDictionary.Add("FailureReason", "<p>You must fill out either an email address or a group to send to.</p>");
+                    Response.StatusCode = errorStatusCode;
+
+                    return Json(jsonDictionary); ;
+                }
+
+                foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                {
+                    foreach (ModelError e in i.Value.Errors)
+                    {
+                        errorTemp += "<p>" + e.ErrorMessage + "</p>";
+                    }
+                }
+
+                jsonDictionary.Add("FailureReason", errorTemp);
+                Response.StatusCode = errorStatusCode;
+
+                return Json(jsonDictionary);
+
+            }
+
+            jsonDictionary.Add("Success", "True");
+
+            Response.StatusCode = successStatusCode;
+            return Json(jsonDictionary);
+
+        }
+
         [Authorize]
         public ActionResult List()
         {
