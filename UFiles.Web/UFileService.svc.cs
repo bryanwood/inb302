@@ -26,6 +26,10 @@ namespace UFiles.Web
             db.SaveChanges();
             return transmittal.TransmittalId;
         }
+        public Group[] GetGroups()
+        {
+            return db.Groups.ToArray();
+        }
 
         public void AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData)
         {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d61b9b32-400a-4576-8fdf-66b03cdb7cd2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:58314/UFileService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="UFileService.xsd" MetadataType="Schema" ID="378cddde-b5c8-40f9-91f2-ba453f101c7a" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd3" />
+    <MetadataFile FileName="UFileService.wsdl" MetadataType="Wsdl" ID="744f409e-0adf-4f80-af1e-da3830a71dc1" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?wsdl" />
+    <MetadataFile FileName="UFileService.disco" MetadataType="Disco" ID="388d6bc1-8943-43e3-9b51-eb250f856c7a" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?disco" />
+    <MetadataFile FileName="UFileService1.xsd" MetadataType="Schema" ID="e48074a6-b56d-49c2-b3a0-67e33b2b2719" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd2" />
+    <MetadataFile FileName="UFileService2.xsd" MetadataType="Schema" ID="4d69fdc9-d39b-489b-975a-03aa33290d16" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd1" />
+    <MetadataFile FileName="UFileService3.xsd" MetadataType="Schema" ID="9e86d12f-fe32-403a-8659-f524da968fac" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

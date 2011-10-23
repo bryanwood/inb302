@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using UFiles.Domain.Entities;
 
 namespace UFiles.Web
 {
@@ -13,6 +14,9 @@ namespace UFiles.Web
     {
         [OperationContract]
         int Login(string username, string password);
+
+        [OperationContract]
+        Group[] GetGroups();
 
         [OperationContract]
         int NewTransmittal(int userId);

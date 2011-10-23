@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfGroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Group" nillable="true" type="tns:Group" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroup" nillable="true" type="tns:ArrayOfGroup" />
+  <xs:complexType name="Group">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GroupId" type="xs:int" />
+      <xs:element minOccurs="0" name="GroupRestrictions" nillable="true" type="tns:ArrayOfGroupRestriction" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Owner" nillable="true" type="tns:User" />
+      <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Group" nillable="true" type="tns:Group" />
+  <xs:complexType name="ArrayOfGroupRestriction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GroupRestriction" nillable="true" type="tns:GroupRestriction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGroupRestriction" nillable="true" type="tns:ArrayOfGroupRestriction" />
+  <xs:complexType name="GroupRestriction">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Restriction">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Groups" nillable="true" type="tns:ArrayOfGroup" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GroupRestriction" nillable="true" type="tns:GroupRestriction" />
+  <xs:complexType name="Restriction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RestrictionId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Restriction" nillable="true" type="tns:Restriction" />
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileAccessEvents" nillable="true" type="tns:ArrayOfFileAccessEvent" />
+      <xs:element minOccurs="0" name="Files" nillable="true" type="tns:ArrayOfFile" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MemberGroups" nillable="true" type="tns:ArrayOfGroup" />
+      <xs:element minOccurs="0" name="OwnedGroups" nillable="true" type="tns:ArrayOfGroup" />
+      <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReceivedTransmittals" nillable="true" type="tns:ArrayOfTransmittal" />
+      <xs:element minOccurs="0" name="Role" nillable="true" type="tns:Role" />
+      <xs:element minOccurs="0" name="RoleId" type="xs:int" />
+      <xs:element minOccurs="0" name="SentTransmittals" nillable="true" type="tns:ArrayOfTransmittal" />
+      <xs:element minOccurs="0" name="UserEvents" nillable="true" type="tns:ArrayOfUserEvent" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserRestrictions" nillable="true" type="tns:ArrayOfUserRestriction" />
+      <xs:element minOccurs="0" name="Verified" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VerifiedHash" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="User" nillable="true" type="tns:User" />
+  <xs:complexType name="ArrayOfFileAccessEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FileAccessEvent" nillable="true" type="tns:FileAccessEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFileAccessEvent" nillable="true" type="tns:ArrayOfFileAccessEvent" />
+  <xs:complexType name="FileAccessEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Event">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="File" nillable="true" type="tns:File" />
+          <xs:element minOccurs="0" name="User" nillable="true" type="tns:User" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FileAccessEvent" nillable="true" type="tns:FileAccessEvent" />
+  <xs:complexType name="Event">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EventId" type="xs:int" />
+      <xs:element minOccurs="0" name="Occurred" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Event" nillable="true" type="tns:Event" />
+  <xs:complexType name="File">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContentType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateCreated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FileAccessEvents" nillable="true" type="tns:ArrayOfFileAccessEvent" />
+      <xs:element minOccurs="0" name="FileData" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="FileId" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Owner" nillable="true" type="tns:User" />
+      <xs:element minOccurs="0" name="Restrictions" nillable="true" type="tns:ArrayOfRestriction" />
+      <xs:element minOccurs="0" name="Revoked" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Size" type="xs:int" />
+      <xs:element minOccurs="0" name="Transmittals" nillable="true" type="tns:ArrayOfTransmittal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="File" nillable="true" type="tns:File" />
+  <xs:complexType name="ArrayOfRestriction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Restriction" nillable="true" type="tns:Restriction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRestriction" nillable="true" type="tns:ArrayOfRestriction" />
+  <xs:complexType name="ArrayOfTransmittal">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Transmittal" nillable="true" type="tns:Transmittal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTransmittal" nillable="true" type="tns:ArrayOfTransmittal" />
+  <xs:complexType name="Transmittal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Files" nillable="true" type="tns:ArrayOfFile" />
+      <xs:element minOccurs="0" name="Recipients" nillable="true" type="tns:ArrayOfUser" />
+      <xs:element minOccurs="0" name="Sender" nillable="true" type="tns:User" />
+      <xs:element minOccurs="0" name="Sent" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TransmittalEvents" nillable="true" type="tns:ArrayOfTransmittalEvent" />
+      <xs:element minOccurs="0" name="TransmittalId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Transmittal" nillable="true" type="tns:Transmittal" />
+  <xs:complexType name="ArrayOfFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="File" nillable="true" type="tns:File" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFile" nillable="true" type="tns:ArrayOfFile" />
+  <xs:complexType name="ArrayOfUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="User" nillable="true" type="tns:User" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUser" nillable="true" type="tns:ArrayOfUser" />
+  <xs:complexType name="ArrayOfTransmittalEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TransmittalEvent" nillable="true" type="tns:TransmittalEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTransmittalEvent" nillable="true" type="tns:ArrayOfTransmittalEvent" />
+  <xs:complexType name="TransmittalEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Event">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Transmittal" nillable="true" type="tns:Transmittal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TransmittalEvent" nillable="true" type="tns:TransmittalEvent" />
+  <xs:complexType name="Role">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RoleId" type="xs:int" />
+      <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Role" nillable="true" type="tns:Role" />
+  <xs:complexType name="ArrayOfUserEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserEvent" nillable="true" type="tns:UserEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserEvent" nillable="true" type="tns:ArrayOfUserEvent" />
+  <xs:complexType name="UserEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Event">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="User" nillable="true" type="tns:User" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserEvent" nillable="true" type="tns:UserEvent" />
+  <xs:complexType name="ArrayOfUserRestriction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserRestriction" nillable="true" type="tns:UserRestriction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserRestriction" nillable="true" type="tns:ArrayOfUserRestriction" />
+  <xs:complexType name="UserRestriction">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Restriction">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUser" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserRestriction" nillable="true" type="tns:UserRestriction" />
+</xs:schema>
