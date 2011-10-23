@@ -8,6 +8,10 @@
 @section HeaderJavascript {
     @RenderSection("HeaderJavascript", false)
 }
+<div class="lightBox" id="lightBoxLightsOut">
+    <div class="coreLightBoxContainer" id="lightBoxContainer">
+    </div>
+</div>
 <div class="coreContainer floatFix">
     <div class="coreHeader floatFix">
         <div class="coreHeaderInternal floatFix floatRight">
@@ -19,7 +23,7 @@
             @RenderSection("PageSidebar")
         </div>
     </div>
-            @RenderBody()
+    @RenderBody()
     <div class="coreInternalContainer floatRight" id="content">
     </div>
 </div>
