@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "AddFile";
+}
+
+<h2>Add File to Transmittal</h2>
+
+@using (Html.BeginForm("AddFile", "Transmittal", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<input type="file" name="file" />
+    <input type="submit" value="Upload File" />
+}
+@using (Html.BeginForm(new { action = "Send", id = 0 }))
+{
+    <input type="submit" value="Send Transmittal" />
+}
