@@ -1,21 +1,24 @@
-﻿.coreLightbox
+﻿.coreLightBoxContainer
 {
     display: none;
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    background-color: #000000;
-    opacity: 0.9;
+    padding: 10px 10px 10px 10px;
+    margin: 40px auto 0 auto;
+    width: 500px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-width: 0px 10px 0px 0px;
+    border-color: #ffbf43;
+    text-align: center;
 }
 
-.coreLightBoxContainer
+.lightBox
 {
-    display: none;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
-    border-style: none;
-    overflow: hidden;
+    display: none;
+    background-color: rgba(0,0,0,0.9);
 }
 
 .sideBarHeading
@@ -71,7 +74,8 @@
 
 .contentBarMini
 {
-    width: 350px;
+    width: 390px;
+    margin: 10px 0px 0px 10px;
     background-color: #FFFFFF;
 }
 
@@ -94,6 +98,28 @@
     border-color: #48abf7;
     border-style: solid;
     border-width: 0 0 2px 0;
+}
+
+.panelLead
+{
+    font-size: 24px;
+    color: #FFFFFF;
+    background-color: #333333;
+    padding: 5px 0 5px 20px;
+}
+
+.panelBacking
+{
+    background-color: #4d4d4d;
+    color: #FFFFFF;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 10px;
+}
+
+.panelInlineControls
+{
+    font-size: 12px;
+    padding: 5px 10px 0 0;
 }
 
 .panelTab
@@ -197,8 +223,8 @@
 .uploadSendButton
 {
     margin: 5px 5px 5px 0;
-    width: 50px;
-    height: 20px;
+    width: 100px;
+    height: 25px;
 }
 
 .detailsSection
@@ -249,6 +275,13 @@
     color: #707070;
 }
 
+.boxSpanLabel
+{
+    padding: 2px 0 0 0;
+    text-align: right;
+    color: #707070;
+}
+
 .boxInformationHighlight
 {
     border-style: solid;
@@ -275,6 +308,14 @@
     border-style: solid;
 }
 
+.boxSelect
+{
+    height: 20px;
+    border-width: 1px;
+    border-color: #e5e5e5;
+    border-style: solid;
+}
+
 .boxInput:focus
 {
     border-color: #bfbfbf;
@@ -289,4 +330,14 @@
     padding: 10px 15px 0px 15px;
     width: 460px;
     overflow: hidden;
+}
+
+.groupUserName
+{
+    width: 330px;
+}
+
+.groupEmail
+{
+    width: 330px;
 }

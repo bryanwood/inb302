@@ -22,20 +22,28 @@ namespace UFiles.Web.Controllers
         //
         // GET: /Group/
 
+        [Authorize]
         public ActionResult Index()
         {
-            var user = userService.GetUserByEmail(User.Identity.Name);
-
-            var groups = groupService.GetGroupsByOwner(user);
-
-            return View(groups);
+            return RedirectToActionPermanent("MyGroups");
         }
 
+        [Authorize]
         public ActionResult MyGroups()
         {
             GroupViewModel model = new GroupViewModel(userService, groupService, User.Identity.Name);
 
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult GetDetail(int groupID)
+        {
+            GroupDetailModel model = new GroupDetailModel(groupID, groupService, userService, 
+                User.Identity.Name);
+
+            return View(model);
+
         }
 
         //
