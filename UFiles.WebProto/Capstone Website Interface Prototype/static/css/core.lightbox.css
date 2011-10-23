@@ -1,0 +1,130 @@
+﻿body
+{
+    margin: 0 0 0 0;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.floatFix
+{
+    overflow: hidden;
+}
+
+.floatLeft
+{
+    float: left;
+}
+
+.floatRight
+{
+    float: right;
+}
+
+.floatClear
+{
+    clear: both;
+}
+
+.coreMiniContainer
+{
+    margin: 100px auto 0 auto;
+    height: auto;
+    width: 510px;
+}
+
+.coreMiniHeader
+{
+    font-family: Arial;
+    color: #FFFFFF;
+    font-size: 42px;
+    text-align: right;
+}
+
+.coreMiniBox
+{
+    padding-top: 10px;
+    margin: 5px 0 0 0;
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-width: 0px 10px 0px 0px;
+    border-color: #ffbf43;
+}
+
+.coreMiniBoxUserAction
+{
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    border-color: #e5e5e5;
+    margin: 0 0px 0px 0px;
+    padding: 10px 15px 0px 15px;
+    width: 460px;
+    overflow: hidden;
+}
+
+.coreButtonCancel
+{
+    background-color: #8c8c8c;
+    border-style: none;
+    color: #FFFFFF;
+}
+
+.coreButtonAccept
+{
+    background-color: #48abf7;
+    border-style: none;
+    color: #FFFFFF;
+}
+
+.miniBoxSection
+{
+    width: 475px;
+    margin: 0 0 20px 0;
+    padding: 5px 5px 5px 5px;
+}
+
+.miniBoxInformationHighlight
+{
+    border-style: solid;
+    border-width: 0 0 0 5px;
+    background-color: #cdf0ff;
+    border-color: #59ceff;
+}
+
+.miniSectionDetail
+{
+    margin-bottom: 2px;
+}
+
+.miniLabel
+{
+    padding: 0 5px 0 0;
+    width: 100px;
+    text-align: right;
+    color: #707070;
+}
+
+.miniDescription
+{
+    font-weight: bold;
+}
+
+.miniButton
+{
+    width: 125px;
+    height: 30px;
+    font-size: 14px;
+    margin: 0 10px 0 0;
+}
+
+#downloadInfoExpandButton
+{
+    margin: 0 10px 5px 0;
+    width: 200px;
+    height: 20px;
+    font-size: 12px;
+}
+
+.miniBoxImportantHighlight
+{
+    font-size: 16px;
+}
