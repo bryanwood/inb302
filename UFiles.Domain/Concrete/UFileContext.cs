@@ -21,7 +21,7 @@ namespace UFiles.Domain.Concrete
         public DbSet<Role> Roles { get; set; }
         public UFileContext()
         {
-           
+            Configuration.ProxyCreationEnabled = false;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
