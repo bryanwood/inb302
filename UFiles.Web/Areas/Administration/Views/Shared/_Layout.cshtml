@@ -14,16 +14,24 @@
             <a class="brand" href="@Url.Action("Index","Home")">UFiles - Admin</a>
             <ul class="nav">
                 <li class="dropdown">
-                    <a class="dropdown-toggle">Users</a>
+                    <a class="dropdown-toggle" href="#">Users</a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("All Users","Index","User")</li>
                         <li>@Html.ActionLink("New User","Create","User")</li>
                     </ul>
                 </li>
-                <li>@Html.ActionLink("Files","File","Index")</li>
+                <li>@Html.ActionLink("Files","Index","File")</li>
+                <li>@Html.ActionLink("Transmittals","Index","Transmittal")</li>
+                <li class="dropdown"><a href="#" class="dropdown-toggle">Logs</a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("User Log","Users","Log")</li>
+                        <li>@Html.ActionLink("File Log","Files","Log")</li>
+                        <li>@Html.ActionLink("Transmittal Log","Transmittals","Log")</li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav secondary-nav">
-                @Html.Partial("_LogOnPartial")
+                
             </ul>
         </div>
     </div>

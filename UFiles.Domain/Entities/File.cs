@@ -13,13 +13,14 @@ namespace UFiles.Domain.Entities
         public string Name { get; set; }
         public DateTime DateCreated { get; set; }
         public bool Revoked { get; set; }
-        
+        public int Size { get; set; }
+        public string ContentType { get; set; }
+        public byte[] FileData { get; set; }
         public User Owner { get; set; }
         
         public virtual ICollection<Restriction> Restrictions { get; set; }
         
    
-        public FileData FileData { get; set; }
         
         public virtual ICollection<FileAccessEvent> FileAccessEvents { get; set; }
         

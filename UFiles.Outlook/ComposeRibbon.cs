@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Office.Tools.Ribbon;
+using UFiles.Outlook.UFileService;
 
 namespace UFiles.Outlook
 {
@@ -10,22 +11,35 @@ namespace UFiles.Outlook
 
     public partial class ComposeRibbon
     {
-        private String userName;
-        private String password;
+        private static String userName;
+        private static String password;
+        private static UFileServiceClient UClient;
 
         private void ComposeRibbon_Load(object sender, RibbonUIEventArgs e)
         {
             this.upload.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.upload_Click);
-            this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOut_Click);
-            this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signIn_Click);
+            this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOutButton_Click);
+            this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signInButton_Click);
 
-
-            updateuFileGallery();
         }//Called when the ribbon is loaded
 
 
         #region uFile ribbon section
         #region misc. methods
+        private Boolean ServerConnect(String IP)
+        {
+
+
+            return false;
+        }
+
+        private Boolean ServerConnect(string p, string p_2, string p_3, string p_4)
+        {
+
+            throw new NotImplementedException();
+            return false;
+        }
+
         private void updateuFileGallery()
         {
             string[] fileList = loadFileList();
@@ -46,7 +60,7 @@ namespace UFiles.Outlook
             return null;
         }
 
-        private String signIn()
+        private String signIn(string name, string pass)
         {
             return "passed";
         }
@@ -54,30 +68,43 @@ namespace UFiles.Outlook
         #endregion
         #region Event Handlers
 
+        private void IPButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            IPButton.Visible = false;
+            URLButton.Visible = true;
+            serverIPEditBox2.Visible = false;
+            serverIPEditBox3.Visible = false;
+            serverIPEditBox4.Visible = false;
+        }
+
+        private void URLButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            IPButton.Visible = true;
+            URLButton.Visible = false;
+            serverIPEditBox2.Visible = true;
+            serverIPEditBox3.Visible = true;
+            serverIPEditBox4.Visible = true;
+        }
+        private void connectButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (IPButton.Visible)
+            {
+                ServerConnect(serverIPEditBox1.Text, serverIPEditBox2.Text, serverIPEditBox3.Text, serverIPEditBox4.Text);
+            }
+            else
+            {
+                ServerConnect(serverIPEditBox1.Text);
+            }
+        }
+
         private void upload_Click(object sender, RibbonControlEventArgs e)
         {
             this.uploaduFile.ShowDialog();
 
         }//called when the uFile upload button is clicked
-        void signOut_Click(object sender, RibbonControlEventArgs e)
+        private void signInButton_Click(object sender, RibbonControlEventArgs e)
         {
-            this.signOutButton.Visible = false;
-            this.signInButton.Visible = true;
-            //Swap the sign in buttons
-
-            this.usernameEditBox.Text = "";
-            this.usernameEditBox.Enabled = true;
-            //clear and enable the username edit box
-
-            this.passwordEditBox.Text = "";
-            this.passwordEditBox.Enabled = true;
-            //clear and enable the apssword edit box
-
-            this.userStatus.Label = "Not Signed In";
-        }//called when the sign out button is clicked
-        void signIn_Click(object sender, RibbonControlEventArgs e)
-        {
-            switch (signIn())
+            switch (signIn(userName,password))
             {
                 case "passed":
 
@@ -263,6 +290,19 @@ namespace UFiles.Outlook
 
         }
         #endregion
+
+        private void IPButton_Click_1(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+
 
 
     }

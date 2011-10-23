@@ -10,5 +10,8 @@ namespace UFiles.Domain.Abstract
     {
         IQueryable<Transmittal> GetTransmittalsByUser(User user);
         Transmittal GetTransmittalById(int id);
+       // Transmittal CreateNewTransmittal();
+        //Transmittal AddRestriction(Transmittal transmittal, Restriction restriction);
+        //Transmittal AddFile(int transmittalId, File file);
     }
 }

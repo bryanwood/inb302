@@ -11,7 +11,6 @@ namespace UFiles.Domain.Abstract
     {
         IRepository<Event>          EventRepository { get; }
         IRepository<File>           FileRepository { get;  }
-        IRepository<FileData>       FileDataRepository { get; }
         IRepository<Group>          GroupRepository { get;  }
         IRepository<IPAddress>      IPAddressRepository { get; }
         IRepository<Location>       LocationRepository { get; }

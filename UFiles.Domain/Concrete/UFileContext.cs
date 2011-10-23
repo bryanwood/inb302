@@ -11,7 +11,6 @@ namespace UFiles.Domain.Concrete
     {
         public DbSet<Event> Events { get; set; }
         public DbSet<File> Files { get; set; }
-        public DbSet<FileData> FileDatas { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<IPAddress> IPAddresses { get; set; }
         public DbSet<Location> Locations { get; set; }
