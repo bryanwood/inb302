@@ -9,9 +9,11 @@ namespace UFiles.Web.Controllers
     public class HomeController : Controller
     {
         private IUserService userService;
-        public HomeController(IUserService userService)
+        private ITransmittalService transmittalService;
+        public HomeController(IUserService userService, ITransmittalService transmittalService)
         {
             this.userService = userService;
+            this.transmittalService = transmittalService;
         }
         public ActionResult Index()
         {
@@ -21,25 +23,7 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            OverviewModel overviewModel = new OverviewModel(userService, User.Identity.Name);
-
-            // Test data -- Delete after logging in works.
-            TransmittalListingModel testTransmittal = new TransmittalListingModel();
-            testTransmittal.FileName = "Test File.doc";
-            testTransmittal.Email = "important.guy@example.com";
-            testTransmittal.SentDate = DateTime.Now;
-            testTransmittal.DownloadLink = "ABC";
-
-            overviewModel.RecentlySentTransmittals.Add(testTransmittal);
-
-            testTransmittal = new TransmittalListingModel();
-
-            testTransmittal.FileName = "World Domination Plans.xls";
-            testTransmittal.Email = "doctor.evil@example.com";
-            testTransmittal.SentDate = DateTime.Now;
-            testTransmittal.DownloadLink = "ABB";
-
-            overviewModel.RecentlySentTransmittals.Add(testTransmittal);
+            OverviewModel overviewModel = new OverviewModel(userService, transmittalService, User.Identity.Name);
 
             // End test data
 

@@ -26,13 +26,11 @@ namespace UFiles.Domain.Concrete
             return unitOfWork.GroupRepository.Where(g => g.GroupId == id).Single();
         }
 
-        public Entities.Group CreateGroup(Entities.User owner)
+        public void CreateGroup(Entities.User owner, Group group)
         {
-            var group = new Group();
             group.Owner = owner;
             unitOfWork.GroupRepository.Add(group);
             unitOfWork.Save();
-            return group;
         }
 
         public void AddMember(Group group, User member)
@@ -45,6 +43,12 @@ namespace UFiles.Domain.Concrete
         public void RemoveMember(Group group, User member)
         {
             group.Users.Remove(member);
+            unitOfWork.GroupRepository.Update(group);
+            unitOfWork.Save();
+        }
+
+        public void SaveGroup(Group group)
+        {
             unitOfWork.GroupRepository.Update(group);
             unitOfWork.Save();
         }
