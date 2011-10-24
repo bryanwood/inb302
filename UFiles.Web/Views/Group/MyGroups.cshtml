@@ -35,30 +35,73 @@
             <a href="@Url.Action("Settings", "Account")">settings</a></div>
     </div>
 }
-@{ if (Model.groupList.Count < 1)
-   {
+@{ 
+    <div class="contentBarFull floatLeft">
+        <div class="contentPanel floatFix floatLeft">
+            <div class="panelLead">
+                create group</div>
+            <div class="panelBacking">
+            <form name="createGroup" id="createGroup" method="post" action="#">
+                <div class="boxSection floatFix" id="emailSection">
+                    <div class="boxMinorSection floatFix">
+                        <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="groupNameLabel">
+                            Group Name</div>
+                        <input type="text" class="boxInput floatRight" name="GroupName" onkeypress="hasInput(this);" />
+                    </div>
+                    <div class="boxMinorSection floatFix">
+                        <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="fNameLabel">
+                            Users</div>
+                        <input type="text" class="boxInput floatRight" name="UserEmailAddresses" 
+                         onfocus="showHelp();" onkeypress="hasInput(this);" onblur="startHideTimer();" />
+                    </div>
+                    <div class="boxInformationHighlight informationHighlightAdditional" style="display: none;
+                        opacity: 0.0; color: #000000;" id="createGroupInfo">
+                        Enter in the email addresses of the users you wish to add to the new group.<p>
+                            Seperate each email address with a <b>;</b>.</p>
+                    </div>
+                    <div class="boxInformationHighlight informationHighlightError" style="display: none;
+                        opacity: 0.0;" id="validateFail">
+                    </div>
+                </div>
+                <div id="submitButtonDiv" style="display: none;
+                        opacity: 0.0;">
+                <div class="boxUserAction floatFix">
+                    <input type="submit" class="coreButtonAccept boxButton" value="create" />
+                </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    if (Model.groupList.Count < 1)
+    {
     <div class="contentBarFull floatLeft">
         <div class="contentPanel floatFix floatLeft">
             <div class="panelLead">
                 no groups</div>
             <div class="panelBacking">
-                <p>You don't seem to have any groups at the moment.</p>
+                <p>
+                    You don't seem to have any groups at the moment.</p>
             </div>
         </div>
     </div>
-   }
-   else
-   {
-       foreach (UFiles.Web.Models.GroupListingModel g in Model.groupList)
-       {
+    }
+    else
+    {
+        foreach (UFiles.Web.Models.GroupListingModel g in Model.groupList)
+        {
     <div class="contentBarMini floatLeft">
         <div class="contentPanel floatFix floatLeft">
             <div class="panelLead">
-                @g.groupName<span class="panelInlineControls floatRight"><a href="#" onclick="lightsOut('@Url.Action("GetDetail")?groupID=@g.groupID');">edit</a> | delete</span></div>
+                @g.groupName<span class="panelInlineControls floatRight"><a href="#" onclick="lightsOut('@Url.Action("GetDetail")?groupID=@g.groupID');">edit</a>
+                    | <a href="#" onclick="lightsOut('@Url.Action("CheckDelete")?groupID=@g.groupID');">
+                        delete</a></span></div>
             @if (g.includedUsers.Count < 1)
             {
                 <div class="panelBacking">
-                    <p>There doesn't seem to be any members in this group.</p>
+                    <p>
+                        There doesn't seem to be any members in this group.</p>
                 </div>
             }
             else
@@ -66,39 +109,50 @@
                 <div class="panelBacking floatFix">
                     @foreach (UFiles.Domain.Entities.User u in g.includedUsers)
                     {
-                        <p><div class="groupUserName">@u.FirstName @u.LastName</div><div class="groupUserName">@u.Email</div></p>
+                        <p>
+                            <div class="groupUserName">@u.FirstName @u.LastName</div>
+                            <div class="groupUserName">@u.Email</div>
+                        </p>
                     }
                 </div>
             }
         </div>
     </div>
-       }
-   }
+        }
+    }
 }
 @section InPageJavascript {
+    $("#createGroup").submit(function() { AjaxValidateAndGo(this, "@Url.Action("CreateGroup")",
+"#validateFail"); return false; });
 
-function lightsOut(address) {
+function lightsOut(address) { $('#lightBox').css('display','block'); $('#lightBoxContainer').css('display','block');
+$.ajax({ type: "GET", url: address, statusCode: { 200: function(data) { $('#lightBoxContainer').html(data);
+}, 400: function(data) { $('#lightBox').css('display','none'); $('#lightBoxContainer').css('display','none');
+} } }) } function lightsOn() { $('#lightBox').css('display','none'); $('#lightBoxContainer').css('display','none');
+$('#lightBoxContainer').html("Please wait..."); }
 
-$('#lightBox').css('display','block');
-$('#lightBoxContainer').css('display','block');
+var hideHelpTimer;
 
-$.ajax({
-    type: "GET",
-    url: address,
-    statusCode: {
-
-    200: function(data) {
-$('#lightBoxContainer').html(data);
-    },
-    400: function(data) {
-$('#lightBox').css('display','none');
-$('#lightBoxContainer').css('display','none');
-
-    }
-
-    }
-    })
-
+function showHelp()
+{
+    clearTimeout(hideHelpTimer);
+    $('#createGroupInfo').slideDown(500);
+    $('#createGroupInfo').animate({ opacity: 1.0 }, 500);
 }
 
+function startHideTimer()
+{
+    hideHelpTimer = setTimeout("hideHelp()", 2000);
+}
+
+function hideHelp()
+{
+    $('#createGroupInfo').animate({ opacity: 0.0 }, 500);
+    $('#createGroupInfo').slideUp(500);
+}
+
+function hasInput(input) { if($(input).val() != "") { 
+$('#submitButtonDiv').slideDown(500); 
+    $('#submitButtonDiv').animate({ opacity: 1.0 }, 500);
+}
 }

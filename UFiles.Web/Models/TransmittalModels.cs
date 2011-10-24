@@ -24,9 +24,6 @@ namespace UFiles.Web.Models
 
     public class TransmittalSendModel
     {
-        // File to be sent
-        [Required(ErrorMessage = "You must select a file to send")]
-        public Byte[] uploadedFile { get; set; }
         // Simple unparsed text
         public string recipientEmail { get; set; }
         public string recipientGroups { get; set; }
