@@ -83,64 +83,75 @@ namespace UFiles.Web.Controllers
 
             jsonDictionary.Add("ReplyingFor", "AuthenticationResults");
 
-            if (!ModelState.IsValid)
+            try
             {
 
-                string errorTemp = "";
-
-                if (String.IsNullOrWhiteSpace(authModel.Email) || String.IsNullOrWhiteSpace(authModel.Password))
+                if (!ModelState.IsValid)
                 {
-                    jsonDictionary.Add("FailureReason", "<p>You must fill out all of the fields.</p>");
+
+                    string errorTemp = "";
+
+                    if (String.IsNullOrWhiteSpace(authModel.Email) || String.IsNullOrWhiteSpace(authModel.Password))
+                    {
+                        jsonDictionary.Add("FailureReason", "<p>You must fill out all of the fields.</p>");
+                        Response.StatusCode = errorStatusCode;
+
+                        return Json(jsonDictionary);
+                    }
+
+                    foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                    {
+                        foreach (ModelError e in i.Value.Errors)
+                        {
+                            errorTemp += "<p>" + e.ErrorMessage + "</p>";
+                        }
+                    }
+
+                    jsonDictionary.Add("FailureReason", errorTemp);
                     Response.StatusCode = errorStatusCode;
 
-                    jsonReply = Json(jsonDictionary);
+                    return Json(jsonDictionary);
 
-                    return jsonReply;
                 }
 
-                foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                string goToAddress = Url.Action("Overview", "Home");
+
+                if (!String.IsNullOrWhiteSpace(passthrough))
                 {
-                    foreach (ModelError e in i.Value.Errors)
-                    {
-                        errorTemp += "<p>" + e.ErrorMessage + "</p>";
-                    }
+                    RouteValueDictionary passthroughValue = new RouteValueDictionary();
+                    passthroughValue.Add("id", passthrough);
+                    goToAddress = Url.Action("View", "TransmittalController", passthroughValue);
                 }
 
-                jsonDictionary.Add("FailureReason", errorTemp);
+                if (Membership.ValidateUser(authModel.Email, authModel.Password))
+                {
+                    bool remember = false;
+                    if (!String.IsNullOrEmpty(authModel.RememberMe))
+                    {
+                        remember = true;
+                    }
+
+                    FormsAuthentication.SetAuthCookie(authModel.Email, remember);
+                    jsonDictionary.Add("GoTo", goToAddress);
+                    Response.StatusCode = successStatusCode;
+
+                    return Json(jsonDictionary);
+                }
+                else
+                {
+                    jsonDictionary.Add("FailureReason", "<p>The provided email address or password is incorrect</p>");
+                    Response.StatusCode = errorStatusCode;
+
+                    return Json(jsonDictionary);
+                }
+
+            }
+            catch (Exception e)
+            {
+                jsonDictionary.Add("FailureReason", "<p>The provided email address or password is incorrect</p>");
                 Response.StatusCode = errorStatusCode;
 
-                jsonReply = Json(jsonDictionary);
-
-                return jsonReply;
-
-            }
-
-            string goToAddress = Url.Action("Overview", "Home");
-
-            if (!String.IsNullOrWhiteSpace(passthrough))
-            {
-                RouteValueDictionary passthroughValue = new RouteValueDictionary();
-                passthroughValue.Add("id", passthrough);
-                goToAddress = Url.Action("View", "TransmittalController", passthroughValue);
-            }
-
-            if (Membership.ValidateUser(authModel.Email, authModel.Password))
-            {
-                FormsAuthentication.SetAuthCookie(authModel.Email, authModel.RememberMe);
-                jsonDictionary.Add("GoTo", goToAddress);
-                Response.StatusCode = successStatusCode;
-
-                jsonReply = Json(jsonDictionary);
-                return jsonReply;
-            }
-            else
-            {
-                jsonDictionary.Add("FailureReason", "The provided email address or password is incorrect");
-                Response.StatusCode = errorStatusCode;
-
-                jsonReply = Json(jsonDictionary);
-
-                return jsonReply;
+                return Json(jsonDictionary);
             }
         }
 
@@ -155,93 +166,105 @@ namespace UFiles.Web.Controllers
 
             jsonDictionary.Add("ReplyingFor", "ValidationResults");
 
-            if (!ModelState.IsValid)
+            try
             {
 
-                string errorTemp = "";
-
-                if (String.IsNullOrWhiteSpace(regModel.Email) || String.IsNullOrWhiteSpace(regModel.FName) ||
-                    String.IsNullOrWhiteSpace(regModel.LName) || String.IsNullOrWhiteSpace(regModel.Password) ||
-                    String.IsNullOrWhiteSpace(regModel.ConfirmPassword))
+                if (!ModelState.IsValid)
                 {
-                    jsonDictionary.Add("FailureReason", "<p>You must fill out all of the fields.</p>");
+
+                    string errorTemp = "";
+
+                    if (String.IsNullOrWhiteSpace(regModel.Email) || String.IsNullOrWhiteSpace(regModel.FName) ||
+                        String.IsNullOrWhiteSpace(regModel.LName) || String.IsNullOrWhiteSpace(regModel.Password) ||
+                        String.IsNullOrWhiteSpace(regModel.ConfirmPassword))
+                    {
+                        jsonDictionary.Add("FailureReason", "<p>You must fill out all of the fields.</p>");
+                        Response.StatusCode = errorStatusCode;
+
+                        return Json(jsonDictionary); ;
+                    }
+
+                    foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                    {
+                        foreach (ModelError e in i.Value.Errors)
+                        {
+                            errorTemp += "<p>" + e.ErrorMessage + "</p>";
+                        }
+                    }
+
+                    jsonDictionary.Add("FailureReason", errorTemp);
                     Response.StatusCode = errorStatusCode;
 
-                    return Json(jsonDictionary);;
+                    return Json(jsonDictionary);
+
                 }
 
-                foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                MembershipCreateStatus createStatus;
+                if (Membership.GetUser(regModel.Email) == null)
                 {
-                    foreach (ModelError e in i.Value.Errors)
+                    Membership.CreateUser(regModel.Email, regModel.Password, regModel.Email, null, null, true, null, out createStatus);
+                    Roles.AddUsersToRole(new string[] { regModel.Email }, "Standard");
+                    if (createStatus == MembershipCreateStatus.Success)
                     {
-                        errorTemp += "<p>" + e.ErrorMessage + "</p>";
+                        FormsAuthentication.SetAuthCookie(regModel.Email, false /* createPersistentCookie */);
+
+                        // Set user's first name and last name.
+                        try
+                        {
+
+                            UFiles.Domain.Entities.User newUser = userService.GetUserByEmail(regModel.Email);
+                            newUser.FirstName = regModel.FName;
+                            newUser.LastName = regModel.LName;
+
+                            userService.SaveUser(newUser);
+
+                        }
+                        catch (Exception e)
+                        {
+                            // Give up on giving the user a first name and last name.
+                        }
+
+                        UrlHelper url = new UrlHelper(Request.RequestContext);
+                        jsonDictionary.Add("GoTo", url.RouteUrl("Home"));
                     }
-                }
-
-                jsonDictionary.Add("FailureReason", errorTemp);
-                Response.StatusCode = errorStatusCode;
-
-                return Json(jsonDictionary);
-
-            }
-
-            MembershipCreateStatus createStatus;
-            if (Membership.GetUser(regModel.Email) == null)
-            {
-                Membership.CreateUser(regModel.Email, regModel.Password, regModel.Email, null, null, true, null, out createStatus);
-                Roles.AddUsersToRole(new string[] { regModel.Email }, "Standard");
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(regModel.Email, false /* createPersistentCookie */);
-
-                    // Set user's first name and last name.
-                    try
+                    else
                     {
-                        
-                        UFiles.Domain.Entities.User newUser = userService.GetUserByEmail(regModel.Email);
-                        newUser.FirstName = regModel.FName;
-                        newUser.LastName = regModel.LName;
+                        jsonDictionary.Add("FailureReason", createStatus.ToString());
+                        Response.StatusCode = errorStatusCode;
 
-                        userService.SaveUser(newUser);
-
+                        return Json(jsonDictionary);
                     }
-                    catch (Exception e)
-                    {
-                        // Give up on giving the user a first name and last name.
-                    }
-
-                    UrlHelper url = new UrlHelper(Request.RequestContext);
-                    jsonDictionary.Add("GoTo", url.RouteUrl("Home"));
                 }
                 else
                 {
-                    jsonDictionary.Add("FailureReason", createStatus.ToString());
+                    jsonDictionary.Add("FailureReason", "Email already exists");
                     Response.StatusCode = errorStatusCode;
 
                     return Json(jsonDictionary);
                 }
-            }
-            else
-            {
-                jsonDictionary.Add("FailureReason", "Email already exists");
-                Response.StatusCode = errorStatusCode;
+
+                string goToAddress = Url.Action("Overview", "Home");
+
+                if (!String.IsNullOrWhiteSpace(passthrough))
+                {
+                    RouteValueDictionary passthroughValue = new RouteValueDictionary();
+                    passthroughValue.Add("id", passthrough);
+                    goToAddress = Url.Action("View", "Transmittal", passthroughValue);
+                }
+
+                jsonDictionary.Add("GoTo", goToAddress);
+                Response.StatusCode = successStatusCode;
 
                 return Json(jsonDictionary);
             }
-
-            string goToAddress = Url.Action("Overview", "Home");
-
-            if (!String.IsNullOrWhiteSpace(passthrough))
+            catch (Exception e)
             {
-                RouteValueDictionary passthroughValue = new RouteValueDictionary();
-                passthroughValue.Add("id", passthrough);
-                goToAddress = Url.Action("View", "Transmittal", passthroughValue);
+                jsonDictionary.Add("FailureReason", "<p>Something went wrong. Please try again later.</p>");
+                Response.StatusCode = errorStatusCode;
+
+                return Json(jsonDictionary); ;
             }
 
-            jsonDictionary.Add("GoTo", goToAddress);
-            Response.StatusCode = successStatusCode;
-
-            return Json(jsonDictionary);
         }
 
     }

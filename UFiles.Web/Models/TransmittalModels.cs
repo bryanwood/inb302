@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using UFiles.Domain.Entities;
 
 namespace UFiles.Web.Models
 {
@@ -12,6 +13,10 @@ namespace UFiles.Web.Models
         public string Email { get; set; }
         public DateTime SentDate { get; set; }
         public string DownloadLink { get; set; }
+
+        public TransmittalListingModel(Transmittal t)
+        {
+        }
     }
 
     public class TransmittalOverview

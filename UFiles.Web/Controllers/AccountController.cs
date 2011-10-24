@@ -29,6 +29,82 @@ namespace UFiles.Web.Controllers
             return View(model);
         }
 
+        [Authorize, HttpPost]
+        public JsonResult ChangeProfileInformation(ChangeProfileInformationModel model)
+        {
+
+
+            const int errorStatusCode = 400;
+            const int successStatusCode = 201;
+
+            Dictionary<String, String> jsonDictionary = new Dictionary<string, string>();
+
+            jsonDictionary.Add("ReplyingFor", "ChangeProfileInformation");
+
+            if (!ModelState.IsValid)
+            {
+
+                string errorTemp = "";
+
+                if (String.IsNullOrWhiteSpace(model.Email) || String.IsNullOrWhiteSpace(model.FName) ||
+                    String.IsNullOrWhiteSpace(model.LName))
+                {
+                    jsonDictionary.Add("FailureReason", "<p>You must fill out all of the fields.</p>");
+                    Response.StatusCode = errorStatusCode;
+
+                    return Json(jsonDictionary); ;
+                }
+
+                foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                {
+                    foreach (ModelError e in i.Value.Errors)
+                    {
+                        errorTemp += "<p>" + e.ErrorMessage + "</p>";
+                    }
+                }
+
+                jsonDictionary.Add("FailureReason", errorTemp);
+                Response.StatusCode = errorStatusCode;
+
+                return Json(jsonDictionary);
+
+            }
+            try
+            {
+                UFiles.Domain.Entities.User newUser = userService.GetUserByEmail(User.Identity.Name);
+                newUser.Email = model.Email;
+                newUser.FirstName = model.FName;
+                newUser.LastName = model.LName;
+
+                userService.SaveUser(newUser);
+
+                if (model.Email != User.Identity.Name)
+                {
+                    FormsAuthentication.SignOut();
+
+                    jsonDictionary.Add("Success", "True");
+                    jsonDictionary.Add("GoTo", Url.Action("Login", "Authentication"));
+                    Response.StatusCode = successStatusCode;
+
+                    return Json(jsonDictionary);
+                }
+            }
+            catch (Exception e)
+            {
+                jsonDictionary.Add("FailureReason", "<p>Something went wrong.</p>");
+                Response.StatusCode = errorStatusCode;
+
+                return Json(jsonDictionary); ;
+            }
+
+            jsonDictionary.Add("Success", "True");
+            jsonDictionary.Add("GoTo", Url.Action("Settings"));
+            Response.StatusCode = successStatusCode;
+
+            return Json(jsonDictionary);
+
+        }
+
         //
         // POST: /Account/ChangePassword
 

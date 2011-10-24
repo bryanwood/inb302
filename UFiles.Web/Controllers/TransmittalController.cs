@@ -51,19 +51,19 @@ namespace UFiles.Web.Controllers
                 }
             }
 
+            if (String.IsNullOrWhiteSpace(model.recipientEmail) && String.IsNullOrWhiteSpace(model.recipientGroups))
+            {
+                jsonDictionary.Add("FailureReason", "<p>You must fill out either an email address or a group to send to.</p>");
+                jsonDictionary.Add("Success", "false");
+                Response.StatusCode = successStatusCode;
+
+                return Json(jsonDictionary); ;
+            }
+
             if (!ModelState.IsValid)
             {
 
                 string errorTemp = "";
-
-                if (String.IsNullOrWhiteSpace(model.recipientEmail) && String.IsNullOrWhiteSpace(model.recipientGroups))
-                {
-                    jsonDictionary.Add("FailureReason", "<p>You must fill out either an email address or a group to send to.</p>");
-                    jsonDictionary.Add("Success", "false");
-                    Response.StatusCode = successStatusCode;
-
-                    return Json(jsonDictionary); ;
-                }
 
                 foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
                 {
@@ -80,7 +80,6 @@ namespace UFiles.Web.Controllers
                 return Json(jsonDictionary);
 
             }
-
 
             jsonDictionary.Add("Success", "true");
 

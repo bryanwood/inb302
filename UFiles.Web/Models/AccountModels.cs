@@ -38,7 +38,23 @@ namespace UFiles.Web.Models
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        public String RememberMe { get; set; }
+    }
+
+    public class ChangeProfileInformationModel
+    {
+        [Required(ErrorMessage = "You must enter a first name.")]
+        [DataType(DataType.Text)]
+        public string FName { get; set; }
+
+        [Required(ErrorMessage = "You must enter a last name.")]
+        [DataType(DataType.Text)]
+        public string LName { get; set; }
+
+        [Required(ErrorMessage = "You must enter an email address.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "You must enter a valid email address.")]
+        [Display(Name = "Email address")]
+        public string Email { get; set; }
     }
 
     public class RegisterModel
