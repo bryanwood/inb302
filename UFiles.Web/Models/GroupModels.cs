@@ -24,9 +24,12 @@ namespace UFiles.Web.Models
             this.owner = g.Owner;
             this.includedUsers = new List<User>();
 
-            foreach (User u in g.Users)
+            if (g.Users != null)
             {
-                this.includedUsers.Add(u);
+                foreach (User u in g.Users)
+                {
+                    this.includedUsers.Add(u);
+                }
             }
         }
 
@@ -65,8 +68,9 @@ namespace UFiles.Web.Models
         public string groupName { get; set; }
         public string groupUsers { get; set; }
 
-        public GroupDetailModel(int groupID, IGroupService groupService, 
-            IUserService userService, string email) : base(userService, email)
+        public GroupDetailModel(int groupID, IGroupService groupService,
+            IUserService userService, string email)
+            : base(userService, email)
         {
             Group g = groupService.GetGroup(groupID);
 

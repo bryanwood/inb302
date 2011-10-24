@@ -61,6 +61,7 @@
         <div class="boxUserAction floatFix">
             <input type="submit" class="coreButtonAccept boxButton" value="update" />
         </div>
+        </form>
     </div>
 </div>
 <div class="coreSectionHeader floatRight">
@@ -96,3 +97,8 @@
         </div>
     </div>
 </div>
+@section InPageJavascript
+{
+    $("#settingsProfile").submit(function() { AjaxValidateAndGo(this, "@Url.Action("ChangeProfileInformation")",
+"#profileValidateFail"); return false; });
+}

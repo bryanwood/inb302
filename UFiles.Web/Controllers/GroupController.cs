@@ -112,13 +112,17 @@ namespace UFiles.Web.Controllers
 
             }
 
-            Group newGroup = groupService.CreateGroup(userService.GetUserByEmail(User.Identity.Name));
+            Group newGroup = new Group();
+
             newGroup.Name = model.GroupName;
+            newGroup.Users = new List<User>();
 
             foreach(string e in model.getEmailAddressList())
             {
                 newGroup.Users.Add(userService.GetUserByEmail(e));
             }
+
+            groupService.CreateGroup(userService.GetUserByEmail(User.Identity.Name), newGroup);
 
             Response.StatusCode = successStatusCode;
             jsonDictionary.Add("GoTo", Url.Action("MyGroups"));
