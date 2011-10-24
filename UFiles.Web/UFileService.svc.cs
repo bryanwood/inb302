@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using UFiles.Domain.Concrete;
 using UFiles.Domain.Entities;
+using System.Data.Entity;
 
 namespace UFiles.Web
 {
@@ -26,12 +27,18 @@ namespace UFiles.Web
             db.SaveChanges();
             return transmittal.TransmittalId;
         }
-        public Group[] GetGroups()
+        public Location[] GetLocations()
         {
-            return db.Groups.ToArray();
+            return db.Locations.ToArray();
+        }
+        public Group[] GetGroups(int userId)
+        {
+            return db.Groups.Include(g=>g.Owner).Where(u=>u.Owner.UserId==userId).ToArray();
         }
 
-        public void AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData)
+
+
+        public int AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData)
         {
            
             var file = new File();
@@ -40,6 +47,7 @@ namespace UFiles.Web
             file.Transmittals.Add(db.Transmittals.Find(transmittalId));
             db.Files.Add(file);
                       db.SaveChanges();
+                      return file.FileId;
 
         }
 

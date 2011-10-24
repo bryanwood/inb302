@@ -92,11 +92,7 @@
     <Compile Include="Areas\Administration\Controllers\UserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-<<<<<<< local
-=======
-    <Compile Include="Controllers\CallbackController.cs" />
     <Compile Include="Controllers\FileController.cs" />
->>>>>>> other
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\TransmittalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -275,14 +271,8 @@
     <Content Include="Views\Group\MyGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< local
-    <Content Include="Views\Group\GetDetail.cshtml" />
-=======
     <Content Include="Areas\Administration\Views\Transmittal\Index.cshtml" />
->>>>>>> other
   </ItemGroup>
-<<<<<<< local
-=======
   <ItemGroup>
     <Content Include="Areas\Administration\Views\Home\Index.cshtml" />
   </ItemGroup>
@@ -316,7 +306,6 @@
   <ItemGroup>
     <Content Include="Views\Transmittal\AddRestriction.cshtml" />
   </ItemGroup>
->>>>>>> other
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
