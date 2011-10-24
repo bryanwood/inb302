@@ -11,34 +11,31 @@ namespace UFiles.Outlook
 
     public partial class ComposeRibbon
     {
-        private static String userName;
-        private static String password;
-        private static UFileServiceClient UClient;
+        private int userID = -1;
+        private UFileServiceClient UClient;
+        private String clientPassword;
 
         private void ComposeRibbon_Load(object sender, RibbonUIEventArgs e)
         {
+
             this.upload.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.upload_Click);
             this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOutButton_Click);
             this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signInButton_Click);
 
+            UClient = new UFileServiceClient();
+            UClient.Open();
+
         }//Called when the ribbon is loaded
+
+        ~ComposeRibbon()
+        {
+            UClient.Close();
+        }
 
 
         #region uFile ribbon section
         #region misc. methods
-        private Boolean ServerConnect(String IP)
-        {
 
-
-            return false;
-        }
-
-        private Boolean ServerConnect(string p, string p_2, string p_3, string p_4)
-        {
-
-            throw new NotImplementedException();
-            return false;
-        }
 
         private void updateuFileGallery()
         {
@@ -57,100 +54,40 @@ namespace UFiles.Outlook
         }
         private string[] loadFileList()
         {
-            return null;
+            return null; //UClient.
         }
 
-        private String signIn(string name, string pass)
-        {
-            return "passed";
-        }
 
         #endregion
         #region Event Handlers
 
-        private void IPButton_Click(object sender, RibbonControlEventArgs e)
-        {
-            IPButton.Visible = false;
-            URLButton.Visible = true;
-            serverIPEditBox2.Visible = false;
-            serverIPEditBox3.Visible = false;
-            serverIPEditBox4.Visible = false;
-        }
 
-        private void URLButton_Click(object sender, RibbonControlEventArgs e)
-        {
-            IPButton.Visible = true;
-            URLButton.Visible = false;
-            serverIPEditBox2.Visible = true;
-            serverIPEditBox3.Visible = true;
-            serverIPEditBox4.Visible = true;
-        }
         private void connectButton_Click(object sender, RibbonControlEventArgs e)
         {
-            if (IPButton.Visible)
-            {
-                ServerConnect(serverIPEditBox1.Text, serverIPEditBox2.Text, serverIPEditBox3.Text, serverIPEditBox4.Text);
-            }
-            else
-            {
-                ServerConnect(serverIPEditBox1.Text);
-            }
         }
 
         private void upload_Click(object sender, RibbonControlEventArgs e)
         {
             this.uploaduFile.ShowDialog();
+            //UClient.AddFile(userID, 1 /*transmittal ID*/, uploaduFile.FileName, "uFile" /*FileType*/ ,uploaduFile.);
 
         }//called when the uFile upload button is clicked
         private void signInButton_Click(object sender, RibbonControlEventArgs e)
         {
-            switch (signIn(userName,password))
+            if (!passwordEditBox.Text.Equals("****"))
             {
-                case "passed":
-
-                    this.usernameEditBox.Enabled = false;
-                    this.passwordEditBox.Enabled = false;
-
-                    this.userStatus.Label = "Guest Account";
-                    //if username and password passed the login
-                    break;
-                case "invalid":
-                    this.userStatus.Label = "Invalid User Name/Password";
-                    //if the username/password is invalid
-                    return;
-                case "noserver":
-                    this.userStatus.Label = "No server connection";
-                    //if no server connection in one form or another is detected
-                    return;
+                clientPassword = passwordEditBox.Text;
             }
-            this.signInButton.Visible = false;
-            this.signOutButton.Visible = true;
-            //Swap the sign in buttons
-
-            if (passwordEditBox.Text != "****")
-            {
-                password = passwordEditBox.Text;
-                passwordEditBox.Text = "****";
-
-            }
-            //retrieve and protect the user's password
-
-            userName = usernameEditBox.Text;
-
-            //retrieve the user's username
-
-
-
-
+            userID = UClient.Login(this.usernameEditBox.Text, clientPassword);
         }
         private void signOutButton_Click(object sender, RibbonControlEventArgs e)
         {
-            userName.Remove(0);
-            password.Remove(0);
-            this.usernameEditBox.Text = "";
-            this.passwordEditBox.Text = "";
-            this.usernameEditBox.Enabled = true;
-            this.passwordEditBox.Enabled = true;
+            if (UClient != null)
+            {
+                signOutButton.Visible = false;
+                signInButton.Visible = true;
+                userStatusLabel.Label = "Not Signed in";
+            }
         }
 
 
@@ -158,7 +95,12 @@ namespace UFiles.Outlook
 
         private void addLink_Click(object sender, RibbonControlEventArgs e)
         {
+            Microsoft.Office.Interop.Outlook.MailItem currentMail = this.Context as Microsoft.Office.Interop.Outlook.MailItem;
+            currentMail.Body.Insert(currentMail.Body.Length, "asdfa");
+            //Outlook.ThisFormRegionCollection.
+            //Outlook.Inspectors inspectors;
 
+            //Inspector.WordEditor
         }
 
         #endregion
@@ -176,16 +118,16 @@ namespace UFiles.Outlook
             RP.includeFinishTime = this.endTimeIncludeCheckBox.Checked;
 
             #region retrieve start time restriction times
-            if(startTimeIncludeCheckBox.Checked==true)
+            if (startTimeIncludeCheckBox.Checked == true)
             {
                 if (!int.TryParse(this.startTimeYearTextBox.Text, out startYear))
                 {
                     startYear = System.DateTime.Now.Year;
-                    this.startTimeYearTextBox.Text= startYear.ToString();
+                    this.startTimeYearTextBox.Text = startYear.ToString();
                 }
                 else if (startYear < 2000 || startYear > 3000)
-                { 
-                    this.startTimeYearTextBox.Text = "Invalid"; 
+                {
+                    this.startTimeYearTextBox.Text = "Invalid";
                 }
                 if (!int.TryParse(this.startTimeMonthDropDownBox.SelectedItem.Label, out startMonth))
                 {
@@ -211,7 +153,7 @@ namespace UFiles.Outlook
                 {
                     startTimeMinutesEditBox.Text = "Invalid";
                 }
-                RP.startTime = new DateTime(startYear,  startMonth,  startDay, startHour, startMinute, 0);
+                RP.startTime = new DateTime(startYear, startMonth, startDay, startHour, startMinute, 0);
             }
             #endregion
             #region retrive end time restriction times
@@ -252,7 +194,7 @@ namespace UFiles.Outlook
                     invalidEndTime = true;
                 }
                 else if (endMinute > 60 || endMinute < 0)
-                    {
+                {
                     endTimeMinutesEditBox.Text = "Invalid";
                     invalidEndTime = true;
                 }
@@ -266,15 +208,16 @@ namespace UFiles.Outlook
                     {
                         RP.finishTime = new DateTime(endYear, endMonth, endDay, endHour, endMinute, 0);
                     }
-                    catch(NullReferenceException e){
+                    catch (NullReferenceException e)
+                    {
                         break;
                     }
                 }
             }
             while (false);
-            
+
             #endregion
-            
+
             return RP;
         }//returns the current state of the preset reibbon tab as a RestrictionPreset class
         #endregion
@@ -291,7 +234,15 @@ namespace UFiles.Outlook
         }
         #endregion
 
-        private void IPButton_Click_1(object sender, RibbonControlEventArgs e)
+        private void uploaduFile_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (UClient != null & userID != -1)
+            {
+                //UClient.AddFile(userID, ,uploaduFile.
+            }
+        }
+
+        private void createUserButton_Click(object sender, RibbonControlEventArgs e)
         {
 
         }
