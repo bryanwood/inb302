@@ -11,7 +11,7 @@ using UFiles.Domain.Concrete;
 
 namespace UFiles.Web.Controllers
 {
-    
+
     public class TransmittalController : Controller
     {
         private UFileContext db = new UFileContext();
@@ -29,6 +29,63 @@ namespace UFiles.Web.Controllers
         {
             BaseAuthenticatedModel model = new BaseAuthenticatedModel(userService, User.Identity.Name);
             return View(model);
+        }
+
+        [Authorize, HttpPost]
+        public JsonResult Upload(TransmittalSendModel model)
+        {
+            const int successStatusCode = 200;
+
+            Dictionary<String, String> jsonDictionary = new Dictionary<string, string>();
+
+            jsonDictionary.Add("ReplyingFor", "SendFile");
+
+            if (Request.Files.Count < 1)
+            {
+                {
+                    jsonDictionary.Add("FailureReason", "<p>You must select a file to send.</p>");
+                    jsonDictionary.Add("Success", "false");
+                    Response.StatusCode = successStatusCode;
+
+                    return Json(jsonDictionary); ;
+                }
+            }
+
+            if (String.IsNullOrWhiteSpace(model.recipientEmail) && String.IsNullOrWhiteSpace(model.recipientGroups))
+            {
+                jsonDictionary.Add("FailureReason", "<p>You must fill out either an email address or a group to send to.</p>");
+                jsonDictionary.Add("Success", "false");
+                Response.StatusCode = successStatusCode;
+
+                return Json(jsonDictionary); ;
+            }
+
+            if (!ModelState.IsValid)
+            {
+
+                string errorTemp = "";
+
+                foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                {
+                    foreach (ModelError e in i.Value.Errors)
+                    {
+                        errorTemp += "<p>" + e.ErrorMessage + "</p>";
+                    }
+                }
+
+                jsonDictionary.Add("FailureReason", errorTemp);
+                jsonDictionary.Add("Success", "false");
+                Response.StatusCode = successStatusCode;
+
+                return Json(jsonDictionary);
+
+            }
+
+            jsonDictionary.Add("Success", "true");
+
+            Response.StatusCode = successStatusCode;
+            return Json(jsonDictionary);
+
         }
 
         [Authorize]
@@ -50,14 +107,14 @@ namespace UFiles.Web.Controllers
             var transmittal = transmittalService.GetTransmittalById(id);
 
             //Check if the user is the sender or recipient
-            if (transmittal.Recipients.Contains(user) || transmittal.Sender==user)
+            if (transmittal.Recipients.Contains(user) || transmittal.Sender == user)
             {
-                return View(transmittal);              
+                return View(transmittal);
             }
-            
+
             return RedirectToAction("Unavailable");
         }
-        
+
         public ActionResult Unavailable()
         {
             return View();
@@ -67,11 +124,11 @@ namespace UFiles.Web.Controllers
         {
             return View();
         }
-        [HttpPost,ActionName("Create")]
+        [HttpPost, ActionName("Create")]
         public ActionResult CreatePost()
         {
             var transmittal = new Transmittal();
-            transmittal.Sender = db.Users.Where(u=>u.Email==User.Identity.Name).Single();
+            transmittal.Sender = db.Users.Where(u => u.Email == User.Identity.Name).Single();
             db.Transmittals.Add(transmittal);
             db.SaveChanges();
             return RedirectToAction("AddFile", new { id = transmittal.TransmittalId });
@@ -88,7 +145,7 @@ namespace UFiles.Web.Controllers
             dfile.Revoked = false;
             dfile.Name = file.FileName;
             dfile.DateCreated = DateTime.Now;
-            
+
             dfile.ContentType = file.ContentType;
             dfile.Size = file.ContentLength;
             dfile.FileData = new byte[file.ContentLength];
@@ -119,6 +176,6 @@ namespace UFiles.Web.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-  
+
     }
 }

@@ -10,7 +10,8 @@ namespace UFiles.Domain.Abstract
     {
         IQueryable<Group> GetGroupsByOwner(User owner);
         Group GetGroup(int id);
-        Group CreateGroup(User owner);
+        void CreateGroup(User owner, Group group);
+        void SaveGroup(Group group);
         void AddMember(Group group, User member);
         void RemoveMember(Group group, User member);
         void DeleteGroup(Group group);

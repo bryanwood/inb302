@@ -13,10 +13,17 @@ namespace UFiles.Web.Models
         public List<TransmittalListingModel> RecentlySentTransmittals { get; set; }
         public List<TransmittalListingModel> RecentlyReceivedTransmittals { get; set; }
 
-        public OverviewModel(IUserService userService, string email): base(userService, email)
+        public OverviewModel(IUserService userService, ITransmittalService transmittalService,
+            string email): base(userService, email)
         {
             RecentlySentTransmittals = new List<TransmittalListingModel>();
             RecentlyReceivedTransmittals = new List<TransmittalListingModel>();
+
+            foreach(Transmittal t in transmittalService.GetTransmittalsByUser(
+                userService.GetUserByEmail(email))) {
+                    TransmittalListingModel temp = new TransmittalListingModel(t);
+            
+            }
         }
     }
 

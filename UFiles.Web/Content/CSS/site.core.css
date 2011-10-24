@@ -137,6 +137,12 @@ a:hover
     background-color: #FFFFFF;
 }
 
+.coreLayoutContainer
+{
+    width: 815px;
+    overflow: hidden;
+}
+
 .coreSectionContainer
 {
     width: 815px;

@@ -4,13 +4,14 @@
 @section HeaderStylesheet {
     <link rel="Stylesheet" type="text/css" href="../../../Content/CSS/site.full.css" />
 }
-<div class="coreLightbox" id="lightBoxLightsOut">
+<div id="lightBox" class="lightBox">
+    <div class="coreLightBoxContainer" id="lightBoxContainer">
+        Please wait...</div>
 </div>
-<iframe class="coreLightBoxContainer" id="lightBoxContainer"></iframe>
-<div class="coreContainer floatFix">
+<div id="coreContent" class="coreContainer floatFix">
     <div class="coreHeader floatFix">
         <div class="coreHeaderBanner floatLeft">
-        @RenderSection("PageHeading")
+            @RenderSection("PageHeading")
         </div>
         <div class="coreHeaderInternal floatFix floatRight">
             @RenderSection("PageHeader")

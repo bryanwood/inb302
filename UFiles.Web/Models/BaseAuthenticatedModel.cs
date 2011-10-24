@@ -17,7 +17,19 @@ namespace UFiles.Web.Models
         public BaseAuthenticatedModel(IUserService userService, string email)
         {
             this.userService = userService;
-            User thisUser = userService.GetUserByEmail(email);
+            User thisUser = null;
+            try
+            {
+                thisUser = userService.GetUserByEmail(email);
+
+            }
+            catch (Exception e)
+            {
+                thisUser = new User();
+                thisUser.Email = "N/A";
+                thisUser.FirstName = "N/A";
+                thisUser.LastName = "N/A";
+            }
 
             user = new UserModel(thisUser);
         }
