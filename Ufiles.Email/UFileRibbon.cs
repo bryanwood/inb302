@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace Ufiles.Email
 {
-    public partial class Ribbon1
+    public partial class UFileRibbon
     {
-        private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
+        private void UFileRibbon_Load(object sender, RibbonUIEventArgs e)
         {
             
         }

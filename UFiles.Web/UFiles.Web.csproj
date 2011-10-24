@@ -92,7 +92,6 @@
     <Compile Include="Areas\Administration\Controllers\UserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Controllers\CallbackController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\TransmittalController.cs" />

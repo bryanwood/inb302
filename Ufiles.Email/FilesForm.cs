@@ -15,7 +15,9 @@ namespace Ufiles.Email
         public FilesForm()
         {
             InitializeComponent();
-            client = new UFilesService.UFileServiceClient();
+           
+           
+            client = UFiles.Current.Client;
             BindGroupsListBox();
         }
         private void BindGroupsListBox(){
