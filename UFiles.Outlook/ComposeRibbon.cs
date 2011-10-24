@@ -1,0 +1,327 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Office.Tools.Ribbon;
+using UFiles.Outlook.UFileService;
+
+namespace UFiles.Outlook
+{
+
+
+    public partial class ComposeRibbon
+    {
+        private static String userName;
+        private static String password;
+        private static UFileServiceClient UClient;
+
+        private void ComposeRibbon_Load(object sender, RibbonUIEventArgs e)
+        {
+            this.upload.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.upload_Click);
+            this.signOutButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signOutButton_Click);
+            this.signInButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.signInButton_Click);
+
+        }//Called when the ribbon is loaded
+
+
+        #region uFile ribbon section
+        #region misc. methods
+        private Boolean ServerConnect(String IP)
+        {
+
+
+            return false;
+        }
+
+        private Boolean ServerConnect(string p, string p_2, string p_3, string p_4)
+        {
+
+            throw new NotImplementedException();
+            return false;
+        }
+
+        private void updateuFileGallery()
+        {
+            string[] fileList = loadFileList();
+            RibbonDropDownItem RDDI;
+            if (fileList != null)
+            {
+                uFileMenu.Items.Clear();
+                for (int i = 0; i >= fileList.Length; i++)
+                {
+                    RDDI = this.Factory.CreateRibbonDropDownItem();
+                    RDDI.Label = fileList[i];
+                    uFileMenu.Items.Add((Microsoft.Office.Tools.Ribbon.RibbonControl)RDDI);
+                }
+            }
+        }
+        private string[] loadFileList()
+        {
+            return null;
+        }
+
+        private String signIn(string name, string pass)
+        {
+            return "passed";
+        }
+
+        #endregion
+        #region Event Handlers
+
+        private void IPButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            IPButton.Visible = false;
+            URLButton.Visible = true;
+            serverIPEditBox2.Visible = false;
+            serverIPEditBox3.Visible = false;
+            serverIPEditBox4.Visible = false;
+        }
+
+        private void URLButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            IPButton.Visible = true;
+            URLButton.Visible = false;
+            serverIPEditBox2.Visible = true;
+            serverIPEditBox3.Visible = true;
+            serverIPEditBox4.Visible = true;
+        }
+        private void connectButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (IPButton.Visible)
+            {
+                ServerConnect(serverIPEditBox1.Text, serverIPEditBox2.Text, serverIPEditBox3.Text, serverIPEditBox4.Text);
+            }
+            else
+            {
+                ServerConnect(serverIPEditBox1.Text);
+            }
+        }
+
+        private void upload_Click(object sender, RibbonControlEventArgs e)
+        {
+            this.uploaduFile.ShowDialog();
+
+        }//called when the uFile upload button is clicked
+        private void signInButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            switch (signIn(userName,password))
+            {
+                case "passed":
+
+                    this.usernameEditBox.Enabled = false;
+                    this.passwordEditBox.Enabled = false;
+
+                    this.userStatus.Label = "Guest Account";
+                    //if username and password passed the login
+                    break;
+                case "invalid":
+                    this.userStatus.Label = "Invalid User Name/Password";
+                    //if the username/password is invalid
+                    return;
+                case "noserver":
+                    this.userStatus.Label = "No server connection";
+                    //if no server connection in one form or another is detected
+                    return;
+            }
+            this.signInButton.Visible = false;
+            this.signOutButton.Visible = true;
+            //Swap the sign in buttons
+
+            if (passwordEditBox.Text != "****")
+            {
+                password = passwordEditBox.Text;
+                passwordEditBox.Text = "****";
+
+            }
+            //retrieve and protect the user's password
+
+            userName = usernameEditBox.Text;
+
+            //retrieve the user's username
+
+
+
+
+        }
+        private void signOutButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            userName.Remove(0);
+            password.Remove(0);
+            this.usernameEditBox.Text = "";
+            this.passwordEditBox.Text = "";
+            this.usernameEditBox.Enabled = true;
+            this.passwordEditBox.Enabled = true;
+        }
+
+
+
+
+        private void addLink_Click(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        #endregion
+        #endregion
+
+        #region Restrictions ribbon section
+        #region Supporting methods
+        public RestrictionPreset getCurrentPreset()
+        {
+            RestrictionPreset RP = new RestrictionPreset();
+            int startYear, startMonth, startDay, startHour, startMinute;
+            int endYear, endMonth, endDay, endHour, endMinute;
+
+            RP.includeStartTime = this.startTimeIncludeCheckBox.Checked;
+            RP.includeFinishTime = this.endTimeIncludeCheckBox.Checked;
+
+            #region retrieve start time restriction times
+            if(startTimeIncludeCheckBox.Checked==true)
+            {
+                if (!int.TryParse(this.startTimeYearTextBox.Text, out startYear))
+                {
+                    startYear = System.DateTime.Now.Year;
+                    this.startTimeYearTextBox.Text= startYear.ToString();
+                }
+                else if (startYear < 2000 || startYear > 3000)
+                { 
+                    this.startTimeYearTextBox.Text = "Invalid"; 
+                }
+                if (!int.TryParse(this.startTimeMonthDropDownBox.SelectedItem.Label, out startMonth))
+                {
+                    startMonth = System.DateTime.Now.Month;
+                }
+                if (!int.TryParse(this.startTimeDayDropDownBox.SelectedItem.Label, out startDay))
+                {
+                    startDay = System.DateTime.Now.Day;
+                }
+                if (!int.TryParse(this.startTimeHoursEditBox.Text, out startHour))
+                {
+                    startHour = System.DateTime.Now.Hour;
+                }
+                else if (startHour > 24 || startHour < 0)
+                {
+                    startTimeHoursEditBox.Text = "Invalid";
+                }
+                if (!int.TryParse(this.startTimeMinutesEditBox.Text, out startMinute))
+                {
+                    startMinute = System.DateTime.Now.Minute;
+                }
+                else if (startMinute > 60 || startMinute < 0)
+                {
+                    startTimeMinutesEditBox.Text = "Invalid";
+                }
+                RP.startTime = new DateTime(startYear,  startMonth,  startDay, startHour, startMinute, 0);
+            }
+            #endregion
+            #region retrive end time restriction times
+            do
+            {
+                Boolean invalidEndTime = false;
+                if (!int.TryParse(this.startTimeYearTextBox.Text, out endYear))
+                {
+                    invalidEndTime = true;
+                    this.endTimeYearEditBox.Text = "Invalid";
+                }
+                else if (endYear < 2000 || endYear > 3000)
+                {
+                    invalidEndTime = true;
+                    this.endTimeYearEditBox.Text = "Invalid";
+                }
+                if (!int.TryParse(this.endTimeMonthDropDownBox.SelectedItem.Label, out endMonth))
+                {
+                    invalidEndTime = true;
+                }
+                if (!int.TryParse(this.endTimeDayDropDownBox.SelectedItem.Label, out endDay))
+                {
+                    invalidEndTime = true;
+                }
+                if (!int.TryParse(this.endTimeHoursEditBox.Text, out endHour))
+                {
+                    endTimeHoursEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                else if (endHour > 24 || endHour < 0)
+                {
+                    endTimeHoursEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                if (!int.TryParse(this.endTimeMinutesEditBox.Text, out endMinute))
+                {
+                    endTimeMinutesEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                else if (endMinute > 60 || endMinute < 0)
+                    {
+                    endTimeMinutesEditBox.Text = "Invalid";
+                    invalidEndTime = true;
+                }
+                if (invalidEndTime == true)
+                {
+                    break;
+                }
+                else
+                {
+                    try
+                    {
+                        RP.finishTime = new DateTime(endYear, endMonth, endDay, endHour, endMinute, 0);
+                    }
+                    catch(NullReferenceException e){
+                        break;
+                    }
+                }
+            }
+            while (false);
+            
+            #endregion
+            
+            return RP;
+        }//returns the current state of the preset reibbon tab as a RestrictionPreset class
+        #endregion
+        #region events
+        private void presetDropDown_SelectionChanged(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+        #endregion
+
+        private void endTimeYearTextBox_TextChanged(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+        #endregion
+
+        private void IPButton_Click_1(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+    }
+
+    public class RestrictionPreset
+    {
+        public string name;
+
+        public Boolean includeStartTime = false;
+        public Boolean includeFinishTime = false;
+        public DateTime startTime;
+        public DateTime finishTime;
+        public String serverIP;
+        public String Group;
+        public String Location;
+
+        public RestrictionPreset()
+        {
+        }
+
+    }
+}
