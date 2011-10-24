@@ -1,0 +1,85 @@
+﻿.miniBoxSection
+{
+    width: 475px;
+    margin: 0 0 20px 0;
+    padding: 5px 5px 5px 5px;
+}
+
+.miniBoxMinorSection
+{
+    width: 100%;
+    margin: 0 0 5px 0;
+}
+
+.miniBoxInformationHighlight
+{
+    border-style: solid;
+    border-width: 0 0 0 5px;
+    padding: 5px 10px 5px 5px;
+    margin: 0 0 5px 0;
+    text-align: center;
+}
+
+.miniSectionDetail
+{
+    margin-bottom: 2px;
+}
+
+.loginAuthBoxLabelOverride
+{
+    padding: 3px 5px 0 0 !important;
+}
+
+.miniLabel
+{
+    padding: 0 5px 0 0;
+    width: 100px;
+    text-align: right;
+    color: #707070;
+}
+
+.miniInput
+{
+    width: 350px;
+    height: 17px;
+    border-width: 1px;
+    border-color: #e5e5e5;
+    border-style: solid;
+}
+
+.miniInput:focus
+{
+    border-color: #bfbfbf;
+}
+
+.miniDescription
+{
+    font-weight: bold;
+}
+
+.miniButton
+{
+    width: 125px;
+    height: 30px;
+    font-size: 14px;
+    margin: 0 10px 0 0;
+}
+
+#downloadInfoExpandButton
+{
+    margin: 0 10px 5px 0;
+    width: 200px;
+    height: 20px;
+    font-size: 12px;
+}
+
+#loginCreateLead
+{
+    padding: 10px 0 0 0;
+    color: #707070;
+}
+
+.miniBoxImportantHighlight
+{
+    font-size: 16px;
+}
