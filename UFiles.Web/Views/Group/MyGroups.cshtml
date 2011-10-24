@@ -1,0 +1,42 @@
+﻿@model UFiles.Web.Models.GroupViewModel
+@{
+    ViewBag.Title = "My Groups";
+    Layout = "~/Views/Shared/Full/_Site.Full.Master.Layout.cshtml";
+}
+@section PageHeading {
+    <a class="coreExternalHighlight" href="Home">home</a>/my groups
+}
+@section PageHeader {
+    <div class="coreHeaderUserContainer floatRight">
+        logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span> |
+        <a href="#">logout</a></div>
+}
+@section PageSidebar{
+    <div class="sideBarHeading">
+        @Model.getUser().FName @Model.getUser().LName</div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab">
+            <a href="@Url.Action("Overview", "Home")">home</a></div>
+        <div class="sidebarTab">
+            <a href="@Url.Action("SendFile", "Transmittal")">send a file</div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab coreExternalHighlight" id="tabMyGroup">
+            <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyFiles">
+            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
+        <div class="sidebarTab" id="tabOtherFiles">
+            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabSettings">
+            <a href="@Url.Action("Settings", "Account")">settings</a></div>
+    </div>
+}
+<div class="contentBarFull">
+    <div class="contentPanel floatFix floatLeft">
+    <div class="panelHeading">Blah</div>
+    </div>
+</div>
