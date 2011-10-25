@@ -33,7 +33,7 @@ namespace UFiles.Web
         }
         public Group[] GetGroups(int userId)
         {
-            return db.Groups.Include(g=>g.Owner).Where(u=>u.Owner.UserId==userId).ToArray();
+            return db.Groups.ToArray();
         }
 
 
@@ -78,6 +78,27 @@ namespace UFiles.Web
         public void SendTransmittal(int transmittalId)
         {
             
+        }
+
+
+        public void AddUserRestriction(int fileId, string[] emails)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddIPRestriction(int fileId, string[] IPs)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddGroupRestruction(int fileId, int[] groupIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddLocationRestriction(int fileId, string[] postCodes)
+        {
+            throw new NotImplementedException();
         }
     }
 }
