@@ -28,43 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.btnBrowse = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lstRestrictions = new System.Windows.Forms.ListBox();
+            this.btnAddFile = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listView3 = new System.Windows.Forms.ListView();
+            this.lstEmail = new System.Windows.Forms.ListBox();
+            this.btnRemoveEmail = new System.Windows.Forms.Button();
+            this.btnAddUserRestriction = new System.Windows.Forms.Button();
+            this.btnAddEmail = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.label4 = new System.Windows.Forms.Label();
+            this.btnAddGroupRestriction = new System.Windows.Forms.Button();
             this.chkboxlstGroups = new System.Windows.Forms.CheckedListBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button5 = new System.Windows.Forms.Button();
+            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.listView4 = new System.Windows.Forms.ListView();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.listView5 = new System.Windows.Forms.ListView();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
+            this.button8 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.listView5 = new System.Windows.Forms.ListView();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lstFiles = new System.Windows.Forms.ListBox();
+            this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -72,14 +75,6 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(537, 30);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(193, 247);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // label1
             // 
@@ -90,32 +85,82 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "1. Browse For Files";
             // 
-            // button1
+            // btnBrowse
             // 
-            this.button1.Location = new System.Drawing.Point(16, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Browse...";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 83);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "2. Set Restrictions";
+            this.btnBrowse.Location = new System.Drawing.Point(16, 30);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.btnBrowse.TabIndex = 2;
+            this.btnBrowse.Text = "Browse...";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(534, 13);
+            this.label3.Location = new System.Drawing.Point(559, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Files";
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(655, 290);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(75, 23);
+            this.button11.TabIndex = 9;
+            this.button11.Text = "Finished";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(103, 39);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(51, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "bob.docx";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lstRestrictions);
+            this.panel1.Controls.Add(this.btnAddFile);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.tabControl1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(16, 71);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(530, 242);
+            this.panel1.TabIndex = 12;
+            // 
+            // lstRestrictions
+            // 
+            this.lstRestrictions.FormattingEnabled = true;
+            this.lstRestrictions.Location = new System.Drawing.Point(309, 39);
+            this.lstRestrictions.Name = "lstRestrictions";
+            this.lstRestrictions.Size = new System.Drawing.Size(212, 160);
+            this.lstRestrictions.TabIndex = 16;
+            // 
+            // btnAddFile
+            // 
+            this.btnAddFile.Location = new System.Drawing.Point(427, 207);
+            this.btnAddFile.Name = "btnAddFile";
+            this.btnAddFile.Size = new System.Drawing.Size(75, 23);
+            this.btnAddFile.TabIndex = 15;
+            this.btnAddFile.Text = "Add File";
+            this.btnAddFile.UseVisualStyleBackColor = true;
+            this.btnAddFile.Click += new System.EventHandler(this.btnAddFile_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(306, 17);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Restrictions";
             // 
             // tabControl1
             // 
@@ -124,19 +169,20 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Location = new System.Drawing.Point(16, 100);
+            this.tabControl1.Location = new System.Drawing.Point(6, 17);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(297, 213);
-            this.tabControl1.TabIndex = 5;
+            this.tabControl1.TabIndex = 13;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.listView3);
+            this.tabPage1.Controls.Add(this.lstEmail);
+            this.tabPage1.Controls.Add(this.btnRemoveEmail);
+            this.tabPage1.Controls.Add(this.btnAddUserRestriction);
+            this.tabPage1.Controls.Add(this.btnAddEmail);
             this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.txtEmail);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -145,22 +191,43 @@
             this.tabPage1.Text = "User";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // lstEmail
             // 
-            this.button2.Location = new System.Drawing.Point(228, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(55, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Add";
-            this.button2.UseVisualStyleBackColor = true;
+            this.lstEmail.FormattingEnabled = true;
+            this.lstEmail.Location = new System.Drawing.Point(6, 35);
+            this.lstEmail.Name = "lstEmail";
+            this.lstEmail.Size = new System.Drawing.Size(277, 108);
+            this.lstEmail.TabIndex = 7;
             // 
-            // listView3
+            // btnRemoveEmail
             // 
-            this.listView3.Location = new System.Drawing.Point(9, 35);
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(274, 121);
-            this.listView3.TabIndex = 2;
-            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.btnRemoveEmail.Location = new System.Drawing.Point(166, 158);
+            this.btnRemoveEmail.Name = "btnRemoveEmail";
+            this.btnRemoveEmail.Size = new System.Drawing.Size(55, 23);
+            this.btnRemoveEmail.TabIndex = 5;
+            this.btnRemoveEmail.Text = "Remove";
+            this.btnRemoveEmail.UseVisualStyleBackColor = true;
+            this.btnRemoveEmail.Click += new System.EventHandler(this.btnRemoveEmail_Click);
+            // 
+            // btnAddUserRestriction
+            // 
+            this.btnAddUserRestriction.Location = new System.Drawing.Point(228, 158);
+            this.btnAddUserRestriction.Name = "btnAddUserRestriction";
+            this.btnAddUserRestriction.Size = new System.Drawing.Size(55, 23);
+            this.btnAddUserRestriction.TabIndex = 4;
+            this.btnAddUserRestriction.Text = "Add";
+            this.btnAddUserRestriction.UseVisualStyleBackColor = true;
+            this.btnAddUserRestriction.Click += new System.EventHandler(this.btnAddUserRestriction_Click);
+            // 
+            // btnAddEmail
+            // 
+            this.btnAddEmail.Location = new System.Drawing.Point(228, 7);
+            this.btnAddEmail.Name = "btnAddEmail";
+            this.btnAddEmail.Size = new System.Drawing.Size(55, 23);
+            this.btnAddEmail.TabIndex = 3;
+            this.btnAddEmail.Text = "Add";
+            this.btnAddEmail.UseVisualStyleBackColor = true;
+            this.btnAddEmail.Click += new System.EventHandler(this.btnAddEmail_Click);
             // 
             // label5
             // 
@@ -171,16 +238,16 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Email:";
             // 
-            // textBox1
+            // txtEmail
             // 
-            this.textBox1.Location = new System.Drawing.Point(47, 9);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(174, 20);
-            this.textBox1.TabIndex = 0;
+            this.txtEmail.Location = new System.Drawing.Point(47, 9);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(174, 20);
+            this.txtEmail.TabIndex = 0;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.btnAddGroupRestriction);
             this.tabPage2.Controls.Add(this.chkboxlstGroups);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -189,6 +256,24 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Group";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnAddGroupRestriction
+            // 
+            this.btnAddGroupRestriction.Location = new System.Drawing.Point(228, 158);
+            this.btnAddGroupRestriction.Name = "btnAddGroupRestriction";
+            this.btnAddGroupRestriction.Size = new System.Drawing.Size(55, 23);
+            this.btnAddGroupRestriction.TabIndex = 4;
+            this.btnAddGroupRestriction.Text = "Add";
+            this.btnAddGroupRestriction.UseVisualStyleBackColor = true;
+            this.btnAddGroupRestriction.Click += new System.EventHandler(this.btnAddGroupRestriction_Click);
+            // 
+            // chkboxlstGroups
+            // 
+            this.chkboxlstGroups.FormattingEnabled = true;
+            this.chkboxlstGroups.Location = new System.Drawing.Point(6, 6);
+            this.chkboxlstGroups.Name = "chkboxlstGroups";
+            this.chkboxlstGroups.Size = new System.Drawing.Size(277, 139);
+            this.chkboxlstGroups.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -201,6 +286,23 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Location";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(228, 158);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(55, 23);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "Add";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox2
+            // 
+            this.checkedListBox2.FormattingEnabled = true;
+            this.checkedListBox2.Location = new System.Drawing.Point(6, 6);
+            this.checkedListBox2.Name = "checkedListBox2";
+            this.checkedListBox2.Size = new System.Drawing.Size(277, 139);
+            this.checkedListBox2.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -216,83 +318,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "IP";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.button9);
-            this.tabPage5.Controls.Add(this.button8);
-            this.tabPage5.Controls.Add(this.label8);
-            this.tabPage5.Controls.Add(this.label7);
-            this.tabPage5.Controls.Add(this.listView5);
-            this.tabPage5.Controls.Add(this.dateTimePicker2);
-            this.tabPage5.Controls.Add(this.dateTimePicker1);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(289, 187);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Time Range";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // listView2
-            // 
-            this.listView2.Location = new System.Drawing.Point(319, 122);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(193, 155);
-            this.listView2.TabIndex = 6;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(316, 100);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Restrictions";
-            // 
-            // chkboxlstGroups
-            // 
-            this.chkboxlstGroups.FormattingEnabled = true;
-            this.chkboxlstGroups.Location = new System.Drawing.Point(6, 6);
-            this.chkboxlstGroups.Name = "chkboxlstGroups";
-            this.chkboxlstGroups.Size = new System.Drawing.Size(277, 139);
-            this.chkboxlstGroups.TabIndex = 0;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(228, 158);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Add";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(228, 158);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(55, 23);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Add";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBox2
-            // 
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Location = new System.Drawing.Point(6, 6);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(277, 139);
-            this.checkedListBox2.TabIndex = 0;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(228, 158);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(55, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "Add";
-            this.button5.UseVisualStyleBackColor = true;
             // 
             // button6
             // 
@@ -336,54 +361,22 @@
             this.textBox2.Size = new System.Drawing.Size(174, 20);
             this.textBox2.TabIndex = 5;
             // 
-            // dateTimePicker1
+            // tabPage5
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(83, 6);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 0;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(83, 32);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 1;
-            // 
-            // listView5
-            // 
-            this.listView5.Location = new System.Drawing.Point(6, 82);
-            this.listView5.Name = "listView5";
-            this.listView5.Size = new System.Drawing.Size(277, 73);
-            this.listView5.TabIndex = 2;
-            this.listView5.UseCompatibleStateImageBehavior = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 12);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Start";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 38);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(26, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "End";
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(228, 158);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(55, 23);
-            this.button8.TabIndex = 10;
-            this.button8.Text = "Add";
-            this.button8.UseVisualStyleBackColor = true;
+            this.tabPage5.Controls.Add(this.button9);
+            this.tabPage5.Controls.Add(this.button8);
+            this.tabPage5.Controls.Add(this.label8);
+            this.tabPage5.Controls.Add(this.label7);
+            this.tabPage5.Controls.Add(this.listView5);
+            this.tabPage5.Controls.Add(this.dateTimePicker2);
+            this.tabPage5.Controls.Add(this.dateTimePicker1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(289, 187);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Time Range";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // button9
             // 
@@ -394,52 +387,88 @@
             this.button9.Text = "Add";
             this.button9.UseVisualStyleBackColor = true;
             // 
-            // button10
+            // button8
             // 
-            this.button10.Location = new System.Drawing.Point(437, 290);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 8;
-            this.button10.Text = "Add File";
-            this.button10.UseVisualStyleBackColor = true;
+            this.button8.Location = new System.Drawing.Point(228, 158);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(55, 23);
+            this.button8.TabIndex = 10;
+            this.button8.Text = "Add";
+            this.button8.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // label8
             // 
-            this.button11.Location = new System.Drawing.Point(655, 290);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 23);
-            this.button11.TabIndex = 9;
-            this.button11.Text = "Finished";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 38);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "End";
             // 
-            // label9
+            // label7
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(103, 39);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 13);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "bob.docx";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 12);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Start";
+            // 
+            // listView5
+            // 
+            this.listView5.Location = new System.Drawing.Point(6, 82);
+            this.listView5.Name = "listView5";
+            this.listView5.Size = new System.Drawing.Size(277, 73);
+            this.listView5.TabIndex = 2;
+            this.listView5.UseCompatibleStateImageBehavior = false;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(83, 32);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker2.TabIndex = 1;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(83, 6);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "2. Set Restrictions";
+            // 
+            // lstFiles
+            // 
+            this.lstFiles.FormattingEnabled = true;
+            this.lstFiles.Location = new System.Drawing.Point(562, 30);
+            this.lstFiles.Name = "lstFiles";
+            this.lstFiles.Size = new System.Drawing.Size(168, 251);
+            this.lstFiles.TabIndex = 13;
             // 
             // FilesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 325);
+            this.ClientSize = new System.Drawing.Size(742, 324);
+            this.Controls.Add(this.lstFiles);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button11);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.listView2);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listView1);
             this.Name = "FilesForm";
             this.Text = "FilesForm";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -456,33 +485,36 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListBox lstRestrictions;
+        private System.Windows.Forms.Button btnAddFile;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.ListBox lstEmail;
+        private System.Windows.Forms.Button btnRemoveEmail;
+        private System.Windows.Forms.Button btnAddUserRestriction;
+        private System.Windows.Forms.Button btnAddEmail;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ListView listView3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btnAddGroupRestriction;
         private System.Windows.Forms.CheckedListBox chkboxlstGroups;
+        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.CheckedListBox checkedListBox2;
+        private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ListView listView4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label8;
@@ -490,8 +522,7 @@
         private System.Windows.Forms.ListView listView5;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox lstFiles;
     }
 }

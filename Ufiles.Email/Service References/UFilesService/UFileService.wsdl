@@ -20,6 +20,12 @@
   <wsdl:message name="IUFileService_GetGroups_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGroupsResponse" />
   </wsdl:message>
+  <wsdl:message name="IUFileService_GetLocations_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocations" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_GetLocations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLocationsResponse" />
+  </wsdl:message>
   <wsdl:message name="IUFileService_NewTransmittal_InputMessage">
     <wsdl:part name="parameters" element="tns:NewTransmittal" />
   </wsdl:message>
@@ -31,6 +37,30 @@
   </wsdl:message>
   <wsdl:message name="IUFileService_AddFile_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddUserRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddUserRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddIPRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddIPRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddIPRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddIPRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddGroupRestruction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddGroupRestruction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddGroupRestruction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddGroupRestructionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddLocationRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddLocationRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddLocationRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddLocationRestrictionResponse" />
   </wsdl:message>
   <wsdl:message name="IUFileService_AddRecipients_InputMessage">
     <wsdl:part name="parameters" element="tns:AddRecipients" />
@@ -53,6 +83,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/GetGroups" message="tns:IUFileService_GetGroups_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/GetGroupsResponse" message="tns:IUFileService_GetGroups_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetLocations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/GetLocations" message="tns:IUFileService_GetLocations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/GetLocationsResponse" message="tns:IUFileService_GetLocations_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NewTransmittal">
       <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/NewTransmittal" message="tns:IUFileService_NewTransmittal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/NewTransmittalResponse" message="tns:IUFileService_NewTransmittal_OutputMessage" />
@@ -60,6 +94,22 @@
     <wsdl:operation name="AddFile">
       <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddFile" message="tns:IUFileService_AddFile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddFileResponse" message="tns:IUFileService_AddFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddUserRestriction" message="tns:IUFileService_AddUserRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddUserRestrictionResponse" message="tns:IUFileService_AddUserRestriction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddIPRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddIPRestriction" message="tns:IUFileService_AddIPRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddIPRestrictionResponse" message="tns:IUFileService_AddIPRestriction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddGroupRestruction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddGroupRestruction" message="tns:IUFileService_AddGroupRestruction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddGroupRestructionResponse" message="tns:IUFileService_AddGroupRestruction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddLocationRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddLocationRestriction" message="tns:IUFileService_AddLocationRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddLocationRestrictionResponse" message="tns:IUFileService_AddLocationRestriction_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddRecipients">
       <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddRecipients" message="tns:IUFileService_AddRecipients_InputMessage" />
@@ -90,6 +140,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLocations">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/GetLocations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NewTransmittal">
       <soap:operation soapAction="http://tempuri.org/IUFileService/NewTransmittal" style="document" />
       <wsdl:input>
@@ -101,6 +160,42 @@
     </wsdl:operation>
     <wsdl:operation name="AddFile">
       <soap:operation soapAction="http://tempuri.org/IUFileService/AddFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddUserRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddIPRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddIPRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddGroupRestruction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddGroupRestruction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddLocationRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddLocationRestriction" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

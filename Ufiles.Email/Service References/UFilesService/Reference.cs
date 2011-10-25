@@ -451,6 +451,7 @@ namespace Ufiles.Email.UFilesService {
     [System.Runtime.Serialization.DataContractAttribute(Name="Restriction", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.UserRestriction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.LocationRestriction))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.GroupRestriction))]
     public partial class Restriction : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -511,6 +512,29 @@ namespace Ufiles.Email.UFilesService {
                 if ((object.ReferenceEquals(this.UsersField, value) != true)) {
                     this.UsersField = value;
                     this.RaisePropertyChanged("Users");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LocationRestriction", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
+    [System.SerializableAttribute()]
+    public partial class LocationRestriction : Ufiles.Email.UFilesService.Restriction {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Ufiles.Email.UFilesService.Location[] LocationsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Ufiles.Email.UFilesService.Location[] Locations {
+            get {
+                return this.LocationsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LocationsField, value) != true)) {
+                    this.LocationsField = value;
+                    this.RaisePropertyChanged("Locations");
                 }
             }
         }
@@ -1072,6 +1096,83 @@ namespace Ufiles.Email.UFilesService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Location", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
+    [System.SerializableAttribute()]
+    public partial class Location : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LocationIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Ufiles.Email.UFilesService.LocationRestriction[] LocationRestrictionsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PostCodeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LocationId {
+            get {
+                return this.LocationIdField;
+            }
+            set {
+                if ((this.LocationIdField.Equals(value) != true)) {
+                    this.LocationIdField = value;
+                    this.RaisePropertyChanged("LocationId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Ufiles.Email.UFilesService.LocationRestriction[] LocationRestrictions {
+            get {
+                return this.LocationRestrictionsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LocationRestrictionsField, value) != true)) {
+                    this.LocationRestrictionsField = value;
+                    this.RaisePropertyChanged("LocationRestrictions");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PostCode {
+            get {
+                return this.PostCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PostCodeField, value) != true)) {
+                    this.PostCodeField = value;
+                    this.RaisePropertyChanged("PostCode");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="UFilesService.IUFileService")]
     public interface IUFileService {
@@ -1080,13 +1181,28 @@ namespace Ufiles.Email.UFilesService {
         int Login(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/GetGroups", ReplyAction="http://tempuri.org/IUFileService/GetGroupsResponse")]
-        Ufiles.Email.UFilesService.Group[] GetGroups();
+        Ufiles.Email.UFilesService.Group[] GetGroups(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/GetLocations", ReplyAction="http://tempuri.org/IUFileService/GetLocationsResponse")]
+        Ufiles.Email.UFilesService.Location[] GetLocations();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/NewTransmittal", ReplyAction="http://tempuri.org/IUFileService/NewTransmittalResponse")]
         int NewTransmittal(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/AddFile", ReplyAction="http://tempuri.org/IUFileService/AddFileResponse")]
-        void AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData);
+        int AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/AddUserRestriction", ReplyAction="http://tempuri.org/IUFileService/AddUserRestrictionResponse")]
+        void AddUserRestriction(int fileId, string[] emails);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/AddIPRestriction", ReplyAction="http://tempuri.org/IUFileService/AddIPRestrictionResponse")]
+        void AddIPRestriction(int fileId, string[] IPs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/AddGroupRestruction", ReplyAction="http://tempuri.org/IUFileService/AddGroupRestructionResponse")]
+        void AddGroupRestruction(int fileId, int[] groupIds);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/AddLocationRestriction", ReplyAction="http://tempuri.org/IUFileService/AddLocationRestrictionResponse")]
+        void AddLocationRestriction(int fileId, string[] postCodes);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/AddRecipients", ReplyAction="http://tempuri.org/IUFileService/AddRecipientsResponse")]
         void AddRecipients(int transmittalId, string[] recipients);
@@ -1126,16 +1242,36 @@ namespace Ufiles.Email.UFilesService {
             return base.Channel.Login(username, password);
         }
         
-        public Ufiles.Email.UFilesService.Group[] GetGroups() {
-            return base.Channel.GetGroups();
+        public Ufiles.Email.UFilesService.Group[] GetGroups(int userId) {
+            return base.Channel.GetGroups(userId);
+        }
+        
+        public Ufiles.Email.UFilesService.Location[] GetLocations() {
+            return base.Channel.GetLocations();
         }
         
         public int NewTransmittal(int userId) {
             return base.Channel.NewTransmittal(userId);
         }
         
-        public void AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData) {
-            base.Channel.AddFile(userId, transmittalId, fileName, fileType, fileData);
+        public int AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData) {
+            return base.Channel.AddFile(userId, transmittalId, fileName, fileType, fileData);
+        }
+        
+        public void AddUserRestriction(int fileId, string[] emails) {
+            base.Channel.AddUserRestriction(fileId, emails);
+        }
+        
+        public void AddIPRestriction(int fileId, string[] IPs) {
+            base.Channel.AddIPRestriction(fileId, IPs);
+        }
+        
+        public void AddGroupRestruction(int fileId, int[] groupIds) {
+            base.Channel.AddGroupRestruction(fileId, groupIds);
+        }
+        
+        public void AddLocationRestriction(int fileId, string[] postCodes) {
+            base.Channel.AddLocationRestriction(fileId, postCodes);
         }
         
         public void AddRecipients(int transmittalId, string[] recipients) {
