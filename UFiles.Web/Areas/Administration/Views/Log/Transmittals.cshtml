@@ -1,0 +1,30 @@
+﻿@model IEnumerable<UFiles.Domain.Entities.TransmittalEvent>
+@{
+    ViewBag.Title = "Transmittals";
+    Layout = "../shared/_Layout.cshtml";
+}
+
+<h2>User Event Log</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Sender</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eve in Model)
+        {
+            <tr>
+                <td>@eve.EventId</td>
+                <td>@eve.Occurred</td>
+                <td>Description</td>
+                <td>@Html.ActionLink(eve.Transmittal.Sender.FirstName + " " + eve.Transmittal.Sender.LastName, "Edit", "User", new { id = eve.Transmittal.Sender.UserId }, new { })</td>
+                <td>@Html.ActionLink("View " + eve.Transmittal.TransmittalId.ToString(), "Edit", "Transmittal", new { id = eve.Transmittal.TransmittalId }, new { })</td>
+            </tr>
+        }
+    </tbody>
+</table>

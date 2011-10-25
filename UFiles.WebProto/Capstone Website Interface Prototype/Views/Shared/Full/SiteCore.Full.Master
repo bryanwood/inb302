@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" MasterPageFile="~/Views/Shared/SiteCore.Master" %>
+
+<asp:Content ID="fullMasterTitle" ContentPlaceHolderID="masterTitle" runat="server">
+    <asp:ContentPlaceHolder ID="pageTitle" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="fullMasterCSS" ContentPlaceHolderID="masterCSS" runat="server">
+    <link rel="Stylesheet" type="text/css" href="../../../static/css/core.full.css" />
+    <asp:ContentPlaceHolder ID="pageCSS" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="fullMasterJS" ContentPlaceHolderID="masterJS" runat="server">
+    <asp:ContentPlaceHolder ID="pageJS" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="fullMasterContent" ContentPlaceHolderID="masterContent" runat="server">
+    <div class="coreLightbox" id="lightBoxLightsOut">
+    </div>
+    <iframe class="coreLightBoxContainer" id="lightBoxContainer">
+    </iframe>
+    <div class="coreContainer floatFix">
+        <div class="coreHeader floatFix">
+            <div class="coreHeaderBanner floatLeft">
+                <asp:ContentPlaceHolder ID="pageHeading" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div class="coreHeaderInternal floatFix floatRight">
+                <asp:ContentPlaceHolder ID="pageHeader" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div class="coreSidebar floatLeft">
+            <div class="coreSidebarInternal" id="sidebar">
+                <asp:ContentPlaceHolder ID="pageSidebar" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div class="coreInternalContainer floatRight" id="content">
+            <asp:ContentPlaceHolder ID="pageContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ID="fullMasterInnerJS" ContentPlaceHolderID="masterInnerJS" runat="server">
+    <asp:contentplaceholder id="pageInnerJS" runat="server">
+    </asp:contentplaceholder>
+</asp:Content>

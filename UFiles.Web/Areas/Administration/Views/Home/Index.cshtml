@@ -1,0 +1,18 @@
+﻿@model UFiles.Web.Areas.Administration.Controllers.HomeController.AdminDashboard
+@{
+    ViewBag.Title = "Index";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h2>Administration</h2>
+
+<dl>
+    <dt>Number of Users</dt>
+    <dd>@Model.RegisteredUsers</dd>
+    <dt>Number of Transmittals</dt>
+    <dd>@Model.TransmittalsSent</dd>
+    <dt>Storage Used</dt>
+    <dd>@Model.TotalStorageSize</dd>
+    <dt>Number of Files</dt>
+    <dd>@Model.Files</dd>
+</dl>
