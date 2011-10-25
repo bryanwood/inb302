@@ -19,13 +19,27 @@
   </xs:element>
   <xs:element name="GetGroups">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetGroupsResponse">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities" minOccurs="0" name="GetGroupsResult" nillable="true" type="q1:ArrayOfGroup" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLocations">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLocationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities" minOccurs="0" name="GetLocationsResult" nillable="true" type="q2:ArrayOfLocation" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -56,6 +70,60 @@
   </xs:element>
   <xs:element name="AddFileResponse">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddFileResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUserRestriction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fileId" type="xs:int" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="emails" nillable="true" type="q3:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUserRestrictionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddIPRestriction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fileId" type="xs:int" />
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="IPs" nillable="true" type="q4:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddIPRestrictionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddGroupRestruction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fileId" type="xs:int" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="groupIds" nillable="true" type="q5:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddGroupRestructionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddLocationRestriction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fileId" type="xs:int" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="postCodes" nillable="true" type="q6:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddLocationRestrictionResponse">
+    <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
@@ -63,7 +131,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="transmittalId" type="xs:int" />
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="recipients" nillable="true" type="q2:ArrayOfstring" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="recipients" nillable="true" type="q7:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

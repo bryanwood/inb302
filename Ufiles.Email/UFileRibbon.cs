@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Office.Tools.Ribbon;
 using Microsoft.Office.Interop.Outlook;
 using System.Windows.Forms;
+using System.Windows;
 
 namespace Ufiles.Email
 {
@@ -17,19 +18,17 @@ namespace Ufiles.Email
 
         private void btnSendFiles_Click(object sender, RibbonControlEventArgs e)
         {
-            var messageWindow = Globals.ThisAddIn.Application.ActiveInspector().CurrentItem as MailItem;
             
-            var form1 = new FilesForm();
-            var result = form1.ShowDialog();
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
-                messageWindow.HTMLBody += "<p>The file adding was successful</p>";
-                messageWindow.Body += "The file adding was successful";
-            }
-            else
-            {
-                MessageBox.Show("Failed to add the files, try again.", "Failure", MessageBoxButtons.OK);
-            }
+           UFiles.Current.FileUploadComplete += new UFiles.FileUploadCompleteHandler(Current_FileUploadComplete);
+           UFiles.Current.Start();
+
+
+        }
+
+        void Current_FileUploadComplete(UFiles.FileUploadCompleteArgs args)
+        {
+            var messageWindow = Globals.ThisAddIn.Application.ActiveInspector().CurrentItem as MailItem;
+            messageWindow.HTMLBody += string.Format("Files are located here: http://localhost:58348/Transmittal/View/{0}", args.TransmittalId);
         }
     }
 }
