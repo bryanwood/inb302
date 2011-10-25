@@ -237,15 +237,9 @@
 </div>
 </form>
 @section inPageJavascript {
-
-$('[name="startTimeHour"]').val(@DateTime.Now.Hour);
-$('[name="startTimeMinute"]').val(@DateTime.Now.Minute);
-$('[name="startTimeDate"]').val('@DateTime.Now.ToShortDateString()');
-
-$('[name="endTimeHour"]').val(@DateTime.Now.Hour);
-$('[name="endTimeMinute"]').val(@DateTime.Now.Minute);
-$('[name="endTimeDate"]').val('@DateTime.Now.ToShortDateString()');
-
+    $('[name="startTimeHour"]').val(@DateTime.Now.Hour); $('[name="startTimeMinute"]').val(@DateTime.Now.Minute);
+    $('[name="startTimeDate"]').val('@DateTime.Now.ToShortDateString()'); $('[name="endTimeHour"]').val(@DateTime.Now.Hour);
+    $('[name="endTimeMinute"]').val(@DateTime.Now.Minute); $('[name="endTimeDate"]').val('@DateTime.Now.ToShortDateString()');
     var currentRecipientTab = "email"; var currentRestrictionTab = "userRestriction";
     function hasInput(input, tab) { if($(input).val() != "") { $('#' + tab + 'Tab').css("font-weight",
     "bold"); } else { $('#' + tab + 'Tab').css("font-weight", "normal"); } } function
@@ -268,15 +262,14 @@ up.settings.multipart_params.recipientGroups = $('input[name="recipientGroups"]'
 up.settings.multipart_params.sendTo = $('input[name="sendTo"]').val(); up.settings.multipart_params.emailRestriction
 = $('[name="emailRestriction"]').val(); up.settings.multipart_params.groupRestriction
 = $('[name="groupRestriction"]').val(); up.settings.multipart_params.locationString
-= $('[name="locationString"]').val(); up.settings.multipart_params.ipString
-= $('[name="ipString"]').val(); up.settings.multipart_params.timeIsEnabled
-= $('[name="timeIsEnabled"]').val(); up.settings.multipart_params.startTimeHour
-= $('[name="startTimeHour"]').val(); up.settings.multipart_params.startTimeMinute
-= $('[name="startTimeMinute"]').val(); up.settings.multipart_params.startTimeDate
-= $('[name="startTimeDate"]').val(); up.settings.multipart_params.endTimeHour
-= $('[name="endTimeHour"]').val(); up.settings.multipart_params.endTimeMinute
-= $('[name="endTimeMinute"]').val(); up.settings.multipart_params.endTimeDate
-= $('[name="endTimeDate"]').val(); }); uploader.bind('FileUploaded', function(up,
+= $('[name="locationString"]').val(); up.settings.multipart_params.ipString = $('[name="ipString"]').val();
+up.settings.multipart_params.timeIsEnabled = $('[name="timeIsEnabled"]').val();
+up.settings.multipart_params.startTimeHour = $('[name="startTimeHour"]').val();
+up.settings.multipart_params.startTimeMinute = $('[name="startTimeMinute"]').val();
+up.settings.multipart_params.startTimeDate = $('[name="startTimeDate"]').val();
+up.settings.multipart_params.endTimeHour = $('[name="endTimeHour"]').val(); up.settings.multipart_params.endTimeMinute
+= $('[name="endTimeMinute"]').val(); up.settings.multipart_params.endTimeDate =
+$('[name="endTimeDate"]').val(); }); uploader.bind('FileUploaded', function(up,
 file, response) { var reply = $.parseJSON(response.response); if(reply.Success ==
 'false') { $('#validateFail').html(reply.FailureReason); $('#validateFail').slideDown(500);
 $('#validateFail').animate({ opacity: 1.0 }, 500); } });
