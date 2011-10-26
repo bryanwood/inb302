@@ -155,6 +155,14 @@ namespace UFiles.Web.Controllers
             }
         }
 
+        [HttpPost, Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Login");
+        }
+
         [HttpPost]
         public JsonResult AccountCreation(RegisterModel regModel, string passthrough)
         {

@@ -14,8 +14,27 @@ namespace UFiles.Web.Models
         public DateTime SentDate { get; set; }
         public string DownloadLink { get; set; }
 
-        public TransmittalListingModel(Transmittal t)
+        public TransmittalListingModel(Transmittal t, bool recieved)
         {
+            this.FileName = t.Files.ToArray()[0].Name;
+
+            if (recieved)
+            {
+                this.Email = t.Sender.Email;
+            }
+            else
+            {
+                if (t.Recipients.Count > 1)
+                {
+                    this.Email = "many recipients";
+                }
+                else
+                {
+                    this.Email = t.Recipients.ToArray()[0].Email;
+                }
+            }
+
+            this.SentDate = t.Files.ToArray()[0].DateCreated;
         }
     }
 

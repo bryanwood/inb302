@@ -17,9 +17,19 @@ namespace UFiles.Domain.Concrete
             this.unitOfWork = unitOfWork;
         }
 
-        public IQueryable<Transmittal> GetTransmittalsByUser(User user)
+        public void CreateNewTransmittal(Transmittal t)
+        {
+
+        }
+
+        public IQueryable<Transmittal> GetTransmittalsBySender(User user)
         {
             return unitOfWork.TransmittalRepository.Where(t => t.Sender.UserId == user.UserId);
+        }
+
+        public IQueryable<Transmittal> GetTransmittalsByRecipient(User user)
+        {
+            return unitOfWork.TransmittalRepository.Where(t => t.Recipients.Contains(user));
         }
 
         public Transmittal GetTransmittalById(int id)
