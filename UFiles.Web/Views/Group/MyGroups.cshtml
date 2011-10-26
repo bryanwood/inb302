@@ -9,7 +9,7 @@
 @section PageHeader {
     <div class="coreHeaderUserContainer floatRight">
         logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span> |
-        <a href="#">logout</a></div>
+        <a href="@Url.Action("Logout", "Authentication")">>logout</a></div>
 }
 @section PageSidebar{
     <div class="sideBarHeading">
@@ -41,18 +41,20 @@
             <div class="panelLead">
                 create group</div>
             <div class="panelBacking">
-            <form name="createGroup" id="createGroup" method="post" action="#">
-                <div class="boxSection floatFix" id="emailSection">
+                <form name="createGroup" id="createGroup" method="post" action="#">
+                <div class="boxSection groupLabelOverride floatFix" id="nameSection">
                     <div class="boxMinorSection floatFix">
                         <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="groupNameLabel">
                             Group Name</div>
-                        <input type="text" class="boxInput floatRight" name="GroupName" onkeypress="hasInput(this);" />
+                        <input type="text" class="boxInput floatRight" name="GroupName" onkeyup="hasInput(this);" />
                     </div>
+                    </div>
+                                    <div id="expandedInput" style="display: none; opacity: 0.0;">
+                    <div class="boxSection groupLabelOverride floatFix" id="emailSection">
                     <div class="boxMinorSection floatFix">
                         <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="fNameLabel">
                             Users</div>
-                        <input type="text" class="boxInput floatRight" name="UserEmailAddresses" 
-                         onfocus="showHelp();" onkeypress="hasInput(this);" onblur="startHideTimer();" />
+                        <input type="text" class="boxInput floatRight" name="UserEmailAddresses" onfocus="showHelp();" onblur="startHideTimer();" />
                     </div>
                     <div class="boxInformationHighlight informationHighlightAdditional" style="display: none;
                         opacity: 0.0; color: #000000;" id="createGroupInfo">
@@ -60,14 +62,13 @@
                             Seperate each email address with a <b>;</b>.</p>
                     </div>
                     <div class="boxInformationHighlight informationHighlightError" style="display: none;
-                        opacity: 0.0;" id="validateFail">
+                        opacity: 0.0; color: #000000;" id="validateFail">
                     </div>
                 </div>
-                <div id="submitButtonDiv" style="display: none;
-                        opacity: 0.0;">
-                <div class="boxUserAction floatFix">
-                    <input type="submit" class="coreButtonAccept boxButton" value="create" />
-                </div>
+
+                    <div class="boxUserAction floatFix">
+                        <input type="submit" class="coreButtonAccept boxButton" value="create" />
+                    </div>
                 </div>
                 </form>
             </div>
@@ -110,7 +111,8 @@
                     @foreach (UFiles.Domain.Entities.User u in g.includedUsers)
                     {
                         <p>
-                            <div class="groupUserName">@u.FirstName @u.LastName</div>
+                            <div class="groupUserName">
+                                <strong>@u.FirstName @u.LastName</strong></div>
                             <div class="groupUserName">@u.Email</div>
                         </p>
                     }
@@ -122,37 +124,19 @@
     }
 }
 @section InPageJavascript {
-    $("#createGroup").submit(function() { AjaxValidateAndGo(this, "@Url.Action("CreateGroup")",
-"#validateFail"); return false; });
-
+$("#createGroup").submit(function() { AjaxValidateAndGo(this, "@Url.Action("CreateGroup")","#validateFail"); return false; });
 function lightsOut(address) { $('#lightBox').css('display','block'); $('#lightBoxContainer').css('display','block');
 $.ajax({ type: "GET", url: address, statusCode: { 200: function(data) { $('#lightBoxContainer').html(data);
 }, 400: function(data) { $('#lightBox').css('display','none'); $('#lightBoxContainer').css('display','none');
 } } }) } function lightsOn() { $('#lightBox').css('display','none'); $('#lightBoxContainer').css('display','none');
-$('#lightBoxContainer').html("Please wait..."); }
+$('#lightBoxContainer').html("Please wait..."); } var hideHelpTimer; function showHelp()
+{ clearTimeout(hideHelpTimer); $('#createGroupInfo').slideDown(500); $('#createGroupInfo').animate({
+opacity: 1.0 }, 500); } function startHideTimer() { hideHelpTimer = setTimeout("hideHelp()",
+2000); } function hideHelp() { $('#createGroupInfo').animate({ opacity: 0.0 }, 500);
+$('#createGroupInfo').slideUp(500); } 
 
-var hideHelpTimer;
-
-function showHelp()
-{
-    clearTimeout(hideHelpTimer);
-    $('#createGroupInfo').slideDown(500);
-    $('#createGroupInfo').animate({ opacity: 1.0 }, 500);
-}
-
-function startHideTimer()
-{
-    hideHelpTimer = setTimeout("hideHelp()", 2000);
-}
-
-function hideHelp()
-{
-    $('#createGroupInfo').animate({ opacity: 0.0 }, 500);
-    $('#createGroupInfo').slideUp(500);
-}
-
-function hasInput(input) { if($(input).val() != "") { 
-$('#submitButtonDiv').slideDown(500); 
-    $('#submitButtonDiv').animate({ opacity: 1.0 }, 500);
-}
+function hasInput(input) { if($(input).val()
+!= "") { $('#expandedInput').slideDown(500); $('#expandedInput').animate({ opacity:
+1.0 }, 500); } else { $('#expandedInput').slideUp(500); $('#expandedInput').animate({ opacity:
+0.0 }, 500); }
 }

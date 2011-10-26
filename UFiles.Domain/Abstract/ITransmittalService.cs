@@ -8,9 +8,10 @@ namespace UFiles.Domain.Abstract
 {
     public interface ITransmittalService
     {
-        IQueryable<Transmittal> GetTransmittalsByUser(User user);
+        IQueryable<Transmittal> GetTransmittalsBySender(User user);
+        IQueryable<Transmittal> GetTransmittalsByRecipient(User user);
         Transmittal GetTransmittalById(int id);
-       // Transmittal CreateNewTransmittal();
+        void CreateNewTransmittal(Transmittal t);
         //Transmittal AddRestriction(Transmittal transmittal, Restriction restriction);
         //Transmittal AddFile(int transmittalId, File file);
     }

@@ -6,6 +6,7 @@ using UFiles.Domain.Entities;
 using UFiles.Domain.Abstract;
 using System.Threading;
 using System.ComponentModel.DataAnnotations;
+using UFiles.Domain.Concrete;
 
 namespace UFiles.Web.Models
 {
@@ -35,28 +36,41 @@ namespace UFiles.Web.Models
 
     }
 
+    public class EditGroupModel : CreateGroupModel
+    {
+        public int GroupID { get; set; }
+    }
+
     public class CreateGroupModel
     {
 
-        [Required(ErrorMessage = "You must enter a group name.")]
+        [Required(ErrorMessage = "<p>You must enter a group name.</p>")]
         public string GroupName { get; set; }
-        [Required(ErrorMessage = "You must enter at least one email address.")]
+        [Required(ErrorMessage = "<p>You must enter at least one email address.</p>")]
         public string UserEmailAddresses { get; set; }
-        private List<String> emailAddressList;
+        private List<String> _emailAddressList;
 
-        public List<String> getEmailAddressList()
+        public List<String> EmailAddressList
         {
-            if (emailAddressList == null)
+            get
             {
-                emailAddressList = new List<String>();
-                String[] temp = UserEmailAddresses.Split(';');
-                foreach (string s in temp)
+                if (_emailAddressList == null)
                 {
-                    emailAddressList.Add(s.Trim());
+                    this.recalcEmailAddressList();
                 }
+                return _emailAddressList;
             }
+            set { _emailAddressList = value; }
+        }
 
-            return emailAddressList;
+        public void recalcEmailAddressList()
+        {
+            EmailAddressList = new List<String>();
+            String[] temp = UserEmailAddresses.Split(';');
+            foreach (string s in temp)
+            {
+                EmailAddressList.Add(s.Trim().Replace(";", ""));
+            }
         }
 
     }
@@ -72,22 +86,35 @@ namespace UFiles.Web.Models
             IUserService userService, string email)
             : base(userService, email)
         {
-            Group g = groupService.GetGroup(groupID);
+            Group thisGroup = null;
 
-            if (g == null)
+            using (var context = new UFileContext())
+            {
+
+                thisGroup = context.Groups.Where(group => group.GroupId == groupID).Single();
+                thisGroup.Owner = (from g in context.Groups
+                                   where g.GroupId == thisGroup.GroupId
+                                   select g.Owner).Single();
+                thisGroup.Users = (from g in context.Groups
+                                   where g.GroupId == thisGroup.GroupId
+                                   select g.Users).Single();
+
+            }
+
+            if (thisGroup == null)
             {
                 return;
             }
 
-            if (g.Owner == null || g.Owner.UserId != base.getUser().ID)
+            if (thisGroup.Owner == null || thisGroup.Owner.UserId != base.getUser().ID)
             {
                 return;
             }
 
-            this.groupID = g.GroupId;
-            this.groupName = g.Name;
+            this.groupID = thisGroup.GroupId;
+            this.groupName = thisGroup.Name;
 
-            foreach (User u in g.Users)
+            foreach (User u in thisGroup.Users)
             {
                 this.groupUsers += u.Email + "; ";
             }

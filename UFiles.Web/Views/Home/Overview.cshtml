@@ -9,7 +9,7 @@
 @section PageHeader {
     <div class="coreHeaderUserContainer floatRight">
         logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span>
-        | <a href="#">logout</a></div>
+        | <a href="@Url.Action("Logout", "Authentication")">logout</a></div>
 }
 @section PageSidebar{
     <div class="sideBarHeading">

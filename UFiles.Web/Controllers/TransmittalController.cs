@@ -91,10 +91,7 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult List()
         {
-            var user = userService.GetUserByEmail(User.Identity.Name);
-            var transmittals = transmittalService.GetTransmittalsByUser(user);
-
-            return View(transmittals);
+            return null;
         }
 
         //
@@ -102,17 +99,7 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult View(int id)
         {
-            var user = userService.GetUserByEmail(User.Identity.Name);
-
-            var transmittal = transmittalService.GetTransmittalById(id);
-
-            //Check if the user is the sender or recipient
-            if (transmittal.Recipients.Contains(user) || transmittal.Sender == user)
-            {
-                return View(transmittal);
-            }
-
-            return RedirectToAction("Unavailable");
+            return null;
         }
 
         public ActionResult Unavailable()

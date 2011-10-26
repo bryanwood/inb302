@@ -2,15 +2,18 @@
 @{
     Layout = null;
 }
+<form id="deleteGroupForm" name="deleteGroupForm" method="post" action="@Url.Action("DeleteGroup")">
 <div class="boxSection floatFix" id="entrySection">
     <div class="boxMinorSection floatFix">
-        <input type="checkbox" class="floatLeft" name="deleteGroup" onclick="$('#confirmDelete').toggle();" />
-        <span class="boxSpanLabel floatLeft" id="emailLabel">
-            Really Delete <strong>@Model.groupName</strong>?</span>
+        <input type="hidden" name="groupID" value="@Model.groupID" />
+        <input type="checkbox" class="floatLeft" name="deleteConfirmed" onclick="$('#confirmDelete').toggle();" />
+        <span class="boxSpanLabel floatLeft" id="emailLabel">Really Delete <strong>@Model.groupName</strong>?</span>
     </div>
 </div>
 <div class="coreMiniBoxUserAction floatFix">
-    <input type="submit" class="coreButtonAccept boxButton floatLeft" id="confirmDelete" style="display:none;" value="delete" />
+    <input type="submit" class="coreButtonAccept boxButton floatLeft" id="confirmDelete"
+        style="display: none;" value="delete" />
     <input type="button" class="coreButtonAccept boxButton floatRight" value="cancel"
         onclick="lightsOn()" />
 </div>
+</form>

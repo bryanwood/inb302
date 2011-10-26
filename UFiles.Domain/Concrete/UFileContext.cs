@@ -22,6 +22,7 @@ namespace UFiles.Domain.Concrete
         public UFileContext()
         {
             Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

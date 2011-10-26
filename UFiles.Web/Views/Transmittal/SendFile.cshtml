@@ -10,7 +10,7 @@
 @section PageHeader {
     <div class="coreHeaderUserContainer floatRight">
         logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span> |
-        <a href="#">logout</a></div>
+        <a href="@Url.Action("Logout", "Authentication")">logout</a></div>
 }
 @section PageSidebar{
     <div class="sideBarHeading">
@@ -249,7 +249,7 @@
     + currentRestrictionTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRestrictionTab
     + 'Section').css("display", "none"); currentRestrictionTab = toTab; } $('#' + toTab
     + 'Tab').addClass("coreTabSelected"); $('#' + toTab + 'Section').css("display",
-    "block"); }; var uploader = new plupload.Uploader({ runtimes: 'html5', browse_button:
+    "block"); return false; }; var uploader = new plupload.Uploader({ runtimes: 'html5', browse_button:
     'fileUpload', max_file_count: 1, multipart: true, multipart_params: { 'recipientEmail':
     '', 'recipientGroups': '', 'sendTo': '', 'emailRestriction': '', 'groupRestriction':
     '', 'locationString': '', 'ipString': '', 'timeIsEnabled': '', 'startTimeHour':

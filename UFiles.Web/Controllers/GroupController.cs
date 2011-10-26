@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
 using UFiles.Web.Models;
+using UFiles.Domain.Concrete;
 
 namespace UFiles.Web.Controllers
 {
@@ -61,23 +62,113 @@ namespace UFiles.Web.Controllers
         public ActionResult DeleteGroup(int groupID, string deleteConfirmed)
         {
 
-            if(String.IsNullOrWhiteSpace(deleteConfirmed))
+            if (String.IsNullOrWhiteSpace(deleteConfirmed))
             {
                 return RedirectToAction("MyGroups");
             }
 
-            Group g = groupService.GetGroup(groupID);
-            User u = userService.GetUserByEmail(User.Identity.Name);
-
-            if (g.Owner == null || g.Owner.UserId != u.UserId)
+            using (var context = new UFileContext())
             {
+                try
+                {
+                    Group g = context.Groups.Where(group => group.GroupId == groupID).Single();
+                    User u = context.Users.Where(user => user.Email == User.Identity.Name).Single();
+
+                    if (g.Owner == null || g.Owner.UserId != u.UserId)
+                    {
+                        return RedirectToAction("MyGroups");
+                    }
+
+                    context.Groups.Remove(g);
+                    context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("MyGroups");
+                }
+
                 return RedirectToAction("MyGroups");
+
             }
 
-            groupService.DeleteGroup(g);
+        }
 
-            return RedirectToAction("MyGroups");
+        [Authorize, HttpPost]
+        public JsonResult EditGroup(EditGroupModel model)
+        {
+            const int errorStatusCode = 400;
+            const int successStatusCode = 201;
 
+            JsonResult jsonReply = new JsonResult();
+            Dictionary<String, String> jsonDictionary = new Dictionary<string, string>();
+
+            if (!ModelState.IsValid)
+            {
+
+                string errorTemp = "";
+
+                foreach (KeyValuePair<string, ModelState> i in ModelState.AsEnumerable())
+                {
+                    foreach (ModelError e in i.Value.Errors)
+                    {
+                        errorTemp += "<p>" + e.ErrorMessage + "</p>";
+                    }
+                }
+
+                jsonDictionary.Add("FailureReason", errorTemp);
+                Response.StatusCode = errorStatusCode;
+
+                jsonReply = Json(jsonDictionary);
+
+                return jsonReply;
+            }
+            using (var context = new UFileContext())
+            {
+
+                Group thisGroup = context.Groups.Where(g => g.GroupId == model.GroupID).Single();
+                thisGroup.Users = (from g in context.Groups
+                                   where g.GroupId == thisGroup.GroupId
+                                   select g.Users).Single();
+
+                foreach (User u in thisGroup.Users)
+                {
+                    foreach (string e in model.EmailAddressList)
+                    {
+                        if (String.Equals(e, u.Email, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            break;
+                        }
+                        thisGroup.Users.Remove(u);
+                        model.EmailAddressList.Remove(e);
+                    }
+                }
+
+                foreach (string e in model.EmailAddressList)
+                {
+                    try
+                    {
+                        thisGroup.Users.Add(context.Users.Where<User>(u => u.Email == e).Single());
+                    }
+                    catch (Exception ex)
+                    {
+                        jsonDictionary.Add("FailureReason", "<p>There is no registered user with " +
+                        "the email address of: " + e + "</p>");
+                        Response.StatusCode = errorStatusCode;
+
+                        jsonReply = Json(jsonDictionary);
+
+                        return jsonReply;
+                    }
+                }
+                context.Entry(thisGroup).State = System.Data.EntityState.Modified;
+                context.SaveChanges();
+
+            }
+
+            Response.StatusCode = successStatusCode;
+            jsonDictionary.Add("GoTo", Url.Action("MyGroups"));
+
+            return Json(jsonDictionary);
         }
 
         [Authorize, HttpPost]
@@ -112,17 +203,37 @@ namespace UFiles.Web.Controllers
 
             }
 
-            Group newGroup = new Group();
-
-            newGroup.Name = model.GroupName;
-            newGroup.Users = new List<User>();
-
-            foreach(string e in model.getEmailAddressList())
+            using (var context = new UFileContext())
             {
-                newGroup.Users.Add(userService.GetUserByEmail(e));
-            }
 
-            groupService.CreateGroup(userService.GetUserByEmail(User.Identity.Name), newGroup);
+                Group newGroup = new Group();
+
+                newGroup.Name = model.GroupName;
+                newGroup.Owner = context.Users.Where<User>(u => u.Email == User.Identity.Name).Single();
+                newGroup.Users = new List<User>();
+
+                foreach (string e in model.EmailAddressList)
+                {
+                    try
+                    {
+                        newGroup.Users.Add(context.Users.Where<User>(u => u.Email == e).Single());
+                    }
+                    catch (Exception ex)
+                    {
+                        jsonDictionary.Add("FailureReason", "<p>There is no registered user with " +
+                        "the email address of: " + e + "</p>");
+                        Response.StatusCode = errorStatusCode;
+
+                        jsonReply = Json(jsonDictionary);
+
+                        return jsonReply;
+                    }
+                }
+
+                context.Groups.Add(newGroup);
+                context.SaveChanges();
+
+            }
 
             Response.StatusCode = successStatusCode;
             jsonDictionary.Add("GoTo", Url.Action("MyGroups"));
