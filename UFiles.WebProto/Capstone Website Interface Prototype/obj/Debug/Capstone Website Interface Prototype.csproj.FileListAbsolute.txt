@@ -1,0 +1,7 @@
+c:\users\carl\documents\visual studio 2010\Projects\Capstone Website Interface Prototype\Capstone Website Interface Prototype\bin\Capstone Website Interface Prototype.dll
+c:\users\carl\documents\visual studio 2010\Projects\Capstone Website Interface Prototype\Capstone Website Interface Prototype\bin\Capstone Website Interface Prototype.pdb
+c:\users\carl\documents\visual studio 2010\Projects\Capstone Website Interface Prototype\Capstone Website Interface Prototype\bin\EntityFramework.dll
+c:\users\carl\documents\visual studio 2010\Projects\Capstone Website Interface Prototype\Capstone Website Interface Prototype\bin\EntityFramework.xml
+c:\users\carl\documents\visual studio 2010\Projects\Capstone Website Interface Prototype\Capstone Website Interface Prototype\obj\Debug\ResolveAssemblyReference.cache
+c:\users\carl\documents\visual studio 2010\Projects\Capstone Website Interface Prototype\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.dll
+c:\users\carl\documents\visual studio 2010\Projects\Capstone Website Interface Prototype\Capstone Website Interface Prototype\obj\Debug\Capstone Website Interface Prototype.pdb

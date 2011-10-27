@@ -1,0 +1,27 @@
+﻿@model UFiles.Domain.Entities.Transmittal
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Transmittal</h2>
+
+<h3>Sent to you by @Model.Sender.FirstName @Model.Sender.LastName</h3>
+
+<table class="sort">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>Size</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var file in Model.Files)
+{
+        <tr>
+            <td>@file.Name</td>
+            <td>@file.FileData.Size</td>
+        </tr>
+}
+    </tbody>
+</table>

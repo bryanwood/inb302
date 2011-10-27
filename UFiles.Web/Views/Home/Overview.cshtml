@@ -1,0 +1,125 @@
+﻿@model UFiles.Web.Models.OverviewModel
+@{
+    ViewBag.Title = "Overview";
+    Layout = "~/Views/Shared/Full/_Site.Full.Master.Layout.cshtml";
+}
+@section PageHeading {
+    <a class="coreExternalHighlight" href="Home">home</a>/
+}
+@section PageHeader {
+    <div class="coreHeaderUserContainer floatRight">
+        logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span>
+        | <a href="@Url.Action("Logout", "Authentication")">logout</a></div>
+}
+@section PageSidebar{
+    <div class="sideBarHeading">
+        @Model.getUser().FName @Model.getUser().LName</div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab coreExternalHighlight">
+            <a href="@Url.Action("Overview", "Home")">home</a></div>
+        <div class="sidebarTab">
+            <a href="@Url.Action("SendFile", "Transmittal")">send a file</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyGroup">
+            <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyFiles">
+            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
+        <div class="sidebarTab" id="tabOtherFiles">
+            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabSettings">
+            <a href="@Url.Action("Settings", "Account")">settings</a></div>
+    </div>
+}
+    <div class="contentBarFull">
+        <div class="contentPanel floatFix floatLeft">
+            <div class="uploadHeading floatLeft">
+                send a file</div>
+            <div class="uploadSectionMajor floatLeft floatFix">
+                <input type="button" class="uploadSendButton coreButtonAccept floatRight" value="Send" />
+                <input type="file" class="uploadUploadButton floatRight" />
+            </div>
+        </div>
+    </div>
+    <div class="homeView floatFix">
+        <div class="contentBarMain floatLeft">
+            <div class="contentPanel floatLeft">
+                <div class="detailsSection">
+                    <div class="detailsMajor">
+                        <div class="detailsInnerSection">
+                            <span class="detailsHighlight" id="fileName">@Model.preloadedOverview.FileName</span>
+                        </div>
+                        <div class="detailsInnerSection">
+                            sent by <span class="detailsHighlight" id="fileSender">@Model.preloadedOverview.Sender</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contentBarMini floatRight">
+            <div class="contentPanel floatRight">
+                <div class="panelHeading floatFix">
+                    <a href="#"><div class="panelTab panelTabSelected floatLeft" id="recievedTab">recently recieved</div></a>
+                    <a href="#"><div class="panelTab floatRight" id="sentTab">recently sent</div></a></div>
+                <div class="floatFix" id="recentlySent">
+                @{ 
+                    if (Model.RecentlySentTransmittals == null || Model.RecentlySentTransmittals.Count < 1)
+                    {
+                                               <div class="panelMiniSection floatFix">
+                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                            <p>You don't have any recently sent files.</p></div>
+                    </div>
+                    }
+                    else
+                    {
+                        foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlySentTransmittals.AsEnumerable())
+                        {
+                       <div class="panelMiniSection floatFix">
+                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                            @t.FileName</div>
+                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
+                            @t.Email</div>
+                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
+                            @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
+                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
+                            <a href="#">download</a></div>
+                    </div>
+                        }
+                    }
+                    }
+                </div>
+            </div>
+            <div class="contentPanel floatRight" id="recentlyRecieved" style="display: none; opacity: 0.0;">
+                <div class="floatFix" id="recentlyReceived">
+                                  @{   if (Model.RecentlyReceivedTransmittals == null || Model.RecentlyReceivedTransmittals.Count < 1)
+                                       {
+                                               <div class="panelMiniSection floatFix">
+                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                            <p>You don't have any recently received files.</p></div>
+                    </div>
+                                       }
+                                       else
+                                       {
+                                           foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlyReceivedTransmittals.AsEnumerable())
+                                           {
+                       <div class="panelMiniSection floatFix">
+                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                            @t.FileName</div>
+                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
+                            @t.Email</div>
+                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
+                            @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
+                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
+                            <a href="#">download</a></div>
+                    </div>
+                                           }
+                                       }
+                                       }
+                </div>
+            </div>
+        </div>
+    </div>
