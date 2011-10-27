@@ -23,6 +23,7 @@ namespace UFiles.Web
         public int NewTransmittal(int userId)
         {
             var transmittal = new Transmittal();
+            transmittal.SenderId = userId;
             db.Transmittals.Add(transmittal);
             db.SaveChanges();
             return transmittal.TransmittalId;
@@ -35,7 +36,7 @@ namespace UFiles.Web
         {
             return db.Groups.ToArray();
         }
-
+    
 
 
         public int AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData)
@@ -43,9 +44,15 @@ namespace UFiles.Web
            
             var file = new File();
             file.Name = fileName;
-            file.Owner = db.Users.Find(userId);
-            file.Transmittals.Add(db.Transmittals.Find(transmittalId));
-            db.Files.Add(file);
+            file.OwnerId = userId;
+            file.DateCreated = DateTime.Now;
+            file.ContentType = fileType;
+            file.FileData = fileData;
+            file.Size = fileData.Length;
+            //file.Transmittals.Add(db.Transmittals.Find(transmittalId));
+            var transmittal = db.Transmittals.Include(x=>x.Files).Where(s=>s.TransmittalId==transmittalId).Single();
+            transmittal.Files.Add(file);
+//            db.Files.Add(file);
                       db.SaveChanges();
                       return file.FileId;
 
