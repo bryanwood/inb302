@@ -1,4 +1,4 @@
-﻿namespace Ufiles.Email
+﻿namespace UFiles.Email
 {
     partial class UFileRibbon : Microsoft.Office.Tools.Ribbon.RibbonBase
     {
