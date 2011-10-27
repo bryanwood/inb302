@@ -26,14 +26,19 @@ namespace UFiles.Domain.Concrete
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasMany(user => user.ReceivedTransmittals).WithMany(transmittal => transmittal.Recipients);
-            modelBuilder.Entity<Transmittal>().HasMany(transmittal => transmittal.Recipients).WithMany(user => user.ReceivedTransmittals);
+            modelBuilder.Entity<FileAccessEvent>().HasRequired(x => x.File).WithMany(x => x.FileAccessEvents).HasForeignKey(x=>x.FileId).WillCascadeOnDelete(false);
+            modelBuilder.Entity<FileAccessEvent>().HasRequired(x => x.User).WithMany(x => x.FileAccessEvents).HasForeignKey(x=>x.UserId).WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<User>().HasMany(user => user.OwnedGroups).WithRequired(group => group.Owner).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Group>().HasRequired(group => group.Owner).WithMany(user => user.OwnedGroups).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Transmittal>().HasRequired(x => x.Sender).WithMany(x => x.SentTransmittals).HasForeignKey(x => x.SenderId).WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<User>().HasMany(user => user.MemberGroups).WithMany(group => group.Users);
-            modelBuilder.Entity<Group>().HasMany(group => group.Users).WithMany(user => user.MemberGroups);
+            //modelBuilder.Entity<User>().HasMany(user => user.ReceivedTransmittals).WithMany(transmittal => transmittal.Recipients);
+            //modelBuilder.Entity<Transmittal>().HasMany(transmittal => transmittal.Recipients).WithMany(user => user.ReceivedTransmittals);
+
+            //modelBuilder.Entity<User>().HasMany(user => user.OwnedGroups).WithRequired(group => group.Owner).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Group>().HasRequired(group => group.Owner).WithMany(user => user.OwnedGroups).WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<User>().HasMany(user => user.MemberGroups).WithMany(group => group.Users);
+            //modelBuilder.Entity<Group>().HasMany(group => group.Users).WithMany(user => user.MemberGroups);
 
             base.OnModelCreating(modelBuilder);
         }

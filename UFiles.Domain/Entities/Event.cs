@@ -17,18 +17,25 @@ namespace UFiles.Domain.Entities
     {
 
         public User User { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
 
         public File File { get; set; }
+        [ForeignKey("File")]
+        public int FileId { get; set; }
     }
     [Table("TransmittalEvents")]
     public class TransmittalEvent : Event{
 
         public Transmittal Transmittal{ get; set; }
+        [ForeignKey("Transmittal")]
+        public int TransmittalId { get; set; }
     }
     [Table("UserEvents")]
     public class UserEvent : Event
     {
-
         public User User { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
     }
 }

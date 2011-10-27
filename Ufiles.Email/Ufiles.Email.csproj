@@ -204,10 +204,6 @@
   -->
   <ItemGroup>
     <Compile Include="ClientSingleton.cs" />
-    <Compile Include="FileBrowseViewModel.cs" />
-    <Compile Include="FileBrowseWindow.xaml.cs">
-      <DependentUpon>FileBrowseWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FilesViewModel.cs" />
     <Compile Include="FilesWindow.xaml.cs">
       <DependentUpon>FilesWindow.xaml</DependentUpon>
@@ -309,10 +305,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="FileBrowseWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="FilesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
