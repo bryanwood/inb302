@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 #pragma warning disable 414
-namespace Ufiles.Email {
+namespace UFiles.Email {
     
     
     /// 
