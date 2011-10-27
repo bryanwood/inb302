@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ufiles.Email.UFilesService {
+namespace UFiles.Email.UFilesService {
     using System.Runtime.Serialization;
     using System;
     
@@ -26,16 +26,16 @@ namespace Ufiles.Email.UFilesService {
         private int GroupIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.GroupRestriction[] GroupRestrictionsField;
+        private UFiles.Email.UFilesService.GroupRestriction[] GroupRestrictionsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User OwnerField;
+        private UFiles.Email.UFilesService.User OwnerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User[] UsersField;
+        private UFiles.Email.UFilesService.User[] UsersField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -61,7 +61,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.GroupRestriction[] GroupRestrictions {
+        public UFiles.Email.UFilesService.GroupRestriction[] GroupRestrictions {
             get {
                 return this.GroupRestrictionsField;
             }
@@ -87,7 +87,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User Owner {
+        public UFiles.Email.UFilesService.User Owner {
             get {
                 return this.OwnerField;
             }
@@ -100,7 +100,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User[] Users {
+        public UFiles.Email.UFilesService.User[] Users {
             get {
                 return this.UsersField;
             }
@@ -135,10 +135,10 @@ namespace Ufiles.Email.UFilesService {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.FileAccessEvent[] FileAccessEventsField;
+        private UFiles.Email.UFilesService.FileAccessEvent[] FileAccessEventsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.File[] FilesField;
+        private UFiles.Email.UFilesService.File[] FilesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FirstNameField;
@@ -147,34 +147,34 @@ namespace Ufiles.Email.UFilesService {
         private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Group[] MemberGroupsField;
+        private UFiles.Email.UFilesService.Group[] MemberGroupsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Group[] OwnedGroupsField;
+        private UFiles.Email.UFilesService.Group[] OwnedGroupsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PasswordHashField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Transmittal[] ReceivedTransmittalsField;
+        private UFiles.Email.UFilesService.Transmittal[] ReceivedTransmittalsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Role RoleField;
+        private UFiles.Email.UFilesService.Role RoleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RoleIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Transmittal[] SentTransmittalsField;
+        private UFiles.Email.UFilesService.Transmittal[] SentTransmittalsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.UserEvent[] UserEventsField;
+        private UFiles.Email.UFilesService.UserEvent[] UserEventsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UserIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.UserRestriction[] UserRestrictionsField;
+        private UFiles.Email.UFilesService.UserRestriction[] UserRestrictionsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool VerifiedField;
@@ -206,7 +206,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.FileAccessEvent[] FileAccessEvents {
+        public UFiles.Email.UFilesService.FileAccessEvent[] FileAccessEvents {
             get {
                 return this.FileAccessEventsField;
             }
@@ -219,7 +219,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.File[] Files {
+        public UFiles.Email.UFilesService.File[] Files {
             get {
                 return this.FilesField;
             }
@@ -258,7 +258,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Group[] MemberGroups {
+        public UFiles.Email.UFilesService.Group[] MemberGroups {
             get {
                 return this.MemberGroupsField;
             }
@@ -271,7 +271,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Group[] OwnedGroups {
+        public UFiles.Email.UFilesService.Group[] OwnedGroups {
             get {
                 return this.OwnedGroupsField;
             }
@@ -297,7 +297,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Transmittal[] ReceivedTransmittals {
+        public UFiles.Email.UFilesService.Transmittal[] ReceivedTransmittals {
             get {
                 return this.ReceivedTransmittalsField;
             }
@@ -310,7 +310,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Role Role {
+        public UFiles.Email.UFilesService.Role Role {
             get {
                 return this.RoleField;
             }
@@ -336,7 +336,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Transmittal[] SentTransmittals {
+        public UFiles.Email.UFilesService.Transmittal[] SentTransmittals {
             get {
                 return this.SentTransmittalsField;
             }
@@ -349,7 +349,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.UserEvent[] UserEvents {
+        public UFiles.Email.UFilesService.UserEvent[] UserEvents {
             get {
                 return this.UserEventsField;
             }
@@ -375,7 +375,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.UserRestriction[] UserRestrictions {
+        public UFiles.Email.UFilesService.UserRestriction[] UserRestrictions {
             get {
                 return this.UserRestrictionsField;
             }
@@ -427,13 +427,13 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="GroupRestriction", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    public partial class GroupRestriction : Ufiles.Email.UFilesService.Restriction {
+    public partial class GroupRestriction : UFiles.Email.UFilesService.Restriction {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Group[] GroupsField;
+        private UFiles.Email.UFilesService.Group[] GroupsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Group[] Groups {
+        public UFiles.Email.UFilesService.Group[] Groups {
             get {
                 return this.GroupsField;
             }
@@ -450,9 +450,9 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Restriction", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.UserRestriction))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.LocationRestriction))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.GroupRestriction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(UFiles.Email.UFilesService.UserRestriction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(UFiles.Email.UFilesService.LocationRestriction))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(UFiles.Email.UFilesService.GroupRestriction))]
     public partial class Restriction : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -498,13 +498,13 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserRestriction", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    public partial class UserRestriction : Ufiles.Email.UFilesService.Restriction {
+    public partial class UserRestriction : UFiles.Email.UFilesService.Restriction {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User[] UsersField;
+        private UFiles.Email.UFilesService.User[] UsersField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User[] Users {
+        public UFiles.Email.UFilesService.User[] Users {
             get {
                 return this.UsersField;
             }
@@ -521,13 +521,13 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LocationRestriction", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    public partial class LocationRestriction : Ufiles.Email.UFilesService.Restriction {
+    public partial class LocationRestriction : UFiles.Email.UFilesService.Restriction {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Location[] LocationsField;
+        private UFiles.Email.UFilesService.Location[] LocationsField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Location[] Locations {
+        public UFiles.Email.UFilesService.Location[] Locations {
             get {
                 return this.LocationsField;
             }
@@ -556,7 +556,7 @@ namespace Ufiles.Email.UFilesService {
         private int RoleIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User[] UsersField;
+        private UFiles.Email.UFilesService.User[] UsersField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -595,7 +595,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User[] Users {
+        public UFiles.Email.UFilesService.User[] Users {
             get {
                 return this.UsersField;
             }
@@ -621,16 +621,16 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FileAccessEvent", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    public partial class FileAccessEvent : Ufiles.Email.UFilesService.Event {
+    public partial class FileAccessEvent : UFiles.Email.UFilesService.Event {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.File FileField;
+        private UFiles.Email.UFilesService.File FileField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User UserField;
+        private UFiles.Email.UFilesService.User UserField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.File File {
+        public UFiles.Email.UFilesService.File File {
             get {
                 return this.FileField;
             }
@@ -643,7 +643,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User User {
+        public UFiles.Email.UFilesService.User User {
             get {
                 return this.UserField;
             }
@@ -672,7 +672,7 @@ namespace Ufiles.Email.UFilesService {
         private System.DateTime DateCreatedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.FileAccessEvent[] FileAccessEventsField;
+        private UFiles.Email.UFilesService.FileAccessEvent[] FileAccessEventsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private byte[] FileDataField;
@@ -684,10 +684,10 @@ namespace Ufiles.Email.UFilesService {
         private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User OwnerField;
+        private UFiles.Email.UFilesService.User OwnerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Restriction[] RestrictionsField;
+        private UFiles.Email.UFilesService.Restriction[] RestrictionsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool RevokedField;
@@ -696,7 +696,7 @@ namespace Ufiles.Email.UFilesService {
         private int SizeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Transmittal[] TransmittalsField;
+        private UFiles.Email.UFilesService.Transmittal[] TransmittalsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -735,7 +735,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.FileAccessEvent[] FileAccessEvents {
+        public UFiles.Email.UFilesService.FileAccessEvent[] FileAccessEvents {
             get {
                 return this.FileAccessEventsField;
             }
@@ -787,7 +787,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User Owner {
+        public UFiles.Email.UFilesService.User Owner {
             get {
                 return this.OwnerField;
             }
@@ -800,7 +800,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Restriction[] Restrictions {
+        public UFiles.Email.UFilesService.Restriction[] Restrictions {
             get {
                 return this.RestrictionsField;
             }
@@ -839,7 +839,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Transmittal[] Transmittals {
+        public UFiles.Email.UFilesService.Transmittal[] Transmittals {
             get {
                 return this.TransmittalsField;
             }
@@ -871,19 +871,19 @@ namespace Ufiles.Email.UFilesService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.File[] FilesField;
+        private UFiles.Email.UFilesService.File[] FilesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User[] RecipientsField;
+        private UFiles.Email.UFilesService.User[] RecipientsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User SenderField;
+        private UFiles.Email.UFilesService.User SenderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool SentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.TransmittalEvent[] TransmittalEventsField;
+        private UFiles.Email.UFilesService.TransmittalEvent[] TransmittalEventsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TransmittalIdField;
@@ -899,7 +899,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.File[] Files {
+        public UFiles.Email.UFilesService.File[] Files {
             get {
                 return this.FilesField;
             }
@@ -912,7 +912,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User[] Recipients {
+        public UFiles.Email.UFilesService.User[] Recipients {
             get {
                 return this.RecipientsField;
             }
@@ -925,7 +925,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User Sender {
+        public UFiles.Email.UFilesService.User Sender {
             get {
                 return this.SenderField;
             }
@@ -951,7 +951,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.TransmittalEvent[] TransmittalEvents {
+        public UFiles.Email.UFilesService.TransmittalEvent[] TransmittalEvents {
             get {
                 return this.TransmittalEventsField;
             }
@@ -990,13 +990,13 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UserEvent", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    public partial class UserEvent : Ufiles.Email.UFilesService.Event {
+    public partial class UserEvent : UFiles.Email.UFilesService.Event {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.User UserField;
+        private UFiles.Email.UFilesService.User UserField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.User User {
+        public UFiles.Email.UFilesService.User User {
             get {
                 return this.UserField;
             }
@@ -1013,9 +1013,9 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Event", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.TransmittalEvent))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.UserEvent))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Ufiles.Email.UFilesService.FileAccessEvent))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(UFiles.Email.UFilesService.TransmittalEvent))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(UFiles.Email.UFilesService.UserEvent))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(UFiles.Email.UFilesService.FileAccessEvent))]
     public partial class Event : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -1077,13 +1077,13 @@ namespace Ufiles.Email.UFilesService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TransmittalEvent", Namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities")]
     [System.SerializableAttribute()]
-    public partial class TransmittalEvent : Ufiles.Email.UFilesService.Event {
+    public partial class TransmittalEvent : UFiles.Email.UFilesService.Event {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.Transmittal TransmittalField;
+        private UFiles.Email.UFilesService.Transmittal TransmittalField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.Transmittal Transmittal {
+        public UFiles.Email.UFilesService.Transmittal Transmittal {
             get {
                 return this.TransmittalField;
             }
@@ -1109,7 +1109,7 @@ namespace Ufiles.Email.UFilesService {
         private int LocationIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Ufiles.Email.UFilesService.LocationRestriction[] LocationRestrictionsField;
+        private UFiles.Email.UFilesService.LocationRestriction[] LocationRestrictionsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PostCodeField;
@@ -1138,7 +1138,7 @@ namespace Ufiles.Email.UFilesService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Ufiles.Email.UFilesService.LocationRestriction[] LocationRestrictions {
+        public UFiles.Email.UFilesService.LocationRestriction[] LocationRestrictions {
             get {
                 return this.LocationRestrictionsField;
             }
@@ -1181,10 +1181,10 @@ namespace Ufiles.Email.UFilesService {
         int Login(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/GetGroups", ReplyAction="http://tempuri.org/IUFileService/GetGroupsResponse")]
-        Ufiles.Email.UFilesService.Group[] GetGroups(int userId);
+        UFiles.Email.UFilesService.Group[] GetGroups(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/GetLocations", ReplyAction="http://tempuri.org/IUFileService/GetLocationsResponse")]
-        Ufiles.Email.UFilesService.Location[] GetLocations();
+        UFiles.Email.UFilesService.Location[] GetLocations();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/NewTransmittal", ReplyAction="http://tempuri.org/IUFileService/NewTransmittalResponse")]
         int NewTransmittal(int userId);
@@ -1212,12 +1212,12 @@ namespace Ufiles.Email.UFilesService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IUFileServiceChannel : Ufiles.Email.UFilesService.IUFileService, System.ServiceModel.IClientChannel {
+    public interface IUFileServiceChannel : UFiles.Email.UFilesService.IUFileService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class UFileServiceClient : System.ServiceModel.ClientBase<Ufiles.Email.UFilesService.IUFileService>, Ufiles.Email.UFilesService.IUFileService {
+    public partial class UFileServiceClient : System.ServiceModel.ClientBase<UFiles.Email.UFilesService.IUFileService>, UFiles.Email.UFilesService.IUFileService {
         
         public UFileServiceClient() {
         }
@@ -1242,11 +1242,11 @@ namespace Ufiles.Email.UFilesService {
             return base.Channel.Login(username, password);
         }
         
-        public Ufiles.Email.UFilesService.Group[] GetGroups(int userId) {
+        public UFiles.Email.UFilesService.Group[] GetGroups(int userId) {
             return base.Channel.GetGroups(userId);
         }
         
-        public Ufiles.Email.UFilesService.Location[] GetLocations() {
+        public UFiles.Email.UFilesService.Location[] GetLocations() {
             return base.Channel.GetLocations();
         }
         
