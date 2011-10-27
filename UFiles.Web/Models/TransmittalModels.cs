@@ -38,12 +38,19 @@ namespace UFiles.Web.Models
         }
     }
 
-    public class TransmittalOverview
+    public class TransmittalOverviewModel
     {
         public string FileName { get; set; }
-        public string Email { get; set; }
+        public string Sender { get; set; }
         public DateTime SentDate { get; set; }
         public string DownloadLink { get; set; }
+
+        public TransmittalOverviewModel(Transmittal t)
+        {
+            this.FileName = t.Files.ToArray()[0].Name;
+            this.Sender = t.Sender.Email;
+            this.SentDate = t.Files.ToArray()[0].DateCreated;
+        }
     }
 
     public class TransmittalSendModel

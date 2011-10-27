@@ -14,6 +14,8 @@ namespace UFiles.Web.Models
         public List<TransmittalListingModel> RecentlySentTransmittals { get; set; }
         public List<TransmittalListingModel> RecentlyReceivedTransmittals { get; set; }
 
+        public TransmittalOverviewModel preloadedOverview { get; set; }
+
         public OverviewModel(IUserService userService, ITransmittalService transmittalService,
             string email)
             : base(userService, email)
@@ -40,6 +42,12 @@ namespace UFiles.Web.Models
                                    select transmittal.Files).First();
                         TransmittalListingModel temp = new TransmittalListingModel(t, true);
                         RecentlyReceivedTransmittals.Add(temp);
+
+                        if (preloadedOverview == null)
+                        {
+                            preloadedOverview = new TransmittalOverviewModel(t);
+                        }
+
                     }
 
                     foreach (Transmittal t in (from transmittal in context.Transmittals

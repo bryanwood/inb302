@@ -24,3 +24,22 @@ $.ajax({
 return false;
 
 }
+
+function updateOverviewPreview(id) {
+
+    $.ajax({
+        type: "POST",
+        url: postURL,
+        data: serialized,
+        statusCode: {
+
+            201: function (data) {
+            $('#fileName').html(data.filename);
+            $('#fileSender').html(data.sender);
+            },
+
+        }
+    })
+    return false;
+
+}
