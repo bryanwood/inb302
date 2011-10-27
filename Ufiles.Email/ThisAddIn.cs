@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using Office = Microsoft.Office.Core;
 
-namespace Ufiles.Email
+namespace UFiles.Email
 {
     public partial class ThisAddIn
     {

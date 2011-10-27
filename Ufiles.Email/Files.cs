@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Ufiles.Email.UFilesService;
-using System.Windows.Forms;
+using UFiles.Email.UFilesService;
 
-namespace Ufiles.Email
+using System.Windows;
+
+
+namespace UFiles.Email
 {
-    public class UFiles
+    public class FilesModel
     {
         public delegate void FileAddedHandler();
         public event FileAddedHandler FileAdded;
 
         private UFilesService.UFileServiceClient client { get; set; }
         private int userId = 0;
-        private static UFiles current;
+        private static FilesModel current;
         private bool isStarted = false;
-        private UFiles()
+        private FilesModel()
         {
             client = new UFileServiceClient();
+            //var form = new MainWindow();
         }
         public class FileUploadCompleteArgs
         {
@@ -34,10 +37,9 @@ namespace Ufiles.Email
                 GetLogin();
             }
             Files = new List<UploadableFile>();
-            var filesForm = new FilesForm();
-            var result = filesForm.ShowDialog();
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
+            
+            
+            
                 MessageBox.Show("Success");
                 if (FileUploadComplete != null)
                 {
@@ -46,11 +48,7 @@ namespace Ufiles.Email
                         TransmittalId = 0,
                     });
                 }
-            }
-            else
-            {
-                MessageBox.Show("Failure");
-            }
+            
         }
         public List<UploadableFile> Files { get; private set; }
         public UploadableFile LastFile { get; private set; }
@@ -97,15 +95,15 @@ namespace Ufiles.Email
         {
             return client.GetGroups(userId);
         }
-        public static UFiles Current
+        public static FilesModel Current
         {
             get
             {
-                if (UFiles.current == null)
+                if (FilesModel.current == null)
                 {
-                    UFiles.current = new UFiles();
+                    FilesModel.current = new FilesModel();
                 }
-                return UFiles.current;
+                return FilesModel.current;
             }
         }
     }
