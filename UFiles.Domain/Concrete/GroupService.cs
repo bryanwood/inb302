@@ -9,10 +9,10 @@ namespace UFiles.Domain.Concrete
 {
     public class GroupService : IGroupService
     {
-        private UFileContext db;
+        private IUFileContext db;
         
 
-        public GroupService(UFileContext context)
+        public GroupService(IUFileContext context)
         {
             db = context;
         }

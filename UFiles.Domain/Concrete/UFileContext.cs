@@ -8,7 +8,7 @@ using UFiles.Domain.Abstract;
 
 namespace UFiles.Domain.Concrete
 {
-    public class UFileContext : DbContext
+    public class UFileContext : DbContext, IUFileContext
     {
         public IDbSet<Event> Events { get; set; }
         public IDbSet<File> Files { get; set; }
@@ -28,6 +28,7 @@ namespace UFiles.Domain.Concrete
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<FileAccessEvent>().HasRequired(x => x.File).WithMany(x => x.FileAccessEvents).HasForeignKey(x=>x.FileId).WillCascadeOnDelete(false);
             modelBuilder.Entity<FileAccessEvent>().HasRequired(x => x.User).WithMany(x => x.FileAccessEvents).HasForeignKey(x=>x.UserId).WillCascadeOnDelete(false);
 
@@ -41,8 +42,10 @@ namespace UFiles.Domain.Concrete
 
             //modelBuilder.Entity<User>().HasMany(user => user.MemberGroups).WithMany(group => group.Users);
             //modelBuilder.Entity<Group>().HasMany(group => group.Users).WithMany(user => user.MemberGroups);
-
+            
             base.OnModelCreating(modelBuilder);
         }
+
+
     }
 }

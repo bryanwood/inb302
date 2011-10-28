@@ -52,6 +52,7 @@
     <Compile Include="Abstract\IFileAccess.cs" />
     <Compile Include="Abstract\IGroupService.cs" />
     <Compile Include="Abstract\ITransmittalService.cs" />
+    <Compile Include="Abstract\IUFileContext.cs" />
     <Compile Include="Concrete\EmailService.cs" />
     <Compile Include="Concrete\EventService.cs" />
     <Compile Include="Concrete\FileDataStorage.cs" />

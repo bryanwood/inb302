@@ -104,7 +104,7 @@ namespace UFiles.Web
 
         public void SendTransmittal(int transmittalId)
         {
-            
+            transmittalService.SendTransmittal(transmittalId);
         }
 
 
