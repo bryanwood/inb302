@@ -43,6 +43,7 @@ namespace UFiles.Web.Models
         public string FileName { get; set; }
         public string Sender { get; set; }
         public DateTime SentDate { get; set; }
+        public List<Restriction> Restrictions { get; set; }
         public string DownloadLink { get; set; }
 
         public TransmittalOverviewModel(Transmittal t)
@@ -50,6 +51,7 @@ namespace UFiles.Web.Models
             this.FileName = t.Files.ToArray()[0].Name;
             this.Sender = t.Sender.Email;
             this.SentDate = t.Files.ToArray()[0].DateCreated;
+            this.Restrictions = t.Files.ToArray()[0].Restrictions.ToList();
         }
     }
 
