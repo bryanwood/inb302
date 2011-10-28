@@ -9,54 +9,55 @@ namespace UFiles.Domain.Concrete
 {
     public class GroupService : IGroupService
     {
-        private IUnitOfWork unitOfWork;
+        private IUFileContext db;
+        
 
-        public GroupService(IUnitOfWork unitOfWork)
+        public GroupService(IUFileContext context)
         {
-            this.unitOfWork = unitOfWork;
+            db = context;
         }
 
         public IQueryable<Group> GetGroupsByOwner(Entities.User owner)
         {
-            return unitOfWork.GroupRepository.Where(g => g.Owner.UserId == owner.UserId);
+            return db.Groups.Where(g => g.Owner.UserId == owner.UserId);
         }
 
         public Entities.Group GetGroup(int id)
         {
-            return unitOfWork.GroupRepository.Where(g => g.GroupId == id).Single();
+            return db.Groups.Where(g => g.GroupId == id).Single();
         }
 
         public void CreateGroup(Entities.User owner, Group group)
         {
             group.Owner = owner;
-            unitOfWork.GroupRepository.Add(group);
-            unitOfWork.Save();
+            db.Groups.Add(group);
+            db.SaveChanges();
         }
 
         public void AddMember(Group group, User member)
         {
             group.Users.Add(member);
-            unitOfWork.GroupRepository.Update(group);
-            unitOfWork.Save();
+            db.Entry(group).State = System.Data.EntityState.Modified;
+            db.SaveChanges();
         }
 
         public void RemoveMember(Group group, User member)
         {
             group.Users.Remove(member);
-            unitOfWork.GroupRepository.Update(group);
-            unitOfWork.Save();
+            db.Entry(group).State = System.Data.EntityState.Modified;
+            db.SaveChanges();
         }
 
         public void SaveGroup(Group group)
         {
-            unitOfWork.GroupRepository.Update(group);
-            unitOfWork.Save();
+            db.Entry(group).State = System.Data.EntityState.Modified;
+            db.SaveChanges();
         }
 
         public void DeleteGroup(Group group)
         {
-            unitOfWork.GroupRepository.Delete(group);
-            unitOfWork.Save();
+            db.Groups.Remove(group);
+            db.SaveChanges();
         }
     }
 }

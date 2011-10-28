@@ -11,11 +11,12 @@ namespace UFiles.Domain.Concrete
     
     {
 
-        private IUnitOfWork unitOfWork;
+        private IUFileContext db;
 
-        public EventService(IUnitOfWork unitOfWork)
+        public EventService(IUFileContext context)
         {
-            this.unitOfWork = unitOfWork;
+            db = context;
+           
         }
 
         public IQueryable<Entities.Event> GetEventsByUser(Entities.User user)
@@ -35,7 +36,7 @@ namespace UFiles.Domain.Concrete
 
         public Entities.Event GetEvent(int id)
         {
-            return unitOfWork.EventRepository.Where(e => e.EventId == id).Single();
+            return db.Events.Where(e => e.EventId == id).Single();
         }
 
         public void AddFileAccessEvent(Entities.File file, Entities.User user)

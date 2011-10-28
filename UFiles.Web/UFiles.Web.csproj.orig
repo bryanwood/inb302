@@ -182,7 +182,9 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\JS\site.auth.js" />
+    <Content Include="Scripts\JS\plupload.html5.js" />
+    <Content Include="Scripts\JS\plupload.js" />
+    <Content Include="Scripts\JS\site.core.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\tablesorter.js" />
     <Content Include="UFileService.svc" />
@@ -305,6 +307,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Transmittal\AddRestriction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Group\GetDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Group\CheckDelete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -40,5 +40,10 @@ namespace UFiles.Email
         {
             ViewModel.AddFileClicked();
         }
+
+        private void btnRemoveFile_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.RemoveFile();
+        }
     }
 }

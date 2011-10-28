@@ -13,31 +13,28 @@ namespace UFiles.Web
     public class UFilesRoleProvider : RoleProvider
     {
         [Inject]
-        public IUnitOfWork UnitOfWork
+        public UFileContext Context
         {
             set
             {
-                this.unitOfWork = value;
+                this.db = value;
             }
         }
-        private IUnitOfWork unitOfWork;
-
-        public UFilesRoleProvider()
-        {
-        }
+        private UFileContext db;
+     
 
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
         {
             foreach(var roleName in roleNames){
-                var role = unitOfWork.RoleRepository.All().Where(r => r.Name == roleName).Single();
+                var role = db.Roles.Where(r => r.Name == roleName).Single();
                 foreach (var username in usernames)
                 {
-                    var user = unitOfWork.UserRepository.All().Where(u => u.Email == username).Single();
+                    var user = db.Users.Where(u => u.Email == username).Single();
                     role.Users.Add(user);
                 }
-                unitOfWork.RoleRepository.Update(role);
+                db.Entry(role).State = System.Data.EntityState.Modified;
             }
-            unitOfWork.Save();
+            db.SaveChanges();
         }
         private string _applicationName;
         public override string ApplicationName
@@ -67,47 +64,47 @@ namespace UFiles.Web
 
         public override string[] FindUsersInRole(string roleName, string usernameToMatch)
         {
-            var users = unitOfWork.UserRepository.All().Where(u => u.Role.Name == roleName);
+            var users = db.Users.Where(u => u.Role.Name == roleName);
             return users.Select(u => u.Email).ToArray();
         }
 
         public override string[] GetAllRoles()
         {
-            return unitOfWork.RoleRepository.All().Select(r => r.Name).ToArray();
+            return db.Roles.Select(r => r.Name).ToArray();
         }
 
         public override string[] GetRolesForUser(string username)
         {
-            return new string[] { unitOfWork.UserRepository.All().Where(u => u.Email == username).Single().Role.Name };
+            return new string[] { db.Users.Where(u => u.Email == username).Single().Role.Name };
         }
 
         public override string[] GetUsersInRole(string roleName)
         {
-            return unitOfWork.RoleRepository.All().Where(r => r.Name == roleName).Single().Users.Select(u => u.Email).ToArray();
+            return db.Roles.Where(r => r.Name == roleName).Single().Users.Select(u => u.Email).ToArray();
         }
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            return unitOfWork.UserRepository.All().Where(u => u.Email == username).Single().Role.Name == roleName;
+            return db.Users.Where(u => u.Email == username).Single().Role.Name == roleName;
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
         {
             foreach (var username in usernames)
             {
-                var user = unitOfWork.UserRepository.All().Where(u => u.Email == username).Single();
+                var user = db.Users.Where(u => u.Email == username).Single();
                 if (roleNames.Contains(user.Role.Name))
                 {
                     user.Role = null;
                 }
-                unitOfWork.UserRepository.Update(user);
+                db.Entry(user).State = System.Data.EntityState.Modified;
             }
-            unitOfWork.Save();
+            db.SaveChanges();
         }
 
         public override bool RoleExists(string roleName)
         {
-            return unitOfWork.RoleRepository.All().Where(r => r.Name == roleName).Count() > 0;
+            return db.Roles.Where(r => r.Name == roleName).Count() > 0;
         }
     }
 }
