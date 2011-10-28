@@ -47,19 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IEmailService.cs" />
     <Compile Include="Abstract\IEventService.cs" />
     <Compile Include="Abstract\IFileAccess.cs" />
     <Compile Include="Abstract\IGroupService.cs" />
-    <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\ITransmittalService.cs" />
-    <Compile Include="Abstract\IUnitOfWork.cs" />
+    <Compile Include="Concrete\EmailService.cs" />
     <Compile Include="Concrete\EventService.cs" />
     <Compile Include="Concrete\FileDataStorage.cs" />
     <Compile Include="Concrete\GroupService.cs" />
-    <Compile Include="Concrete\Repository.cs" />
     <Compile Include="Concrete\TransmittalService.cs" />
     <Compile Include="Concrete\UFileContext.cs" />
-    <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Concrete\UserService.cs" />
     <Compile Include="Entities\File.cs" />
     <Compile Include="Entities\Event.cs" />

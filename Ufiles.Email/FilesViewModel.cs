@@ -40,7 +40,7 @@ namespace UFiles.Email
         }
         public void AddFileClicked()
         {
-            var x = ThisAddIn.Recipients;
+            
             if (AddFileClick != null)
             {
                 AddFileClick();

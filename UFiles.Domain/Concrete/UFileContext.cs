@@ -4,26 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using UFiles.Domain.Entities;
+using UFiles.Domain.Abstract;
 
 namespace UFiles.Domain.Concrete
 {
     public class UFileContext : DbContext
     {
-        public DbSet<Event> Events { get; set; }
-        public DbSet<File> Files { get; set; }
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<IPAddress> IPAddresses { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<Restriction> Restrictions { get; set; }
-        public DbSet<TimeRange> TimeRanges { get; set; }
-        public DbSet<Transmittal> Transmittals { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public IDbSet<Event> Events { get; set; }
+        public IDbSet<File> Files { get; set; }
+        public IDbSet<Group> Groups { get; set; }
+        public IDbSet<IPAddress> IPAddresses { get; set; }
+        public IDbSet<Location> Locations { get; set; }
+        public IDbSet<Restriction> Restrictions { get; set; }
+        public IDbSet<TimeRange> TimeRanges { get; set; }
+        public IDbSet<Transmittal> Transmittals { get; set; }
+        public IDbSet<User> Users { get; set; }
+        public IDbSet<Role> Roles { get; set; }
         public UFileContext()
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
         }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FileAccessEvent>().HasRequired(x => x.File).WithMany(x => x.FileAccessEvents).HasForeignKey(x=>x.FileId).WillCascadeOnDelete(false);

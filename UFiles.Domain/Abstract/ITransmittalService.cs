@@ -12,6 +12,7 @@ namespace UFiles.Domain.Abstract
         IQueryable<Transmittal> GetTransmittalsByRecipient(User user);
         Transmittal GetTransmittalById(int id);
         void CreateNewTransmittal(Transmittal t);
+        void AddRecipient(int id, int recipientId);
         //Transmittal AddRestriction(Transmittal transmittal, Restriction restriction);
         //Transmittal AddFile(int transmittalId, File file);
     }
