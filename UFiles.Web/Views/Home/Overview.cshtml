@@ -51,12 +51,33 @@
                 <div class="detailsSection">
                     <div class="detailsMajor">
                         <div class="detailsInnerSection">
-                            <span class="detailsHighlight" id="fileName">@Model.preloadedOverview.FileName</span>
+                            <span class="detailsHighlight detailsHeader" id="fileName">@Model.preloadedOverview.FileName</span>
                         </div>
                         <div class="detailsInnerSection">
                             sent by <span class="detailsHighlight" id="fileSender">@Model.preloadedOverview.Sender</span>
                         </div>
+                        <div class="detailsInnerSection">
+                            on <span class="detailsHighlight" id="fileDate">@Model.preloadedOverview.SentDate</span>
+                        </div>
                     </div>
+                </div>
+                <div class="detailsSection">
+                @{
+                    foreach (UFiles.Domain.Entities.IPRestriction r in Model.preloadedOverview.Restrictions.OfType < UFiles.Domain.Entities.IPRestriction>())
+                    {
+                        foreach(UFiles.Domain.Entities.IPAddress i in r.IPAddress)
+                        {
+                            @i.IP
+                        }
+                    }
+                    foreach (UFiles.Domain.Entities.GroupRestriction gr in Model.preloadedOverview.Restrictions.OfType < UFiles.Domain.Entities.GroupRestriction>())
+                    {
+                        foreach(UFiles.Domain.Entities.Group g in gr.Groups)
+                        {
+                            @g.Name
+                        }
+                    }
+                }
                 </div>
             </div>
         </div>
