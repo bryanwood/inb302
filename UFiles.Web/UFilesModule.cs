@@ -14,7 +14,7 @@ namespace UFiles.Web
     {
         public override void Load()
         {
-            Bind<UFileContext>().To<UFileContext>();
+            Bind<IUFileContext>().To<UFileContext>();
 
             Bind<IEmailService>().To<EmailService>();
             Bind<IUserService>().To<UserService>();

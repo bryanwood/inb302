@@ -9,10 +9,10 @@ namespace UFiles.Domain.Concrete
 {
     public class UserService : IUserService
     {
-        private UFileContext db;
+        private IUFileContext db;
         private IEmailService emailService;
 
-        public UserService(UFileContext context, IEmailService emailService)
+        public UserService(IUFileContext context, IEmailService emailService)
         {
             db = context;
             this.emailService = emailService;

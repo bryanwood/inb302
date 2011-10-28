@@ -11,9 +11,9 @@ namespace UFiles.Domain.Concrete
     
     {
 
-        private UFileContext db;
+        private IUFileContext db;
 
-        public EventService(UFileContext context)
+        public EventService(IUFileContext context)
         {
             db = context;
            
