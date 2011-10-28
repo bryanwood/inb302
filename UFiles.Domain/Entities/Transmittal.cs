@@ -16,6 +16,8 @@ namespace UFiles.Domain.Entities
         public bool Sent { get; set; }
 
         public User Sender { get; set; }
+        [ForeignKey("Sender")]
+        public int SenderId { get; set; }
         
         public virtual ICollection<File> Files { get; set; }
         

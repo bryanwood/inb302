@@ -17,6 +17,8 @@ namespace UFiles.Domain.Entities
         public string ContentType { get; set; }
         public byte[] FileData { get; set; }
         public User Owner { get; set; }
+        [ForeignKey("Owner")]
+        public int OwnerId { get; set; }
         
         public virtual ICollection<Restriction> Restrictions { get; set; }
         

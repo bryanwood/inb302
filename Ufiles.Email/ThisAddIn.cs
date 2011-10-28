@@ -10,11 +10,26 @@ namespace UFiles.Email
 {
     public partial class ThisAddIn
     {
+        Outlook.Inspectors inspectors;
+        public static Outlook.MailItem MailItem;
+        
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-
+            
+            inspectors = this.Application.Inspectors;
+            inspectors.NewInspector += new Outlook.InspectorsEvents_NewInspectorEventHandler(inspectors_NewInspector);
         }
 
+        void inspectors_NewInspector(Outlook.Inspector Inspector)
+        {
+            var mailItem = Inspector.CurrentItem as Outlook.MailItem;
+            if (mailItem != null)
+            {
+                MailItem = mailItem;
+            }
+        }
+
+      
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
         }

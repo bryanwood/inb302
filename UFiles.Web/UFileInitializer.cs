@@ -231,25 +231,25 @@ namespace UFiles.Domain.Entities
             {
                 Name = "Students",
                 Owner = user1,
-                Users = new User[] { user1, user2 },
+                Users = new List<User> { user1, user2 },
             };
             var group2 = new Group
             {
                 Name = "Staff",
                 Owner = user2,
-                Users = new User[] { user1, user2, user16, user17, user18, user19 },
+                Users = new List<User> { user1, user2, user16, user17, user18, user19 },
             };
             var group3 = new Group
             {
                 Name = "Share",
                 Owner = user1,
-                Users = new User[] { user4, user5, user6, user10, user11 },
+                Users = new List<User> { user4, user5, user6, user10, user11 },
             };
             var group4 = new Group
             {
                 Name = "Sys Admins",
                 Owner = user2,
-                Users = new User[] { user1, user2 },
+                Users = new List<User> { user1, user2 },
             };
             #endregion
 
@@ -278,8 +278,8 @@ namespace UFiles.Domain.Entities
                 Size = 2048,
                 FileData = new byte[1] { 0xFF },
                 Revoked = false,
-                Restrictions = new Restriction[]{new GroupRestriction{
-                Groups = new Group[]{group,group2}
+                Restrictions = new List<Restriction>{new GroupRestriction{
+                Groups = new List<Group>{group,group2}
                 },
                 new IPRestriction{
                     IPAddress = new List<IPAddress>{ip1}
@@ -379,11 +379,11 @@ namespace UFiles.Domain.Entities
             
             context.Roles.Add(standardRole);
             context.Roles.Add(adminRole);
-
+            context.SaveChanges();
             context.IPAddresses.Add(ip1);
             context.IPAddresses.Add(ip2);
             context.IPAddresses.Add(ip3);
-
+            context.SaveChanges();
             context.Users.Add(user1);
             context.Users.Add(user2);
             context.Users.Add(user3);
@@ -404,12 +404,12 @@ namespace UFiles.Domain.Entities
             context.Users.Add(user18);
             context.Users.Add(user19);
             context.Users.Add(user20);
-
+            context.SaveChanges();
             context.Groups.Add(group);
             context.Groups.Add(group2);
             context.Groups.Add(group3);
             context.Groups.Add(group4);
-
+            context.SaveChanges();
             
 
             context.Files.Add(file1);
@@ -419,6 +419,7 @@ namespace UFiles.Domain.Entities
             context.Files.Add(file5);
 
             context.Files.Add(file);
+            context.SaveChanges();
             context.Transmittals.Add(transmittal);
             context.SaveChanges();
 
