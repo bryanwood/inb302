@@ -51,6 +51,9 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.2.2.1.4\lib\net40-Full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Extensions.Wcf">
+      <HintPath>..\packages\Ninject.Extensions.Wcf.2.2.0.4\lib\net40-Full\Ninject.Extensions.Wcf.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC3.2.2.2.0\lib\net40-Full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
@@ -83,7 +86,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\NinjectMVC3.cs" />
+    <Compile Include="App_Start\NinjectMVC3.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Administration\Controllers\FileController.cs" />
     <Compile Include="Areas\Administration\Controllers\HomeController.cs" />
@@ -112,6 +117,7 @@
       <DependentUpon>UFileService.svc</DependentUpon>
     </Compile>
     <Compile Include="UFilesMembershipProvider.cs" />
+    <Compile Include="UFilesModule.cs" />
     <Compile Include="UFilesRoleProvider.cs" />
     <Compile Include="ViewModels\CreateTransmittal.cs" />
   </ItemGroup>
@@ -188,7 +194,9 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\tablesorter.js" />
     <Content Include="UFileService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

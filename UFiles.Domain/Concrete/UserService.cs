@@ -9,59 +9,61 @@ namespace UFiles.Domain.Concrete
 {
     public class UserService : IUserService
     {
-        private IUnitOfWork unitOfWork;
+        private UFileContext db;
+        private IEmailService emailService;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(UFileContext context, IEmailService emailService)
         {
-            this.unitOfWork = unitOfWork;
+            db = context;
+            this.emailService = emailService;
         }
 
         public Entities.User GetUserByEmail(string email)
         {
-            return unitOfWork.UserRepository.Where(u => u.Email == email).Single();
+            return db.Users.Where(u => u.Email == email).Single();
         }
 
         public Entities.User GetUserById(int id)
         {
-            return unitOfWork.UserRepository.Where(u => u.UserId == id).Single();
+            return db.Users.Where(u => u.UserId == id).Single();
         }
 
         public void DeleteUser(int id)
         {
 
-            var user = unitOfWork.UserRepository.Where(u => u.UserId == id).Single();
-                unitOfWork.UserRepository.Delete(user);
-                unitOfWork.Save();
+            var user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
       
            
         }
 
         public IQueryable<Entities.User> GetAllUsers()
         {
-            return unitOfWork.UserRepository.All();
+            return db.Users;
         }
 
         public void SaveUser(Entities.User user)
         {
                 if (user.UserId == 0)
                 {
-                    unitOfWork.UserRepository.Add(user);
+                    db.Users.Add(user);
                 }
                 else
                 {
-                    unitOfWork.UserRepository.Update(user);
+                    db.Entry(user).State = System.Data.EntityState.Modified;
                 }
-                unitOfWork.Save();
+                db.SaveChanges();
         }
 
         public bool ChangePassword(string email, string newPassword)
         {
             try
             {
-                var user = unitOfWork.UserRepository.Where(u => u.Email == email).Single();
+                var user = db.Users.Where(u => u.Email == email).Single();
                 user.PasswordHash = newPassword;
-                unitOfWork.UserRepository.Update(user);
-                unitOfWork.Save();
+                db.Entry(user).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
                 return true;
             }
             catch
@@ -72,8 +74,12 @@ namespace UFiles.Domain.Concrete
 
         public User CreateUser(Entities.User user)
         {
-                unitOfWork.UserRepository.Add(user);
-                unitOfWork.Save();
+                db.Users.Add(user);
+
+                db.SaveChanges();
+                
+                emailService.SendEmail(new string[]{user.Email},string.Format("Hi you're account details are:<br/>Username: {0}<br/>Password: {1}",user.Email, user.PasswordHash));
+
                 return user;
         }
     }

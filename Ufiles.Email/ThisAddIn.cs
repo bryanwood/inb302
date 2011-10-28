@@ -11,14 +11,7 @@ namespace UFiles.Email
     public partial class ThisAddIn
     {
         Outlook.Inspectors inspectors;
-        private static Outlook.MailItem mailItem;
-        public static string[] Recipients
-        {
-            get
-            {
-                return mailItem.To.Split(';');
-            }
-        }
+        public static Outlook.MailItem MailItem;
         
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
@@ -29,13 +22,10 @@ namespace UFiles.Email
 
         void inspectors_NewInspector(Outlook.Inspector Inspector)
         {
-            mailItem = Inspector.CurrentItem as Outlook.MailItem;
+            var mailItem = Inspector.CurrentItem as Outlook.MailItem;
             if (mailItem != null)
             {
-                if (mailItem.EntryID == null)
-                {
-
-                }
+                MailItem = mailItem;
             }
         }
 
