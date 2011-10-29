@@ -19,7 +19,8 @@ namespace UFiles.Domain.Concrete
 
         public void CreateNewTransmittal(Transmittal t)
         {
-
+            db.Transmittals.Add(t);
+            db.SaveChanges();
         }
 
         public IQueryable<Transmittal> GetTransmittalsBySender(User user)

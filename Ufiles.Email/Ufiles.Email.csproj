@@ -204,6 +204,10 @@
   -->
   <ItemGroup>
     <Compile Include="ClientSingleton.cs" />
+    <Compile Include="RestrictionViewModel.cs" />
+    <Compile Include="RestrictionWindow.xaml.cs">
+      <DependentUpon>RestrictionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FilesViewModel.cs" />
     <Compile Include="FilesWindow.xaml.cs">
       <DependentUpon>FilesWindow.xaml</DependentUpon>
@@ -305,6 +309,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="RestrictionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FilesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
