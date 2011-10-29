@@ -204,10 +204,6 @@
   -->
   <ItemGroup>
     <Compile Include="ClientSingleton.cs" />
-    <Compile Include="RestrictionViewModel.cs" />
-    <Compile Include="RestrictionWindow.xaml.cs">
-      <DependentUpon>RestrictionWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FilesViewModel.cs" />
     <Compile Include="FilesWindow.xaml.cs">
       <DependentUpon>FilesWindow.xaml</DependentUpon>
@@ -220,6 +216,13 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RestrictionViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RestrictionWindow.xaml.cs">
+      <DependentUpon>RestrictionWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Service References\UFilesService\Reference.cs">
@@ -309,10 +312,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="RestrictionWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="FilesWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -324,6 +323,10 @@
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RestrictionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <!-- Include the build rules for a C# project. -->
