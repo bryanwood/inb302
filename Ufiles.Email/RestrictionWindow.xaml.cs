@@ -19,10 +19,26 @@ namespace UFiles.Email
     /// </summary>
     public partial class RestrictionWindow : Window
     {
-        public RestrictionWindow()
+        public RestrictionViewModel ViewModel;
+        public RestrictionWindow(UFilesHandler handler)
         {
             InitializeComponent();
-            
+
+            ViewModel = new RestrictionViewModel(handler);
+            DataContext = ViewModel;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.AddEmail();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+
     }
 }

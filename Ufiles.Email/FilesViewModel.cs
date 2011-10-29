@@ -15,6 +15,7 @@ namespace UFiles.Email
         {
             this.handler = handler;
         }
+
         private UploadFile selectedFile;
         public UploadFile SelectedFile
         {

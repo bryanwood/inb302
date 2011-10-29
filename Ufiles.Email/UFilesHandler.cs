@@ -7,10 +7,11 @@ using UFiles.Email.UFilesService;
 using System.Windows.Forms;
 using System.IO;
 using Microsoft.Office.Interop.Outlook;
+using System.ComponentModel;
 
 namespace UFiles.Email
 {
-    public class UFilesHandler
+    public class UFilesHandler : INotifyPropertyChanged
     {
         public int UserId{get;set;}
 
@@ -19,13 +20,44 @@ namespace UFiles.Email
         private LoginWindow loginWindow;
         private FilesWindow fileWindow;
 
+        private UploadFile currentFile;
+        public UploadFile CurrentFile
+        {
+
+            get
+            {
+                return currentFile;
+            }
+            set
+            {
+                if (value != currentFile)
+                {
+                    currentFile = value;
+                    NotifyPropertyChanged("CurrentFile");
+                }
+            }
+        }
+
         public ObservableCollection<UploadFile> Files { get; private set; }
+        private ObservableCollection<Group> groups;
+        public ObservableCollection<Group> Groups
+        {
+            get
+            {
+                if (groups == null)
+                {
+                    groups = new ObservableCollection<Group>(client.GetGroups(UserId));
+                }
+                return groups;
+            }
+        }
 
         public UFilesHandler()
         {
             UserId = 2; //For Debugging, skips login
             client = new UFileServiceClient();
             Files = new ObservableCollection<UploadFile>();
+            
         }
 
         public void Start()
@@ -59,24 +91,26 @@ namespace UFiles.Email
             openFileDialog.CheckPathExists = true;
             openFileDialog.Multiselect = false;
             openFileDialog.ShowDialog();
-            
-            
-            //show Restriction dialog
-
-            
+           
         }
 
         void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var openFileDialog = sender as OpenFileDialog;
             var fileInfo = new FileInfo(openFileDialog.FileName);
-            this.Files.Add(new UploadFile
+            var file = new UploadFile
             {
                 ContentType = "application/octet-stream",
                 FileName = openFileDialog.SafeFileName,
                 FilePath = openFileDialog.FileName,
-                FileSize = (int)fileInfo.Length
-            });
+                FileSize = (int)fileInfo.Length,
+                Groups = new List<int>(),
+                Emails = new List<string>()
+            };
+            this.Files.Add(file);
+            this.CurrentFile = file;
+            var rw = new RestrictionWindow(this);
+            rw.ShowDialog();
         }
         void UploadFiles()
         {
@@ -98,5 +132,14 @@ namespace UFiles.Email
             client.SendTransmittal(transmittalId);
         }
 
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }
