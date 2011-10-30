@@ -19,6 +19,7 @@ namespace UFiles.Web
             Bind<IEmailService>().To<EmailService>();
             Bind<IUserService>().To<UserService>();
             Bind<IGroupService>().To<GroupService>();
+            Bind<IFileService>().To<FileService>();
             Bind<ITransmittalService>().To<TransmittalService>();
         }
     }
