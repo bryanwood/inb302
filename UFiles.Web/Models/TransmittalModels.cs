@@ -89,32 +89,27 @@ namespace UFiles.Web.Models
 
         private Transmittal _transmittal { get; set; }
 
-        public Transmittal getTransmittal()
+        public Transmittal getTransmittal(File f, User sender)
         {
+            this.generateTransmittal(f, sender);
             return _transmittal;
         }
 
-        private void generateTransmittal(File f)
+        private void generateTransmittal(File f, User sender)
         {
-            using (var context = new UFileContext())
-            {
-                Transmittal t = new Transmittal();
+            Transmittal t = new Transmittal();
+            t.Sender = sender;
+            t.SenderId = sender.UserId;
+            t.Sent = true;
+            t.Files = new List<File>();
 
-                t.Recipients = this.getRecipients();
-                t.Files.Add(f);
-            }
+            t.Recipients = new List<User>();
+            t.Recipients.ToList().AddRange(this.getRecipients());
+            f.Restrictions = new List<Restriction>();
+            f.Restrictions.ToList().AddRange(this.getRestrictions());
+            t.Files.Add(f);
 
-            String[] locationTemp = locationString.Split(';');
-            foreach (string s in locationTemp)
-            {
-                try
-                {
-                    LocationRestriction r = new LocationRestriction();
-                }
-                catch (Exception e)
-                {
-                }
-            }
+            _transmittal = t;
 
         }
 
@@ -122,7 +117,153 @@ namespace UFiles.Web.Models
         {
             ICollection<Restriction> toReturn = new List<Restriction>();
 
+            using (var context = new UFileContext())
+            {
 
+                #region Email Restrictions
+
+                if (!String.IsNullOrWhiteSpace(emailRestriction))
+                {
+                    String[] emailTemp = emailRestriction.Split(';');
+                    UserRestriction uR = new UserRestriction();
+                    uR.Users = new List<User>();
+                    foreach (string s in emailTemp)
+                    {
+                        try
+                        {
+                            User u = context.Users.Where(user => user.Email == s.Trim().Replace(";", "")).Single();
+                            uR.Users.Add(u);
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                    }
+
+                    uR = (UserRestriction)context.Restrictions.Add(uR);
+                    toReturn.Add(uR);
+
+
+                #endregion
+
+                    #region Group Restrictions
+
+                    if (!String.IsNullOrWhiteSpace(groupRestriction))
+                    {
+                        String[] groupTemp = groupRestriction.Split(';');
+                        GroupRestriction gR = new GroupRestriction();
+                        gR.Groups = new List<Group>();
+                        foreach (string s in groupTemp)
+                        {
+                            try
+                            {
+                                Group g = context.Groups.Where(group => group.Name == s.Trim().Replace(";", "")).Single();
+                                gR.Groups.Add(g);
+                            }
+                            catch (Exception e)
+                            {
+                            }
+                        }
+
+                        gR = (GroupRestriction)context.Restrictions.Add(gR);
+                        toReturn.Add(gR);
+                    }
+
+                    #endregion
+
+                }
+
+                #region Location Restrictions
+
+                if (!String.IsNullOrWhiteSpace(locationString))
+                {
+                    String[] locationTemp = locationString.Split(';');
+                    LocationRestriction lR = new LocationRestriction();
+                    lR.Locations = new List<Location>();
+                    foreach (string s in locationTemp)
+                    {
+                        try
+                        {
+                            Location l = new Location();
+                            l.PostCode = Int32.Parse(s).ToString();
+                            l = context.Locations.Add(l);
+                            lR.Locations.Add(l);
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                    }
+
+                    lR = (LocationRestriction)context.Restrictions.Add(lR);
+                    toReturn.Add(lR);
+                }
+
+                #endregion
+
+                #region IP Address Restrictions
+
+
+                if (!String.IsNullOrWhiteSpace(ipString))
+                {
+                    String[] ipTemp = ipString.Split(';');
+                    IPRestriction ipR = new IPRestriction();
+                    ipR.IPAddress = new List<IPAddress>();
+                    foreach (string s in ipTemp)
+                    {
+                        try
+                        {
+                            IPAddress ip = new IPAddress();
+                            ip.IP = s;
+                            ip = context.IPAddresses.Add(ip);
+
+                            ipR.IPAddress.Add(ip);
+                        }
+                        catch (Exception e)
+                        {
+                        }
+                    }
+
+                    ipR = (IPRestriction)context.Restrictions.Add(ipR);
+                    toReturn.Add(ipR);
+                }
+
+                #endregion
+
+                #region Time Restriction
+
+                if (!String.IsNullOrWhiteSpace(timeIsEnabled))
+                {
+
+                    TimeRangeRestriction trR = new TimeRangeRestriction();
+                    trR.TimeRanges = new List<TimeRange>();
+
+                    TimeRange tR = new TimeRange();
+
+                    DateTime start = DateTime.Parse(startTimeDate);
+                    start = start.AddHours(startTimeHour);
+                    start = start.AddMinutes(startTimeMinute);
+
+                    DateTime end = DateTime.Parse(endTimeDate);
+                    end = end.AddHours(endTimeHour);
+                    end = end.AddMinutes(endTimeHour);
+
+                    tR.Start = start;
+                    tR.End = end;
+
+                    tR = context.TimeRanges.Add(tR);
+
+                    trR.TimeRanges.Add(tR);
+
+                    trR = (TimeRangeRestriction)context.Restrictions.Add(trR);
+
+                    toReturn.Add(trR);
+
+                }
+
+                #endregion
+
+                context.SaveChanges();
+
+            }
 
             return toReturn;
         }
@@ -134,33 +275,41 @@ namespace UFiles.Web.Models
             using (var context = new UFileContext())
             {
 
-
-                String[] emailTemp = recipientEmail.Split(';');
-                foreach (string s in emailTemp)
+                if (!String.IsNullOrWhiteSpace(recipientEmail))
                 {
-                    try
+                    String[] emailTemp = recipientEmail.Split(';');
+                    foreach (string s in emailTemp)
                     {
-                        User u = context.Users.Where(user => user.Email == s.Trim().Replace(";", "")).Single();
-                        toReturn.Add(u);
-                    }
-                    catch (Exception e)
-                    {
+                        try
+                        {
+                            User u = context.Users.Where(user => user.Email == s.Trim().Replace(";", "")).Single();
+                            toReturn.Add(u);
+                        }
+                        catch (Exception e)
+                        {
+                        }
                     }
                 }
 
-                String[] groupTemp = recipientGroups.Split(';');
-                foreach (string s in groupTemp)
+                if (!String.IsNullOrWhiteSpace(recipientGroups))
                 {
-                    try
+                    String[] groupTemp = recipientGroups.Split(';');
+                    foreach (string s in groupTemp)
                     {
-                        Group g = context.Groups.Where(group => group.Name == s.Trim().Replace(";", "")).Single();
-                        foreach (User u in g.Users)
+                        try
                         {
-                            toReturn.Add(u);
+                            Group thisGroup = context.Groups.Where(group => group.Name == s.Trim().Replace(";", "")).Single();
+                            thisGroup.Users = (from g in context.Groups
+                                               where g.GroupId == thisGroup.GroupId
+                                               select g.Users).Single();
+                            foreach (User u in thisGroup.Users)
+                            {
+                                toReturn.Add(u);
+                            }
                         }
-                    }
-                    catch (Exception e)
-                    {
+                        catch (Exception e)
+                        {
+                        }
                     }
                 }
 

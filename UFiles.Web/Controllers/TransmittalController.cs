@@ -81,6 +81,45 @@ namespace UFiles.Web.Controllers
 
             }
 
+            try
+            {
+                using (var context = new UFileContext())
+                {
+
+                    User thisUser = context.Users.Where(u => u.Email == User.Identity.Name).Single();
+
+                    File file = new File();
+                    file.FileData = new byte[Request.Files[0].ContentLength];
+                    file.Name = Request.Files[0].FileName;
+                    file.Size = Request.Files[0].ContentLength;
+                    file.ContentType = Request.Files[0].ContentType;
+                    file.DateCreated = DateTime.Now;
+                    file.Owner = thisUser;
+                    file.OwnerId = thisUser.UserId;
+
+                    IAsyncResult result = Request.Files[0].InputStream.BeginRead(file.FileData, 0,
+                        Request.Files[0].ContentLength, null, file);
+                    Request.Files[0].InputStream.EndRead(result);
+
+                    file = context.Files.Add(file);
+                    context.SaveChanges();
+
+                    Transmittal t = model.getTransmittal(file, thisUser);
+
+                    context.Transmittals.Add(t);
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception e)
+            {
+                jsonDictionary.Add("FailureReason", "Something went wrong");
+                jsonDictionary.Add("Success", "false");
+                Response.StatusCode = successStatusCode;
+
+                return Json(jsonDictionary);
+            }
+
             jsonDictionary.Add("Success", "true");
 
             Response.StatusCode = successStatusCode;
