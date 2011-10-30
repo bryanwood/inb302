@@ -21,13 +21,15 @@ namespace UFiles.Web
         private IUserService userService;
         private ITransmittalService transmittalService;
         private IFileService fileService;
+        private IRestrictionService restrictionService;
        
-        public UFileService(IEmailService emailService, IUserService userService, ITransmittalService transmittalService, IFileService fileService)
+        public UFileService(IRestrictionService restrictionService, IEmailService emailService, IUserService userService, ITransmittalService transmittalService, IFileService fileService)
         {
             this.emailService = emailService;
             this.userService = userService;
             this.transmittalService = transmittalService;
             this.fileService = fileService;
+            this.restrictionService = restrictionService;
         }
         public int Login(string email, string password)
         {
@@ -107,17 +109,47 @@ namespace UFiles.Web
 
         public void AddUserRestriction(int fileId, string[] emails)
         {
-            
+            List<int> UserIds = new List<int>();
+             foreach(var recipient in emails){
+                 User user;
+                try
+                {
+                    user = userService.GetUserByEmail(recipient);
+                }
+                catch
+                {
+                    user = new User
+                    {
+                        Email = recipient,
+                        FirstName = "",
+                        LastName = "",
+                        PasswordHash = new Random().Next(1000, 9999).ToString(),
+                        Verified = false,
+                        VerifiedHash = new Random().Next(100000, 999999).ToString(),
+                        RoleId = db.Roles.First().RoleId
+                    };
+
+                    user = userService.CreateUser(user);
+                }
+                 UserIds.Add(user.UserId);
+            }
+
+            restrictionService.AddUserRestriction(fileId, UserIds.ToArray() );
         }
 
         public void AddIPRestriction(int fileId, string[] IPs)
         {
-            throw new NotImplementedException();
+            restrictionService.AddIPRestriction(fileId, IPs);
         }
 
-        public void AddGroupRestruction(int fileId, int[] groupIds)
+        public void AddGroupRestriction(int fileId, int[] groupIds)
         {
-            throw new NotImplementedException();
+            restrictionService.AddGroupRestriction(fileId, groupIds);
+        }
+
+        public void AddTimeRangeRestriction(int fileId, TimeRange[] timeRanges)
+        {
+            restrictionService.AddTimeRangeRestriction(fileId, timeRanges);
         }
 
         public void AddLocationRestriction(int fileId, string[] postCodes)

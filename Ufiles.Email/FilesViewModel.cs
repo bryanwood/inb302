@@ -15,7 +15,37 @@ namespace UFiles.Email
         {
             this.handler = handler;
         }
-
+        private int progress;
+        public int Progress
+        {
+            get
+            {
+                return progress;
+            }
+            set
+            {
+                if (value != progress)
+                {
+                    progress = value;
+                    NotifyPropertyChanged("Progress");
+                }
+            }
+        }
+        private bool uploadReady = true;
+        public bool UploadReady
+        {
+            get{
+                return uploadReady;
+            }
+            set
+            {
+                if (uploadReady != value)
+                {
+                    uploadReady = value;
+                    NotifyPropertyChanged("UploadReady");
+                }
+            }
+        }
         private UploadFile selectedFile;
         public UploadFile SelectedFile
         {

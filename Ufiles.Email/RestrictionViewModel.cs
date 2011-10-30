@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using UFiles.Email.UFilesService;
+using UFiles.Domain.Entities;
 
 namespace UFiles.Email
 {
@@ -16,7 +17,18 @@ namespace UFiles.Email
             this.handler = handler;
             Emails = new ObservableCollection<string>();
             Groups = new ObservableCollection<Group>();
+            TimeRanges = new ObservableCollection<TimeRange>();
+            IPs = new ObservableCollection<string>();
         }
+
+        public ObservableCollection<Group> PossibleGroups
+        {
+            get
+            {
+                return handler.Groups;
+            }
+        }
+
         private string selectedEmail;
         public string SelectedEmail
         {
@@ -34,6 +46,73 @@ namespace UFiles.Email
             }
         }
 
+        private TimeRange selectedTimeRange;
+        public TimeRange SelectedTimeRange
+        {
+            get
+            {
+                return selectedTimeRange;
+            }
+            set
+            {
+                if (value != selectedTimeRange)
+                {
+                    selectedTimeRange = value;
+                    NotifyPropertyChanged("SelectedTimeRange");
+                }
+            }
+        }
+
+        private Group selectedGroup;
+        public Group SelectedGroup
+        {
+            get
+            {
+                return selectedGroup;
+            }
+            set
+            {
+                if (value != selectedGroup)
+                {
+                    selectedGroup = value;
+                    NotifyPropertyChanged("SelectedGroup");
+                }
+            }
+        }
+
+        private string selectedIP;
+        public string SelectedIP
+        {
+            get
+            {
+                return selectedIP;
+            }
+            set
+            {
+                if (value != selectedIP)
+                {
+                    selectedIP = value;
+                    NotifyPropertyChanged("SelectedIP");
+                }
+            }
+        }
+
+        private string iPToAdd;
+        public string IPToAdd
+        {
+            get
+            {
+                return iPToAdd;
+            }
+            set
+            {
+                if (value != iPToAdd)
+                {
+                    iPToAdd = value;
+                    NotifyPropertyChanged("IPToAdd");
+                }
+            }
+        }
 
         private string emailToAdd;
         public string EmailToAdd
@@ -105,7 +184,8 @@ namespace UFiles.Email
 
         public ObservableCollection<string> Emails { get; private set; }
         public ObservableCollection<Group> Groups { get; private set; }
-
+        public ObservableCollection<TimeRange> TimeRanges { get; private set; }
+        public ObservableCollection<string> IPs { get; private set; }
         public void AddEmail()
         {
             Emails.Add(emailToAdd);
@@ -113,7 +193,11 @@ namespace UFiles.Email
         }
         public void RemoveEmail()
         {
-            Emails.Remove(SelectedEmail);
+            if (selectedEmail != null)
+            {
+                Emails.Remove(SelectedEmail);
+                selectedEmail = null;
+            }
         }
         public void AddGroup()
         {
@@ -122,10 +206,50 @@ namespace UFiles.Email
                 Groups.Add(groupToAdd);
             }
         }
+        public void RemoveGroup()
+        {
+            if (selectedGroup != null)
+            {
+                Groups.Remove(selectedGroup);
+                selectedGroup = null;
+            }
+        }
+        public void AddTimeRange()
+        {
+            TimeRanges.Add(new TimeRange
+            {
+                End = EndDateToAdd,
+                Start = StartDateToAdd
+            });
+        }
+        public void RemoveTimeRange()
+        {
+            if (selectedTimeRange != null)
+            {
+                TimeRanges.Remove(selectedTimeRange);
+                selectedTimeRange = null;
+            }
+        }
+        public void AddIP()
+        {
+            IPs.Add(iPToAdd);
+            
+            IPToAdd = "";
+        }
+        public void RemoveIP()
+        {
+            if (selectedIP != null)
+            {
+                IPs.Remove(selectedIP);
+                SelectedIP = null;
+            }
+        }
         public void Finish()
         {
             handler.CurrentFile.Emails.AddRange(Emails);
             handler.CurrentFile.Groups.AddRange(Groups.Select(x=>x.GroupId));
+            handler.CurrentFile.TimeRanges.AddRange(TimeRanges);
+            handler.CurrentFile.IPs.AddRange(IPs);
             if (Finished != null)
             {
                 Finished();
