@@ -13,6 +13,9 @@ namespace UFiles.Web.Models
     {
         public List<TransmittalListingModel> RecentlySentTransmittals { get; set; }
         public List<TransmittalListingModel> RecentlyReceivedTransmittals { get; set; }
+        public List<Type> RestrictionClassList { get; set; }
+
+        public TransmittalOverviewModel preloadedOverview { get; set; }
 
         public OverviewModel(IUserService userService, ITransmittalService transmittalService,
             string email)
@@ -20,12 +23,13 @@ namespace UFiles.Web.Models
         {
             RecentlySentTransmittals = new List<TransmittalListingModel>();
             RecentlyReceivedTransmittals = new List<TransmittalListingModel>();
+            RestrictionClassList = new List<Type>();
+
 
             try
             {
                 using (var context = new UFileContext())
                 {
-
                     User thisUser = context.Users.Where<User>(u => u.Email == email).Single();
 
                     IEnumerable<Transmittal> receivedTransmittals = (from transmittal in context.Transmittals
@@ -38,8 +42,21 @@ namespace UFiles.Web.Models
                         t.Files = (from transmittal in context.Transmittals
                                    where transmittal.TransmittalId == t.TransmittalId
                                    select transmittal.Files).First();
+
+                        IEnumerable<ICollection<Restriction>> r = (from transmittal in context.Transmittals
+                                                             where transmittal.TransmittalId == t.TransmittalId
+                                                             select transmittal.Files.FirstOrDefault().Restrictions);
+
+                        t.Files.ToArray()[0].Restrictions = r.ToArray()[0];
+
                         TransmittalListingModel temp = new TransmittalListingModel(t, true);
                         RecentlyReceivedTransmittals.Add(temp);
+
+                        if (preloadedOverview == null)
+                        {
+                            preloadedOverview = new TransmittalOverviewModel(t);
+                        }
+
                     }
 
                     foreach (Transmittal t in (from transmittal in context.Transmittals
