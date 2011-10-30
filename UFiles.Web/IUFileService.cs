@@ -20,8 +20,6 @@ namespace UFiles.Web
         [OperationContract]
         Group[] GetGroups(int userId);
 
-        [OperationContract]
-        Location[] GetLocations();
 
         [OperationContract]
         int NewTransmittal(int userId);

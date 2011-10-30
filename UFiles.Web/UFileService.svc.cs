@@ -16,15 +16,15 @@ namespace UFiles.Web
     [AspNetCompatibilityRequirements(RequirementsMode=AspNetCompatibilityRequirementsMode.Allowed)]
     public class UFileService : IUFileService
     {
-        UFileContext db = new UFileContext();
         private IEmailService emailService;
         private IUserService userService;
         private ITransmittalService transmittalService;
         private IFileService fileService;
         private IRestrictionService restrictionService;
-       
-        public UFileService(IRestrictionService restrictionService, IEmailService emailService, IUserService userService, ITransmittalService transmittalService, IFileService fileService)
+        private IGroupService groupService;
+        public UFileService(IGroupService groupService, IRestrictionService restrictionService, IEmailService emailService, IUserService userService, ITransmittalService transmittalService, IFileService fileService)
         {
+            this.groupService = groupService;
             this.emailService = emailService;
             this.userService = userService;
             this.transmittalService = transmittalService;
@@ -33,24 +33,28 @@ namespace UFiles.Web
         }
         public int Login(string email, string password)
         {
-            return db.Users.Where(x => x.Email == email && x.PasswordHash == password).Single().UserId;
+            var user = userService.GetUserByEmail(email);
+            if (user.PasswordHash == password)
+            {
+                return user.UserId;
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
         }
 
         public int NewTransmittal(int userId)
         {
             var transmittal = new Transmittal();
             transmittal.SenderId = userId;
-            db.Transmittals.Add(transmittal);
-            db.SaveChanges();
+            transmittalService.CreateNewTransmittal(transmittal);
             return transmittal.TransmittalId;
         }
-        public Location[] GetLocations()
-        {
-            return db.Locations.ToArray();
-        }
+
         public Group[] GetGroups(int userId)
         {
-            return db.Groups.ToArray();
+            return groupService.GetGroupsByOwner(userService.GetUserById(userId)).ToArray(); 
         }
     
 
@@ -65,12 +69,8 @@ namespace UFiles.Web
             file.ContentType = fileType;
             file.FileData = fileData;
             file.Size = fileData.Length;
-            //file.Transmittals.Add(db.Transmittals.Find(transmittalId));
-            var transmittal = db.Transmittals.Include(x=>x.Files).Where(s=>s.TransmittalId==transmittalId).Single();
-            transmittal.Files.Add(file);
-//            db.Files.Add(file);
-                      db.SaveChanges();
-                      return file.FileId;
+            transmittalService.AddFile(transmittalId, file);
+            return file.FileId;
 
         }
 
@@ -92,7 +92,7 @@ namespace UFiles.Web
                         PasswordHash = new Random().Next(1000, 9999).ToString(),
                         Verified = false,
                         VerifiedHash = new Random().Next(100000, 999999).ToString(),
-                        RoleId = db.Roles.First().RoleId
+                        RoleId = 1
                     };
 
                     var u = userService.CreateUser(user);
@@ -126,7 +126,7 @@ namespace UFiles.Web
                         PasswordHash = new Random().Next(1000, 9999).ToString(),
                         Verified = false,
                         VerifiedHash = new Random().Next(100000, 999999).ToString(),
-                        RoleId = db.Roles.First().RoleId
+                        RoleId = 1
                     };
 
                     user = userService.CreateUser(user);
