@@ -122,8 +122,17 @@ namespace UFiles.Email
                 Groups.Add(groupToAdd);
             }
         }
-
-
+        public void Finish()
+        {
+            handler.CurrentFile.Emails.AddRange(Emails);
+            handler.CurrentFile.Groups.AddRange(Groups.Select(x=>x.GroupId));
+            if (Finished != null)
+            {
+                Finished();
+            }
+        }
+        public delegate void FinishEvent();
+        public event FinishEvent Finished;
 
 
         public event PropertyChangedEventHandler PropertyChanged;

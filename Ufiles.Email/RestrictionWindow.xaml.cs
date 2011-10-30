@@ -26,6 +26,12 @@ namespace UFiles.Email
 
             ViewModel = new RestrictionViewModel(handler);
             DataContext = ViewModel;
+            ViewModel.Finished += new RestrictionViewModel.FinishEvent(ViewModel_Finished);
+        }
+
+        void ViewModel_Finished()
+        {
+            this.Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,6 +42,11 @@ namespace UFiles.Email
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Finish();
         }
 
 

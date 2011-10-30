@@ -45,7 +45,10 @@ namespace UFiles.Domain.Concrete
             
             base.OnModelCreating(modelBuilder);
         }
-
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
 
     }
 }

@@ -120,7 +120,9 @@ namespace UFiles.Email
                 var buffer = new byte[fileInfo.Length];
                 var handler = fileInfo.OpenRead();
                 handler.Read(buffer, 0, (int)fileInfo.Length);
-                client.AddFile(UserId, transmittalId, file.FileName, file.ContentType, buffer);
+                var fileId = client.AddFile(UserId, transmittalId, file.FileName, file.ContentType, buffer);
+                if(file.Emails.Count > 0)
+                    client.AddUserRestriction(fileId, file.Emails.ToArray());
                 client.SendTransmittal(transmittalId);
             }
             List<string> emails = new List<string>();
