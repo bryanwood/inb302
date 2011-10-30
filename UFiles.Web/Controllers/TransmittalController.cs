@@ -140,7 +140,7 @@ namespace UFiles.Web.Controllers
                     var t = transmittalService.GetTransmittalById(id);
                     var f = fileService.GetFileById(t.Files.ToArray()[0].FileId);
 
-                    return File(f.FileData, f.ContentType);
+                    return File(f.FileData, f.ContentType, f.Name);
                 }
                 else
                 {
