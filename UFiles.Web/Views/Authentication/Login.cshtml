@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/Mini/_Site.Mini.Master.Layout.cshtml";
+}
+@section HeaderJavascript {
+}
+@section InnerTitle {
+login
+}
+@{ if (ViewBag.HasPassthrough)
+   {
+    <div class="miniBoxInformationHighlight informationHighlightAdditional">
+        You'll need to login to download this file.
+    </div>
+   }
+}
+@{ if (ViewBag.AuthFail)
+   {
+    <div class="miniBoxInformationHighlight informationHighlightError">
+        Incorrect email address and/or password.
+    </div>
+   }
+}
+<form id="authLogin" name="authLogin" action="#" method="post">
+<div class="miniBoxSection floatFix" id="entrySection">
+    <div class="miniBoxMinorSection floatFix">
+        <div class="miniLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+            Email Address</div>
+        <input type="text" class="miniInput floatRight" name="Email" />
+    </div>
+    <div class="miniBoxMinorSection floatFix">
+        <div class="miniLabel loginAuthBoxLabelOverride floatLeft" id="passwordLabel">
+            Password</div>
+        <input type="password" class="miniInput floatRight" name="Password" />
+    </div>
+    <div class="miniBoxMinorSection floatFix">
+        <input type="checkbox" checked="checked" class="floatRight" name="RememberMe" />
+        <div class="miniLabel loginAuthBoxLabelOverride floatRight" id="rememberLabel">
+            Remember Me?</div>
+    </div>
+</div>
+<div class="miniBoxInformationHighlight informationHighlightError" style="display: none;
+    opacity: 0.0;" id="validateFail">
+</div>
+<div class="coreMiniBoxUserAction floatFix">
+    <input type="submit" class="coreButtonAccept miniButton" value="login" />
+    <div id="loginCreateLead" class="floatRight">
+        <a href="@Url.Action("Create", (RouteValueDictionary)ViewBag.PassthroughRoute)">don't
+            have an account?</a>
+    </div>
+</div>
+<input type="hidden" name="passthrough" value="@ViewBag.Passthrough" />
+</form>
+@section InPageJavascript
+{
+    $("#authLogin").submit(function() { AjaxValidateAndGo(this, "@Url.Action("CheckAuth")",
+"#validateFail"); return false; });
+}
