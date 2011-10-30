@@ -1,0 +1,27 @@
+﻿@model UFiles.Web.Models.GroupDetailModel
+@{
+    Layout = null;
+}
+<form id="groupDetail" name="groupDetail" action="#" method="post" onsubmit="AjaxValidateAndGo(this, '@Url.Action("EditGroup")',
+'#lightBoxValidateFail'); return false;" >
+<input type="hidden" name="GroupID" value="@Model.groupID" />
+<div class="boxSection floatFix" id="entrySection">
+    <div class="boxMinorSection floatFix">
+        <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="groupLabel">
+            Group Name</div>
+        <input type="text" class="boxInput floatRight" value="@Model.groupName" name="GroupName" />
+    </div>
+    <div class="boxBoxMinorSection floatFix">
+        <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="userLabel">
+            Users</div>
+        <input type="text" class="boxInput floatRight" value="@Model.groupUsers" name="UserEmailAddresses" />
+    </div>
+</div>
+<div class="boxoxInformationHighlight informationHighlightError" style="display: none;
+    opacity: 0.0;" id="lightBoxValidateFail">
+</div>
+<div class="coreMiniBoxUserAction floatFix">
+    <input type="submit" class="coreButtonAccept boxButton floatLeft" value="save" />
+    <input type="button" class="coreButtonAccept boxButton floatRight" value="cancel" onclick="lightsOn()" />
+</div>
+</form>
