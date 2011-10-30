@@ -29,9 +29,13 @@ namespace UFiles.Web.Models
                 {
                     this.Email = "many recipients";
                 }
-                else
+                else if (t.Recipients.Count == 1)
                 {
                     this.Email = t.Recipients.ToArray()[0].Email;
+                }
+                else
+                {
+                    this.Email = "No Recipients";
                 }
             }
             this.DownloadLink = t.TransmittalId.ToString();

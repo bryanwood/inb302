@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UFiles.Domain.Abstract;
+using System.Data.Entity;
 using UFiles.Domain.Entities;
 
 namespace UFiles.Domain.Concrete
@@ -19,7 +20,7 @@ namespace UFiles.Domain.Concrete
 
         public IQueryable<Group> GetGroupsByOwner(Entities.User owner)
         {
-            return db.Groups.Where(g => g.Owner.UserId == owner.UserId);
+            return db.Groups.Include(x=>x.Users).Include(x=>x.Owner).Where(g => g.Owner.UserId == owner.UserId);
         }
 
         public Entities.Group GetGroup(int id)

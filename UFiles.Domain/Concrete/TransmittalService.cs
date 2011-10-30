@@ -25,19 +25,19 @@ namespace UFiles.Domain.Concrete
             eventService.AddTransmittalEvent(t);
         }
 
-        public IQueryable<Transmittal> GetTransmittalsBySender(User user)
+        public IQueryable<Transmittal> GetTransmittalsBySender(int userId)
         {
-            return db.Transmittals.Where(t => t.Sender.UserId == user.UserId);
+            return db.Transmittals.Include(x => x.Sender).Include(x => x.Recipients).Include(x => x.Files).Include("Files.Restrictions").Where(t => t.Sender.UserId == userId);
         }
 
-        public IQueryable<Transmittal> GetTransmittalsByRecipient(User user)
+        public IQueryable<Transmittal> GetTransmittalsByRecipient(int userId)
         {
-            return db.Transmittals.Where(t => t.Recipients.Contains(user));
+            return db.Transmittals.Include(x=>x.Files).Include(x=>x.Sender).Include(x=>x.Recipients).Include("Files.Restrictions").Where(t => t.Recipients.Any(x=>x.UserId==userId));
         }
 
         public Transmittal GetTransmittalById(int id)
         {
-            var tr = db.Transmittals.Include(f=>f.Files).Where(t => t.TransmittalId == id).Single();
+            var tr = db.Transmittals.Include(f=>f.Files).Include(x=>x.Recipients).Include(x=>x.Sender).Include("Files.Restrictions").Where(t => t.TransmittalId == id).Single();
             eventService.AddTransmittalEvent(tr);
             return tr;
         }

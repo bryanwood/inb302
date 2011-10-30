@@ -22,7 +22,7 @@ namespace UFiles.Web.Areas.Administration.Controllers
         }
         public ActionResult Transmittals()
         {
-            return View(db.Events.OfType<TransmittalEvent>().Include(x=>x.Transmittal).ToList());
+            return View(db.Events.OfType<TransmittalEvent>().Include(x=>x.Transmittal).Include("Transmittal.Sender").ToList());
         }
         public ActionResult Files()
         {

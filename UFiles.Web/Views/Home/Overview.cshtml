@@ -237,8 +237,10 @@
 </div>
 @section InPageJavascript
 {
-    var selectedTransmittalID = @Model.preloadedOverview.DownloadLink;
-
+@if(@Model.preloadedOverview!=null){
+    <text>var selectedTransmittalID = @Model.preloadedOverview.DownloadLink;</text>
+}
+    
     $(document).ready(function() {
     $('#' + selectedTransmittalID).addClass('panelMiniSectionSelected');
     });
