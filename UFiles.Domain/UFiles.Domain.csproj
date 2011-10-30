@@ -52,6 +52,7 @@
     <Compile Include="Abstract\IFileAccess.cs" />
     <Compile Include="Abstract\IFileService.cs" />
     <Compile Include="Abstract\IGroupService.cs" />
+    <Compile Include="Abstract\IRestrictionService.cs" />
     <Compile Include="Abstract\ITransmittalService.cs" />
     <Compile Include="Abstract\IUFileContext.cs" />
     <Compile Include="Concrete\EmailService.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Concrete\FileDataStorage.cs" />
     <Compile Include="Concrete\FileService.cs" />
     <Compile Include="Concrete\GroupService.cs" />
+    <Compile Include="Concrete\RestrictionService.cs" />
     <Compile Include="Concrete\TransmittalService.cs" />
     <Compile Include="Concrete\UFileContext.cs" />
     <Compile Include="Concrete\UserService.cs" />

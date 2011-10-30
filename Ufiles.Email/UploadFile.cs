@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using UFiles.Domain.Entities;
 namespace UFiles.Email
 {
     public class UploadFile
@@ -13,5 +13,7 @@ namespace UFiles.Email
         public string ContentType { get; set; }
         public List<string> Emails { get; set; }
         public List<int> Groups { get; set; }
+        public List<TimeRange> TimeRanges { get; set; }
+            public List<string> IPs{get;set;}
     }
 }

@@ -12,6 +12,7 @@
       <xs:element minOccurs="0" name="GroupRestrictions" nillable="true" type="tns:ArrayOfGroupRestriction" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Owner" nillable="true" type="tns:User" />
+      <xs:element minOccurs="0" name="OwnerId" type="xs:int" />
       <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUser" />
     </xs:sequence>
   </xs:complexType>
@@ -71,7 +72,9 @@
       <xs:extension base="tns:Event">
         <xs:sequence>
           <xs:element minOccurs="0" name="File" nillable="true" type="tns:File" />
+          <xs:element minOccurs="0" name="FileId" type="xs:int" />
           <xs:element minOccurs="0" name="User" nillable="true" type="tns:User" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -93,6 +96,7 @@
       <xs:element minOccurs="0" name="FileId" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Owner" nillable="true" type="tns:User" />
+      <xs:element minOccurs="0" name="OwnerId" type="xs:int" />
       <xs:element minOccurs="0" name="Restrictions" nillable="true" type="tns:ArrayOfRestriction" />
       <xs:element minOccurs="0" name="Revoked" type="xs:boolean" />
       <xs:element minOccurs="0" name="Size" type="xs:int" />
@@ -117,6 +121,7 @@
       <xs:element minOccurs="0" name="Files" nillable="true" type="tns:ArrayOfFile" />
       <xs:element minOccurs="0" name="Recipients" nillable="true" type="tns:ArrayOfUser" />
       <xs:element minOccurs="0" name="Sender" nillable="true" type="tns:User" />
+      <xs:element minOccurs="0" name="SenderId" type="xs:int" />
       <xs:element minOccurs="0" name="Sent" type="xs:boolean" />
       <xs:element minOccurs="0" name="TransmittalEvents" nillable="true" type="tns:ArrayOfTransmittalEvent" />
       <xs:element minOccurs="0" name="TransmittalId" type="xs:int" />
@@ -146,6 +151,7 @@
       <xs:extension base="tns:Event">
         <xs:sequence>
           <xs:element minOccurs="0" name="Transmittal" nillable="true" type="tns:Transmittal" />
+          <xs:element minOccurs="0" name="TransmittalId" type="xs:int" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -170,6 +176,7 @@
       <xs:extension base="tns:Event">
         <xs:sequence>
           <xs:element minOccurs="0" name="User" nillable="true" type="tns:User" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -221,4 +228,35 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="LocationRestriction" nillable="true" type="tns:LocationRestriction" />
+  <xs:complexType name="ArrayOfTimeRange">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimeRange" nillable="true" type="tns:TimeRange" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimeRange" nillable="true" type="tns:ArrayOfTimeRange" />
+  <xs:complexType name="TimeRange">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="End" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Start" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TimeRangeId" type="xs:int" />
+      <xs:element minOccurs="0" name="TimeRangeRestrictions" nillable="true" type="tns:ArrayOfTimeRangeRestriction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TimeRange" nillable="true" type="tns:TimeRange" />
+  <xs:complexType name="ArrayOfTimeRangeRestriction">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimeRangeRestriction" nillable="true" type="tns:TimeRangeRestriction" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimeRangeRestriction" nillable="true" type="tns:ArrayOfTimeRangeRestriction" />
+  <xs:complexType name="TimeRangeRestriction">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Restriction">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="TimeRanges" nillable="true" type="tns:ArrayOfTimeRange" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TimeRangeRestriction" nillable="true" type="tns:TimeRangeRestriction" />
 </xs:schema>
