@@ -63,6 +63,10 @@ namespace UFiles.Web.Models
                                                where transmittal.Sender.Email == email
                                                select transmittal))
                     {
+                        t.Files = (from transmittal in context.Transmittals
+                                   where transmittal.TransmittalId == t.TransmittalId
+                                   select transmittal.Files).ToArray()[0];
+
                         TransmittalListingModel temp = new TransmittalListingModel(t, true);
                         RecentlySentTransmittals.Add(temp);
                     }
