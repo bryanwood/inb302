@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="UFiles.Domain.Concrete.EmailService" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="6.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Concrete\EmailService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UFiles.Domain.Concrete.EventService" BaseTypeListCollapsed="true">
+    <Position X="20" Y="8" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAASQAAAAAAAAAAIAAAAAAAICAAAAAAACAA=</HashCode>
+      <FileName>Concrete\EventService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UFiles.Domain.Concrete.FileService" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="7.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAQAAAAAAQAACAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Concrete\FileService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UFiles.Domain.Concrete.GroupService" BaseTypeListCollapsed="true">
+    <Position X="39.25" Y="8" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAQAAAAAAAAAAAAAQAgAAAEAAAAAAAAQBQ=</HashCode>
+      <FileName>Concrete\GroupService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UFiles.Domain.Concrete.TransmittalService" BaseTypeListCollapsed="true">
+    <Position X="34" Y="7.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAABIAAAAQAABAAAAAAIAAABAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Concrete\TransmittalService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UFiles.Domain.Concrete.UFileContext" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="9" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIGgAACAAAAAAAAIAAAAAEgBAAAAAAACAAAAAAIA=</HashCode>
+      <FileName>Concrete\UFileContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UFiles.Domain.Concrete.UserService" BaseTypeListCollapsed="true">
+    <Position X="29.75" Y="8" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAQgQgAAEgAAAAAAABAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Concrete\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="UFiles.Domain.Entities.Event">
+    <Position X="0.5" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.FileAccessEvent">
+    <Position X="2.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Entities\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.TransmittalEvent">
+    <Position X="4.5" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.UserEvent">
+    <Position X="0.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.File">
+    <Position X="0.5" Y="13.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AgAAIACIAAAAgAAAAAAAAAQAAAAAIAAAAACUAAIAAgA=</HashCode>
+      <FileName>Entities\File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.Group">
+    <Position X="0.5" Y="7.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCMAAAAAAAAAAAAIAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Group.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.IPAddress">
+    <Position X="0.5" Y="11.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAIEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IPAddress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.Location">
+    <Position X="0.5" Y="9.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Entities\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.Restriction">
+    <Position X="0.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Restriction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.UserRestriction">
+    <Position X="0.5" Y="2.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Restriction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.LocationRestriction">
+    <Position X="3.5" Y="2.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Restriction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.IPRestriction">
+    <Position X="10.25" Y="2.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Entities\Restriction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.GroupRestriction">
+    <Position X="7" Y="2.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Restriction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.TimeRangeRestriction">
+    <Position X="13.75" Y="2.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Restriction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.Role">
+    <Position X="0.5" Y="16.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.TimeRange">
+    <Position X="6.25" Y="7.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAABAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Entities\TimeRange.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.Transmittal">
+    <Position X="6.25" Y="9.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAgAAAQAAAAEABAAAAAAAAAAAIAIA=</HashCode>
+      <FileName>Entities\Transmittal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UFiles.Domain.Entities.User">
+    <Position X="6.25" Y="12" Width="4" />
+    <TypeIdentifier>
+      <HashCode>IACAAEIAACAAQAAAEAAAIAoAAAAgAAAAAAAAAAASCog=</HashCode>
+      <FileName>Entities\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="UFiles.Domain.Abstract.IEventService">
+    <Position X="20" Y="5.25" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAACQAAAAAAAAAAIAAAAAAAICAAAAAAACAA=</HashCode>
+      <FileName>Abstract\IEventService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UFiles.Domain.Abstract.IEmailService">
+    <Position X="16.25" Y="5.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstract\IEmailService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UFiles.Domain.Abstract.IFileService">
+    <Position X="24.75" Y="5.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAQAACAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstract\IFileService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UFiles.Domain.Abstract.IGroupService">
+    <Position X="39.25" Y="5.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAQAgAAAEAAAAAAAAQBQ=</HashCode>
+      <FileName>Abstract\IGroupService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UFiles.Domain.Abstract.ITransmittalService">
+    <Position X="34" Y="5.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAABIAAAAAAABAAAAAAIAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Abstract\ITransmittalService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UFiles.Domain.Abstract.IUFileContext">
+    <Position X="12.25" Y="5.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>gAAQIGgAAAAAAAAAAAIAAAAAAgBAAAAAAACAAAAAAIA=</HashCode>
+      <FileName>Abstract\IUFileContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="UFiles.Domain.Abstract.IUserService">
+    <Position X="29.75" Y="5.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAQgAgAAEgAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Abstract\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
