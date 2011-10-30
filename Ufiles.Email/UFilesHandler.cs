@@ -59,7 +59,7 @@ namespace UFiles.Email
 
         public UFilesHandler()
         {
-            UserId = 2; //For Debugging, skips login
+            //UserId = 2; //For Debugging, skips login
             client = new UFileServiceClient();
             Files = new ObservableCollection<UploadFile>();
             worker = new BackgroundWorker();
