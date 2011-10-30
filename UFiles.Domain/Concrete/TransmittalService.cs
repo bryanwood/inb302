@@ -35,7 +35,7 @@ namespace UFiles.Domain.Concrete
 
         public Transmittal GetTransmittalById(int id)
         {
-            return db.Transmittals.Where(t => t.TransmittalId == id).Single();
+            return db.Transmittals.Include(f=>f.Files).Where(t => t.TransmittalId == id).Single();
         }
 
         public void AddRecipient(int id, int recipientId)

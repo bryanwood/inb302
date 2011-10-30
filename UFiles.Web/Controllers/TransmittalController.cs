@@ -17,11 +17,14 @@ namespace UFiles.Web.Controllers
         private UFileContext db = new UFileContext();
         private ITransmittalService transmittalService;
         private IUserService userService;
+        private IFileService fileService;
 
-        public TransmittalController(ITransmittalService transmittalService, IUserService userService)
+        public TransmittalController(ITransmittalService transmittalService, IUserService userService, 
+            IFileService fileService)
         {
             this.transmittalService = transmittalService;
             this.userService = userService;
+            this.fileService = fileService;
         }
 
         [Authorize]
@@ -124,6 +127,17 @@ namespace UFiles.Web.Controllers
 
             Response.StatusCode = successStatusCode;
             return Json(jsonDictionary);
+
+        }
+
+        [Authorize]
+        public ActionResult Download(int id)
+        {
+
+            var t = transmittalService.GetTransmittalById(id);
+            var f = fileService.GetFileById(t.Files.ToArray()[0].FileId);
+
+            return File(f.FileData, f.ContentType);
 
         }
 
