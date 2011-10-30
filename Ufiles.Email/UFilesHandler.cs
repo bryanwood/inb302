@@ -117,7 +117,7 @@ namespace UFiles.Email
         }
         public void Complete(int transmittalId)
         {
-            ThisAddIn.MailItem.Body += string.Format("\r\nFiles are available here: http://ufiles.bryanwood.com.au/transmittal/view/{0}", transmittalId);
+            ThisAddIn.MailItem.Body += string.Format("\r\nFiles are available here: http://ufiles.bryanwood.com.au/transmittal/download/{0}", transmittalId);
             fileWindow.Close();
         }
         public void Start()
@@ -125,7 +125,7 @@ namespace UFiles.Email
             ThisAddIn.MailItem.Save();
             if (UserId == 0)
             {
-                loginWindow = new LoginWindow();
+                loginWindow = new LoginWindow(this);
                 
                 loginWindow.ShowDialog();
             }

@@ -18,15 +18,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:58314/UFileService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://ufiles.bryanwood.com.au/UFileService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="UFileService.xsd" MetadataType="Schema" ID="378cddde-b5c8-40f9-91f2-ba453f101c7a" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd3" />
-    <MetadataFile FileName="UFileService.wsdl" MetadataType="Wsdl" ID="744f409e-0adf-4f80-af1e-da3830a71dc1" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?wsdl" />
-    <MetadataFile FileName="UFileService.disco" MetadataType="Disco" ID="388d6bc1-8943-43e3-9b51-eb250f856c7a" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?disco" />
-    <MetadataFile FileName="UFileService1.xsd" MetadataType="Schema" ID="e48074a6-b56d-49c2-b3a0-67e33b2b2719" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd2" />
-    <MetadataFile FileName="UFileService2.xsd" MetadataType="Schema" ID="4d69fdc9-d39b-489b-975a-03aa33290d16" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd1" />
-    <MetadataFile FileName="UFileService3.xsd" MetadataType="Schema" ID="9e86d12f-fe32-403a-8659-f524da968fac" SourceId="1" SourceUrl="http://localhost:58314/UFileService.svc?xsd=xsd0" />
+    <MetadataFile FileName="UFileService4.xsd" MetadataType="Schema" ID="23b71b8f-8c8c-4e84-9b4e-4f2c14a679ea" SourceId="1" SourceUrl="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd3" />
+    <MetadataFile FileName="UFileService1.wsdl" MetadataType="Wsdl" ID="721d5128-95fe-4cab-b0ad-14613d62ec13" SourceId="1" SourceUrl="http://ufiles.bryanwood.com.au/UFileService.svc?wsdl" />
+    <MetadataFile FileName="UFileService41.xsd" MetadataType="Schema" ID="cbb04ae9-b13f-4e12-a193-30a981802638" SourceId="1" SourceUrl="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd1" />
+    <MetadataFile FileName="UFileService42.xsd" MetadataType="Schema" ID="6dfdada3-a60c-426d-900e-373314242333" SourceId="1" SourceUrl="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd0" />
+    <MetadataFile FileName="UFileService43.xsd" MetadataType="Schema" ID="edab41bb-5fe4-4731-9c0c-e7adfcaec797" SourceId="1" SourceUrl="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd2" />
+    <MetadataFile FileName="UFileService1.disco" MetadataType="Disco" ID="5302475d-8f7c-4b8c-831a-6138f70dcb5b" SourceId="1" SourceUrl="http://ufiles.bryanwood.com.au/UFileService.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
