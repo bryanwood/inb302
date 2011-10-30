@@ -34,8 +34,8 @@ namespace UFiles.Domain.Concrete
 
             modelBuilder.Entity<Transmittal>().HasRequired(x => x.Sender).WithMany(x => x.SentTransmittals).HasForeignKey(x => x.SenderId).WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<User>().HasMany(user => user.ReceivedTransmittals).WithMany(transmittal => transmittal.Recipients);
-            //modelBuilder.Entity<Transmittal>().HasMany(transmittal => transmittal.Recipients).WithMany(user => user.ReceivedTransmittals);
+            modelBuilder.Entity<User>().HasMany(user => user.ReceivedTransmittals).WithMany(transmittal => transmittal.Recipients);
+            modelBuilder.Entity<Transmittal>().HasMany(transmittal => transmittal.Recipients).WithMany(user => user.ReceivedTransmittals);
 
             //modelBuilder.Entity<User>().HasMany(user => user.OwnedGroups).WithRequired(group => group.Owner).WillCascadeOnDelete(false);
             //modelBuilder.Entity<Group>().HasRequired(group => group.Owner).WithMany(user => user.OwnedGroups).WillCascadeOnDelete(false);
