@@ -52,6 +52,14 @@ namespace UFiles.Domain.Concrete
         {
             throw new NotImplementedException();
         }
+
+        public void AddFile(int transmittalId, File file)
+        {
+            var transmittal = db.Transmittals.Include(x => x.Files).Where(x => x.TransmittalId == transmittalId).Single();
+            transmittal.Files.Add(file);
+            db.SaveChanges();
+        }
+
         public void SendTransmittal(int id)
         {
             var trans = db.Transmittals.Find(id);

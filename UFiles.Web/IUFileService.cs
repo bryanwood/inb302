@@ -20,8 +20,6 @@ namespace UFiles.Web
         [OperationContract]
         Group[] GetGroups(int userId);
 
-        [OperationContract]
-        Location[] GetLocations();
 
         [OperationContract]
         int NewTransmittal(int userId);
@@ -30,13 +28,16 @@ namespace UFiles.Web
         int AddFile(int userId, int transmittalId, string fileName, string fileType, byte[] fileData);
 
         [OperationContract]
+        void AddTimeRangeRestriction(int fileId, TimeRange[] timeRanges);
+
+        [OperationContract]
         void AddUserRestriction(int fileId, string[] emails);
 
         [OperationContract]
         void AddIPRestriction(int fileId, string[] IPs);
 
         [OperationContract]
-        void AddGroupRestruction(int fileId, int[] groupIds);
+        void AddGroupRestriction(int fileId, int[] groupIds);
 
         [OperationContract]
         void AddLocationRestriction(int fileId, string[] postCodes);

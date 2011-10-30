@@ -15,7 +15,6 @@ namespace UFiles.Domain.Concrete
         {
             db = context;
         }
-
         public File GetFileById(int id)
         {
             return db.Files.Find(id);
@@ -101,13 +100,13 @@ namespace UFiles.Domain.Concrete
 
             return canAccess;
         }
-
+       
         public void CreateFile(File file)
         {
             db.Files.Add(file);
             db.SaveChanges();
         }
-
+     
         public void RevokeFile(int id)
         {
             var file = db.Files.Find(id);

@@ -13,8 +13,12 @@ namespace UFiles.Domain.Concrete
         public EmailService()
         {
             client = new SmtpClient();
-            client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
-            client.PickupDirectoryLocation = @"C:\emails\";
+            //client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+            //client.PickupDirectoryLocation = @"C:\emails\";
+            client.EnableSsl = true;
+            client.Host = "smtp.live.com";
+            client.Port = 587;
+            client.Credentials = new NetworkCredential("friendly-robot@bryanwood.com.au", "ufiles");
             
         }
         public void SendEmail(string[] recipients, string message){

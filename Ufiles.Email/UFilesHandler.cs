@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using Microsoft.Office.Interop.Outlook;
 using System.ComponentModel;
+using UFiles.Domain.Entities;
 
 namespace UFiles.Email
 {
@@ -16,6 +17,8 @@ namespace UFiles.Email
         public int UserId{get;set;}
 
         private UFileServiceClient client;
+
+        private BackgroundWorker worker;
 
         private LoginWindow loginWindow;
         private FilesWindow fileWindow;
@@ -52,14 +55,71 @@ namespace UFiles.Email
             }
         }
 
+        
+
         public UFilesHandler()
         {
-            UserId = 2; //For Debugging, skips login
+            //UserId = 2; //For Debugging, skips login
             client = new UFileServiceClient();
             Files = new ObservableCollection<UploadFile>();
-            
+            worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
         }
 
+        void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+           
+            var transmittalId = client.NewTransmittal(UserId);
+           
+            int total = Files.Count;
+            int progress = 0;
+            worker.ReportProgress(0);
+            foreach (var file in Files)
+            {
+                var fileInfo = new FileInfo(file.FilePath);
+                var buffer = new byte[fileInfo.Length];
+                var handler = fileInfo.OpenRead();
+                handler.Read(buffer, 0, (int)fileInfo.Length);
+                var fileId = client.AddFile(UserId, transmittalId, file.FileName, file.ContentType, buffer);
+                if (file.Emails.Count > 0)
+                    client.AddUserRestriction(fileId, file.Emails.ToArray());
+                if (file.Groups.Count > 0)
+                    client.AddGroupRestriction(fileId, file.Groups.ToArray());
+                if (file.TimeRanges.Count > 0)
+                    client.AddTimeRangeRestriction(fileId, file.TimeRanges.ToArray());
+                if (file.IPs.Count > 0)
+                    client.AddIPRestriction(fileId, file.IPs.ToArray());
+                progress++;
+                worker.ReportProgress((int)(((double)progress / (double)total)*100));
+            }
+            List<string> emails = new List<string>();
+            ThisAddIn.MailItem.Save();
+            foreach (Recipient r in ThisAddIn.MailItem.Recipients)
+            {
+                emails.Add(r.Address);
+            }
+            client.AddRecipients(transmittalId, emails.ToArray());
+            client.SendTransmittal(transmittalId);
+            e.Result = transmittalId;
+        }
+
+        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Complete((int)e.Result);
+        }
+
+        void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            fileWindow.ViewModel.Progress = e.ProgressPercentage;
+        }
+        public void Complete(int transmittalId)
+        {
+            ThisAddIn.MailItem.Body += string.Format("\r\nFiles are available here: http://ufiles.bryanwood.com.au/transmittal/view/{0}", transmittalId);
+            fileWindow.Close();
+        }
         public void Start()
         {
             ThisAddIn.MailItem.Save();
@@ -105,7 +165,9 @@ namespace UFiles.Email
                 FilePath = openFileDialog.FileName,
                 FileSize = (int)fileInfo.Length,
                 Groups = new List<int>(),
-                Emails = new List<string>()
+                Emails = new List<string>(),
+                TimeRanges = new List<TimeRange>(),
+                IPs = new List<string>()
             };
             this.Files.Add(file);
             this.CurrentFile = file;
@@ -114,24 +176,8 @@ namespace UFiles.Email
         }
         void UploadFiles()
         {
-            var transmittalId = client.NewTransmittal(UserId);   
-            foreach(var file in Files){
-                var fileInfo = new FileInfo(file.FilePath);
-                var buffer = new byte[fileInfo.Length];
-                var handler = fileInfo.OpenRead();
-                handler.Read(buffer, 0, (int)fileInfo.Length);
-                var fileId = client.AddFile(UserId, transmittalId, file.FileName, file.ContentType, buffer);
-                if(file.Emails.Count > 0)
-                    client.AddUserRestriction(fileId, file.Emails.ToArray());
-                client.SendTransmittal(transmittalId);
-            }
-            List<string> emails = new List<string>();
-            ThisAddIn.MailItem.Save();
-            foreach(Recipient r in ThisAddIn.MailItem.Recipients){
-                emails.Add(r.Address);
-            }
-            client.AddRecipients(transmittalId, emails.ToArray());
-            client.SendTransmittal(transmittalId);
+            fileWindow.ViewModel.UploadReady = false;
+            worker.RunWorkerAsync();
         }
 
 
