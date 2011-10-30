@@ -88,7 +88,7 @@
             </TabControl>
         </DockPanel>
         <StackPanel Grid.ColumnSpan="2" Grid.Row="2" Orientation="Horizontal">
-            <Button Content="Finished" Width="75" Margin="6,6,6,6" HorizontalAlignment="Right"></Button>
+            <Button Content="Finished" Width="75" Margin="6,6,6,6" HorizontalAlignment="Right" Click="Button_Click_2"></Button>
         </StackPanel>
         <Rectangle Grid.Column="2" Grid.RowSpan="3"></Rectangle>
     </Grid>
