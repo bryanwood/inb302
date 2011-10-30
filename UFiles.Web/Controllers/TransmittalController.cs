@@ -104,7 +104,7 @@ namespace UFiles.Web.Controllers
                     file = context.Files.Add(file);
                     context.SaveChanges();
 
-                    Transmittal t = model.getTransmittal(file, thisUser);
+                    Transmittal t = model.getTransmittal(file, thisUser, context);
 
                     context.Transmittals.Add(t);
                     context.SaveChanges();

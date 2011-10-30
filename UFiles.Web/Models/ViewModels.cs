@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
 using UFiles.Domain.Concrete;
+using System.Collections;
 
 namespace UFiles.Web.Models
 {
@@ -33,9 +34,8 @@ namespace UFiles.Web.Models
                     User thisUser = context.Users.Where<User>(u => u.Email == email).Single();
 
                     IEnumerable<Transmittal> receivedTransmittals = (from transmittal in context.Transmittals
-                                                                     where transmittal.Recipients.FirstOrDefault().Email == email
-                                                                     select transmittal);
-
+                                                                     where transmittal.Recipients.Any(user => user.Email == email)
+                                                                     select transmittal).OrderByDescending(t => t.TransmittalId);
 
                     foreach (Transmittal t in receivedTransmittals)
                     {
@@ -44,10 +44,13 @@ namespace UFiles.Web.Models
                                    select transmittal.Files).First();
 
                         IEnumerable<ICollection<Restriction>> r = (from transmittal in context.Transmittals
-                                                             where transmittal.TransmittalId == t.TransmittalId
-                                                             select transmittal.Files.FirstOrDefault().Restrictions);
+                                                                   where transmittal.TransmittalId == t.TransmittalId
+                                                                   select transmittal.Files.FirstOrDefault().Restrictions);
 
                         t.Files.ToArray()[0].Restrictions = r.ToArray()[0];
+                        t.Sender = (from transmittal in context.Transmittals
+                                    where transmittal.TransmittalId == t.TransmittalId
+                                    select transmittal.Sender).First();
 
                         TransmittalListingModel temp = new TransmittalListingModel(t, true);
                         RecentlyReceivedTransmittals.Add(temp);
@@ -61,11 +64,15 @@ namespace UFiles.Web.Models
 
                     foreach (Transmittal t in (from transmittal in context.Transmittals
                                                where transmittal.Sender.Email == email
-                                               select transmittal))
+                                               select transmittal).OrderByDescending(t => t.TransmittalId))
                     {
                         t.Files = (from transmittal in context.Transmittals
                                    where transmittal.TransmittalId == t.TransmittalId
                                    select transmittal.Files).ToArray()[0];
+
+                        t.Recipients = (from transmittal in context.Transmittals
+                                        where transmittal.TransmittalId == t.TransmittalId
+                                        select transmittal.Recipients).ToList()[0];
 
                         TransmittalListingModel temp = new TransmittalListingModel(t, true);
                         RecentlySentTransmittals.Add(temp);
@@ -74,7 +81,8 @@ namespace UFiles.Web.Models
                 }
 
             }
-            catch (Exception e) { 
+            catch (Exception e)
+            {
             }
         }
     }
