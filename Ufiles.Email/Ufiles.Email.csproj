@@ -245,6 +245,8 @@
       <DependentUpon>UFileRibbon.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\UFiles.Domain.Entities.Group.datasource" />
+    <None Include="Properties\DataSources\UFiles.Domain.Entities.Location.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -262,12 +264,6 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="Service References\UFilesService\UFiles.Email.UFilesService.Group1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\UFilesService\UFiles.Email.UFilesService.Location1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\UFilesService\UFileService.wsdl" />
     <None Include="Service References\UFilesService\UFileService.xsd">
       <SubType>Designer</SubType>
@@ -328,6 +324,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UFiles.Domain\UFiles.Domain.csproj">
+      <Project>{6BFCF97F-D97F-42B3-8E93-BE748F881D8D}</Project>
+      <Name>UFiles.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

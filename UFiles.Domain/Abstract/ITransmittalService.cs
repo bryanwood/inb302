@@ -14,7 +14,6 @@ namespace UFiles.Domain.Abstract
         void CreateNewTransmittal(Transmittal t);
         void AddRecipient(int id, int recipientId);
         void SendTransmittal(int id);
-        //Transmittal AddRestriction(Transmittal transmittal, Restriction restriction);
-        //Transmittal AddFile(int transmittalId, File file);
+        void AddFile(int transmittalId, File file);
     }
 }

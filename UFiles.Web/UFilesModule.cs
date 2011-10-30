@@ -15,12 +15,13 @@ namespace UFiles.Web
         public override void Load()
         {
             Bind<IUFileContext>().To<UFileContext>();
-
+            Bind<IRestrictionService>().To<RestrictionService>();
             Bind<IEmailService>().To<EmailService>();
             Bind<IUserService>().To<UserService>();
             Bind<IGroupService>().To<GroupService>();
             Bind<IFileService>().To<FileService>();
             Bind<ITransmittalService>().To<TransmittalService>();
+            Bind<IUFileService>().To<UFileService>();
         }
     }
 }
