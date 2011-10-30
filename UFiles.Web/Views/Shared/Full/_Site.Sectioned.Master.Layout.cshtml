@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Site.Master.Layout.cshtml";
+}
+@section HeaderStylesheet {
+    <link rel="Stylesheet" type="text/css" href="../../../Content/CSS/site.full.css" />
+    @RenderSection("HeaderStylesheet", false)
+}
+@section HeaderJavascript {
+    @RenderSection("HeaderJavascript", false)
+}
+<div class="lightBox" id="lightBoxLightsOut">
+    <div class="coreLightBoxContainer" id="lightBoxContainer">
+    </div>
+</div>
+<div class="coreContainer floatFix">
+    <div class="coreHeader floatFix">
+        <div class="coreHeaderInternal floatFix floatRight">
+            @RenderSection("PageHeader")
+        </div>
+    </div>
+    <div class="coreSidebar floatLeft">
+        <div class="coreSidebarInternal" id="sidebar">
+            @RenderSection("PageSidebar")
+        </div>
+    </div>
+    <div class="coreLayoutContainer">
+    @RenderBody()
+    </div>
+    <div class="coreInternalContainer floatRight" id="content">
+    </div>
+</div>
+@section InPageJavascript
+{
+    @RenderSection("InPageJavascript", false)
+}

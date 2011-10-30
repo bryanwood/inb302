@@ -1,0 +1,104 @@
+﻿@model UFiles.Web.Models.BaseAuthenticatedModel
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/Full/_Site.Sectioned.Master.Layout.cshtml";
+}
+@section PageHeader {
+    <div class="coreHeaderUserContainer floatRight">
+        logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span> |
+        <a href="@Url.Action("Logout", "Authentication")">logout</a></div>
+}
+@section PageSidebar{
+    <div class="sideBarHeading">
+        @Model.getUser().FName @Model.getUser().LName</div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab">
+            <a href="@Url.Action("Overview", "Home")">home</a></div>
+        <div class="sidebarTab">
+            <a href="@Url.Action("SendFile", "Transmittal")">send a file</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyGroup">
+            <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyFiles">
+            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
+        <div class="sidebarTab" id="tabOtherFiles">
+            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab coreExternalHighlight" id="tabSettings">
+            <a href="@Url.Action("Settings", "Account")">settings</a></div>
+    </div>
+}
+<div class="coreSectionHeader floatRight">
+    personal
+</div>
+<div class="coreSectionContainer floatRight" id="personalSettings">
+    <div class="coreContent">
+        <form id="settingsProfile" name="settingsProfile" action="#" method="post">
+        <div class="boxSection floatFix" id="emailSection">
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+                    Email Address</div>
+                <input type="text" class="boxInput floatRight" value="@Model.getUser().Email" name="Email" />
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="fNameLabel">
+                    First Name</div>
+                <input type="text" class="boxInput floatRight" value="@Model.getUser().FName" name="FName" />
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="lNameLabel">
+                    Last Name</div>
+                <input type="text" class="boxInput floatRight" value="@Model.getUser().LName" name="LName" />
+            </div>
+            <div class="boxInformationHighlight informationHighlightError" style="display: none;
+                opacity: 0.0;" id="profileValidateFail">
+            </div>
+        </div>
+        <div class="boxUserAction floatFix">
+            <input type="submit" class="coreButtonAccept boxButton" value="update" />
+        </div>
+        </form>
+    </div>
+</div>
+<div class="coreSectionHeader floatRight">
+    password
+</div>
+<div class="coreSectionContainer floatRight" id="passwordSettings">
+    <div class="coreContent">
+        <form id="settingsPassword" name="settingsPassword" action="#" method="post">
+        <div class="boxSection floatFix" id="oldPasswordSection">
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+                    Old Password</div>
+                <input type="password" class="boxInput floatRight" name="OldPassword" />
+            </div>
+        </div>
+        <div class="boxSection floatFix" id="newPasswordSection">
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="fNameLabel">
+                    New Password</div>
+                <input type="password" class="boxInput floatRight" name="Password" />
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="lNameLabel">
+                    Confirm</div>
+                <input type="password" class="boxInput floatRight" name="Confirm" />
+            </div>
+            <div class="boxInformationHighlight informationHighlightError" style="display: none;
+                opacity: 0.0;" id="profileValidateFail">
+            </div>
+        </div>
+        <div class="boxUserAction floatFix">
+            <input type="submit" class="coreButtonAccept boxButton" value="update" />
+        </div>
+    </div>
+</div>
+@section InPageJavascript
+{
+    $("#settingsProfile").submit(function() { AjaxValidateAndGo(this, "@Url.Action("ChangeProfileInformation")",
+"#profileValidateFail"); return false; });
+}

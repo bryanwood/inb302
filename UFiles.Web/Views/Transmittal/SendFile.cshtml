@@ -1,0 +1,276 @@
+﻿@model UFiles.Web.Models.BaseAuthenticatedModel
+@{
+    ViewBag.Title = "Send a File";
+    Layout = "~/Views/Shared/Full/_Site.Sectioned.Master.Layout.cshtml";
+}
+@section HeaderJavascript {
+    <script type="text/javascript" src="../../Scripts/JS/plupload.js"></script>
+    <script type="text/javascript" src="../../Scripts/JS/plupload.html5.js"></script>
+}
+@section PageHeader {
+    <div class="coreHeaderUserContainer floatRight">
+        logged in as <span class="coreExternalHighlight">@Model.getUser().Email</span> |
+        <a href="@Url.Action("Logout", "Authentication")">logout</a></div>
+}
+@section PageSidebar{
+    <div class="sideBarHeading">
+        @Model.getUser().FName @Model.getUser().LName</div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab">
+            <a href="@Url.Action("Overview", "Home")">home</a></div>
+        <div class="sidebarTab coreExternalHighlight">
+            <a href="@Url.Action("SendFile", "Transmittal")">send a file</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyGroup">
+            <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabMyFiles">
+            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
+        <div class="sidebarTab" id="tabOtherFiles">
+            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
+    </div>
+    <div class="sidebarTabGroup">
+        <div class="sidebarTab" id="tabSettings">
+            <a href="@Url.Action("Settings", "Account")">settings</a></div>
+    </div>
+}
+<form id="transmittalDetails" action="#" method="post" enctype="multipart/form-data">
+<div class="coreSectionHeader floatRight">
+    attach file
+</div>
+<div class="coreSectionContainer floatRight" id="fileUpload">
+    <div class="coreContent floatFix">
+        <div class="uploadSectionMajor floatFix">
+            <div id="fileUploadContainer">
+            </div>
+            <input type="button" id="fileUpload" name="uploadedFile" value="select file" class="uploadSendButton coreButtonAccept floatRight" />
+        </div>
+    </div>
+</div>
+<input type="hidden" id="sendTo" name="sendTo" value="email" />
+<div class="coreSectionHeader floatRight">
+    send to
+</div>
+<div class="coreSectionContainer floatRight" id="recipientOptions">
+    <div class="coreSectionTabGroup floatFix" id="senderTabGroup">
+        <a href="#">
+            <div class="coreTabSelected coreSectionTab floatLeft" onclick="swapTab('email', true);"
+                id="emailTab" style="width: 50%">
+                Email Address</div>
+        </a><a href="#">
+            <div class="coreSectionTab floatLeft" id="groupTab" onclick="swapTab('group', true);"
+                style="width: 50%">
+                Group</div>
+        </a>
+    </div>
+    <div class="coreContent">
+        <div class="boxSection floatFix" id="emailSection">
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+                    Email Address</div>
+                <input type="text" class="boxInput floatRight" onblur="hasInput(this, 'email');"
+                    name="recipientEmail" />
+            </div>
+        </div>
+        <div class="boxSection floatFix" style="display: none;" id="groupSection">
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+                    Group</div>
+                <input type="text" class="boxInput floatRight" onblur="hasInput(this, 'group');"
+                    name="recipientGroups" />
+            </div>
+        </div>
+        <div class="boxInformationHighlight informationHighlightError" style="display: none;
+            opacity: 0.0;" id="recipientValidateFail">
+        </div>
+    </div>
+</div>
+<div class="coreSectionHeader floatRight">
+    restrictions
+</div>
+<div class="coreSectionContainer floatRight" id="restrictionOptions">
+    <div class="coreSectionTabGroup floatFix" id="restrictionTabGroup">
+        <a href="#">
+            <div class="coreTabSelected coreSectionTab floatLeft" onclick="swapTab('userRestriction', false);"
+                id="userRestrictionTab" style="width: 20%">
+                User</div>
+        </a><a href="#">
+            <div class="coreSectionTab floatLeft" onclick="swapTab('groupRestriction', false);"
+                id="groupRestrictionTab" style="width: 20%">
+                Group</div>
+        </a><a href="#">
+            <div class="coreSectionTab floatLeft" onclick="swapTab('locationRestriction', false);"
+                id="locationRestrictionTab" style="width: 20%">
+                Location</div>
+        </a><a href="#">
+            <div class="coreSectionTab floatLeft" onclick="swapTab('ipRestriction', false);"
+                id="ipRestrictionTab" style="width: 20%">
+                IP</div>
+            <a href="#">
+                <div class="coreSectionTab floatLeft" onclick="swapTab('timeRestriction', false);"
+                    id="timeRestrictionTab" style="width: 20%">
+                    Time Range</div>
+            </a>
+    </div>
+    <div class="coreContent">
+        <div class="boxSection floatFix" id="userRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to specific users by their email address below.<p>
+                    Seperate each email address with a <b>;</b>.</p>
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="userRestrictionLabel">
+                    Email Address</div>
+                <input type="text" class="boxInput floatRight" name="emailRestriction" />
+            </div>
+        </div>
+        <div class="boxSection floatFix" style="display: none;" id="groupRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the group names listed below.<p>
+                    Seperate each group name with a <b>;</b>.</p>
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="GroupRestrictionLabel">
+                    Group Name</div>
+                <input type="text" class="boxInput floatRight" name="groupRestriction" />
+            </div>
+        </div>
+        <div class="boxSection floatFix" style="display: none;" id="locationRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the locations by their post code below.<p>
+                    Seperate each post code with a <b>;</b>.</p>
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="LocationRestrictionLabel">
+                    Location</div>
+                <input type="text" class="boxInput floatRight" name="locationString" />
+            </div>
+        </div>
+        <div class="boxSection floatFix" style="display: none;" id="ipRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the IP Addresses listed below.<p>
+                    Seperate each group name with a <b>;</b>.</p>
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="ipRestrictionLabel">
+                    IP Address</div>
+                <input type="text" class="boxInput floatRight" name="ipString" />
+            </div>
+        </div>
+        <div class="boxSection floatFix" style="display: none;" id="timeRestrictionSection">
+            <div class="boxInformationHighlight informationHighlightAdditional">
+                Restrict access to this file to the time range displayed below.</div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeRestrictionEnabledLabel">
+                    Enable</div>
+                <input type="checkbox" class="floatLeft" name="timeIsEnabled" />
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeStartRestrictionLabel">
+                    Start Time</div>
+                <select class="boxSelect floatLeft" name="startTimeHour">
+                    @{
+                        for (int i = 0; i < 24; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">hour(s)</span>
+                <select class="boxSelect floatLeft" name="startTimeMinute">
+                    @{
+                        for (int i = 0; i < 60; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">minute(s) on </span>
+                <input class="boxSelect floatLeft" name="startTimeDate" />
+            </div>
+            <div class="boxMinorSection floatFix">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="timeEndRestrictionLabel">
+                    End Time</div>
+                <select class="boxSelect floatLeft" name="endTimeHour">
+                    @{
+                        for (int i = 0; i < 24; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">hour(s)</span>
+                <select class="boxSelect floatLeft" name="endTimeMinute">
+                    @{
+                        for (int i = 0; i < 60; i++)
+                        {
+                        <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span class="floatLeft boxSpanLabel">minute(s) on </span>
+                <input class="boxSelect floatLeft" name="endTimeDate" />
+            </div>
+        </div>
+        <div class="boxInformationHighlight informationHighlightError" style="display: none;
+            opacity: 0.0;" id="restrictionValidateFail">
+        </div>
+    </div>
+</div>
+<div class="coreSectionHeader floatRight">
+    send file
+</div>
+<div class="coreSectionContainer floatRight" id="fileUpload">
+    <div class="coreContent floatFix">
+        <div class="uploadSectionMajor floatFix">
+            <input type="submit" class="uploadSendButton coreButtonAccept floatRight" onclick="uploader.start(); return false;"
+                value="send" />
+        </div>
+        <div class="boxSection floatFix">
+            <div class="boxInformationHighlight informationHighlightError" style="display: none;
+                opacity: 0.0;" id="validateFail">
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+@section inPageJavascript {
+    $('[name="startTimeHour"]').val(@DateTime.Now.Hour); $('[name="startTimeMinute"]').val(@DateTime.Now.Minute);
+    $('[name="startTimeDate"]').val('@DateTime.Now.ToShortDateString()'); $('[name="endTimeHour"]').val(@DateTime.Now.Hour);
+    $('[name="endTimeMinute"]').val(@DateTime.Now.Minute); $('[name="endTimeDate"]').val('@DateTime.Now.ToShortDateString()');
+    var currentRecipientTab = "email"; var currentRestrictionTab = "userRestriction";
+    function hasInput(input, tab) { if($(input).val() != "") { $('#' + tab + 'Tab').css("font-weight",
+    "bold"); } else { $('#' + tab + 'Tab').css("font-weight", "normal"); } } function
+    swapTab(toTab, isRecipientTab) { if(isRecipientTab) { $('#sendTo').val(toTab); $('#'
+    + currentRecipientTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRecipientTab
+    + 'Section').css("display", "none"); currentRecipientTab = toTab; } else { $('#'
+    + currentRestrictionTab + 'Tab').removeClass("coreTabSelected"); $('#' + currentRestrictionTab
+    + 'Section').css("display", "none"); currentRestrictionTab = toTab; } $('#' + toTab
+    + 'Tab').addClass("coreTabSelected"); $('#' + toTab + 'Section').css("display",
+    "block"); return false; }; var uploader = new plupload.Uploader({ runtimes: 'html5', browse_button:
+    'fileUpload', max_file_count: 1, multipart: true, multipart_params: { 'recipientEmail':
+    '', 'recipientGroups': '', 'sendTo': '', 'emailRestriction': '', 'groupRestriction':
+    '', 'locationString': '', 'ipString': '', 'timeIsEnabled': '', 'startTimeHour':
+    '', 'startTimeMinute': '', '': 'startTimeDate', 'endTimeHour':'', 'endTimeMinute':
+    '', 'endTimeDate': '' }, url: '@Url.Action("Upload")' }); uploader.init(); uploader.bind('FilesAdded',
+    function(up, files) { $('#fileUploadContainer').html('<span class="boxSpanLabel">' +
+        files[0].name + '</span>'); }); uploader.bind('BeforeUpload', function(up,
+file) { up.settings.multipart_params.recipientEmail = $('input[name="recipientEmail"]').val();
+up.settings.multipart_params.recipientGroups = $('input[name="recipientGroups"]').val();
+up.settings.multipart_params.sendTo = $('input[name="sendTo"]').val(); up.settings.multipart_params.emailRestriction
+= $('[name="emailRestriction"]').val(); up.settings.multipart_params.groupRestriction
+= $('[name="groupRestriction"]').val(); up.settings.multipart_params.locationString
+= $('[name="locationString"]').val(); up.settings.multipart_params.ipString = $('[name="ipString"]').val();
+up.settings.multipart_params.timeIsEnabled = $('[name="timeIsEnabled"]').val();
+up.settings.multipart_params.startTimeHour = $('[name="startTimeHour"]').val();
+up.settings.multipart_params.startTimeMinute = $('[name="startTimeMinute"]').val();
+up.settings.multipart_params.startTimeDate = $('[name="startTimeDate"]').val();
+up.settings.multipart_params.endTimeHour = $('[name="endTimeHour"]').val(); up.settings.multipart_params.endTimeMinute
+= $('[name="endTimeMinute"]').val(); up.settings.multipart_params.endTimeDate =
+$('[name="endTimeDate"]').val(); }); uploader.bind('FileUploaded', function(up,
+file, response) { var reply = $.parseJSON(response.response); if(reply.Success ==
+'false') { $('#validateFail').html(reply.FailureReason); $('#validateFail').slideDown(500);
+$('#validateFail').animate({ opacity: 1.0 }, 500); } });
+}
