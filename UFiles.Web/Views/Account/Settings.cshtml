@@ -61,6 +61,7 @@
 <div class="coreSectionHeader floatRight">
     password
 </div>
+<form id="changePassword" name="changePassword" method="post" action="#">
 <div class="coreSectionContainer floatRight" id="passwordSettings">
     <div class="coreContent">
         <form id="settingsPassword" name="settingsPassword" action="#" method="post">
@@ -75,15 +76,15 @@
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="fNameLabel">
                     New Password</div>
-                <input type="password" class="boxInput floatRight" name="Password" />
+                <input type="password" class="boxInput floatRight" name="NewPassword" />
             </div>
             <div class="boxMinorSection floatFix">
                 <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="lNameLabel">
                     Confirm</div>
-                <input type="password" class="boxInput floatRight" name="Confirm" />
+                <input type="password" class="boxInput floatRight" name="ConfirmPassword" />
             </div>
             <div class="boxInformationHighlight informationHighlightError" style="display: none;
-                opacity: 0.0;" id="profileValidateFail">
+                opacity: 0.0;" id="passwordValidateFail">
             </div>
         </div>
         <div class="boxUserAction floatFix">
@@ -91,8 +92,11 @@
         </div>
     </div>
 </div>
+</form>
 @section InPageJavascript
 {
     $("#settingsProfile").submit(function() { AjaxValidateAndGo(this, "@Url.Action("ChangeProfileInformation")",
 "#profileValidateFail"); return false; });
+    $("#changePassword").submit(function() { AjaxValidateAndGo(this, "@Url.Action("ChangePassword")",
+"#passwordValidateFail"); return false; });
 }

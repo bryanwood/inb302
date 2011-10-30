@@ -76,7 +76,7 @@ namespace UFiles.Domain.Concrete
                             var now = DateTime.Now;
                             foreach (var timeRange in res.TimeRanges)
                             {
-                                if (now < timeRange.End && now > timeRange.Start)
+                                if (now < timeRange.End.Value.ToLocalTime() && now > timeRange.Start.ToLocalTime())
                                 {
                                     t = true;
                                 }

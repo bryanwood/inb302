@@ -185,7 +185,7 @@
                              foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlyReceivedTransmittals.AsEnumerable())
                              {
                         <a href='#' onclick="showTransmittal(@t.DownloadLink);">
-                            <div class="panelMiniSection floatFix">
+                            <div class="panelMiniSection floatFix" id="@t.DownloadLink">
                                 <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
                                     @t.FileName</div>
                                 <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
@@ -216,7 +216,7 @@
                             foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlySentTransmittals.AsEnumerable())
                             {
                         <a href='#' onclick="showTransmittal(@t.DownloadLink);">
-                            <div class="panelMiniSection floatFix">
+                            <div class="panelMiniSection floatFix"  id="@t.DownloadLink">
                                 <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
                                     @t.FileName</div>
                                 <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
@@ -237,6 +237,13 @@
 </div>
 @section InPageJavascript
 {
+    var selectedTransmittalID = @Model.preloadedOverview.DownloadLink;
+
+    $(document).ready(function() {
+    $('#' + selectedTransmittalID).addClass('panelMiniSectionSelected');
+    });
+
+
     function swapTab(to, from) { $('#' + to + 'Tab').addClass('coreTabSelected'); $('#'
     + from + 'Tab').removeClass('coreTabSelected'); $('#' + to).css('display', 'block');
     $('#' + from).css('display', 'none'); } 
@@ -247,7 +254,12 @@
     url: "@Url.Action("GetDetailedTransmittalInfo", "Home")/" + id,
 
      statusCode:
-{ 200: function(data) { $('#transmittalOverview').html(data); }
+{ 200: function(data) { 
+$('#transmittalOverview').html(data);
+$('#' + id).addClass('panelMiniSectionSelected');
+$('#' + selectedTransmittalID).removeClass('panelMiniSectionSelected');
+selectedTransmittalID = id;
+ }
 }
 
     });

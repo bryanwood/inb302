@@ -133,11 +133,24 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult Download(int id)
         {
+            try
+            {
+                if (fileService.UserCanAccessFile(id, userService.GetUserByEmail(User.Identity.Name).UserId, 4000, Request.UserHostAddress))
+                {
+                    var t = transmittalService.GetTransmittalById(id);
+                    var f = fileService.GetFileById(t.Files.ToArray()[0].FileId);
 
-            var t = transmittalService.GetTransmittalById(id);
-            var f = fileService.GetFileById(t.Files.ToArray()[0].FileId);
-
-            return File(f.FileData, f.ContentType);
+                    return File(f.FileData, f.ContentType);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
         }
 

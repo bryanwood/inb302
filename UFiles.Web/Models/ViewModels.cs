@@ -19,7 +19,7 @@ namespace UFiles.Web.Models
         public TransmittalOverviewModel preloadedOverview { get; set; }
 
         public OverviewModel(IUserService userService, IFileService fileService,
-            string email)
+            string email, string ipAddress)
             : base(userService, email)
         {
             RecentlySentTransmittals = new List<TransmittalListingModel>();
@@ -43,7 +43,7 @@ namespace UFiles.Web.Models
                     foreach (Transmittal t in receivedTransmittals)
                     {
 
-                        if (fileService.UserCanAccessFile(t.TransmittalId, thisUser.UserId, 4051, "127.0.0.1"))
+                        if (fileService.UserCanAccessFile(t.TransmittalId, thisUser.UserId, 4051, ipAddress))
                         {
 
 
@@ -76,7 +76,7 @@ namespace UFiles.Web.Models
                                                where transmittal.Sender.Email == email
                                                select transmittal).OrderByDescending(t => t.TransmittalId))
                     {
-                        if (fileService.UserCanAccessFile(t.TransmittalId, thisUser.UserId, 4051, "127.0.0.1"))
+                        if (fileService.UserCanAccessFile(t.TransmittalId, thisUser.UserId, 4051, ipAddress))
                         {
 
                             t.Files = (from transmittal in context.Transmittals
@@ -87,7 +87,7 @@ namespace UFiles.Web.Models
                                             where transmittal.TransmittalId == t.TransmittalId
                                             select transmittal.Recipients).ToList()[0];
 
-                            TransmittalListingModel temp = new TransmittalListingModel(t, true);
+                            TransmittalListingModel temp = new TransmittalListingModel(t, false);
                             RecentlySentTransmittals.Add(temp);
                         }
                     }
