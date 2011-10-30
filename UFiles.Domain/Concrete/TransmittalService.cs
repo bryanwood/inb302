@@ -11,16 +11,18 @@ namespace UFiles.Domain.Concrete
     public class TransmittalService : ITransmittalService
     {
         private IUFileContext db;
-
-        public TransmittalService(IUFileContext context)
+        private IEventService eventService;
+        public TransmittalService(IUFileContext context, IEventService eventService)
         {
             db = context;
+            this.eventService = eventService;
         }
 
         public void CreateNewTransmittal(Transmittal t)
         {
             db.Transmittals.Add(t);
             db.SaveChanges();
+            eventService.AddTransmittalEvent(t);
         }
 
         public IQueryable<Transmittal> GetTransmittalsBySender(User user)
@@ -35,7 +37,9 @@ namespace UFiles.Domain.Concrete
 
         public Transmittal GetTransmittalById(int id)
         {
-            return db.Transmittals.Include(f=>f.Files).Where(t => t.TransmittalId == id).Single();
+            var tr = db.Transmittals.Include(f=>f.Files).Where(t => t.TransmittalId == id).Single();
+            eventService.AddTransmittalEvent(tr);
+            return tr;
         }
 
         public void AddRecipient(int id, int recipientId)
@@ -46,6 +50,7 @@ namespace UFiles.Domain.Concrete
 
             trans.Recipients.Add(user);
             db.SaveChanges();
+            eventService.AddTransmittalEvent(trans);
         }
 
         public Transmittal AddRestriction(Transmittal transmittal, Restriction restriction)
@@ -58,6 +63,7 @@ namespace UFiles.Domain.Concrete
             var transmittal = db.Transmittals.Include(x => x.Files).Where(x => x.TransmittalId == transmittalId).Single();
             transmittal.Files.Add(file);
             db.SaveChanges();
+            eventService.AddTransmittalEvent(transmittal);
         }
 
         public void SendTransmittal(int id)
@@ -65,6 +71,7 @@ namespace UFiles.Domain.Concrete
             var trans = db.Transmittals.Find(id);
             trans.Sent = true;
             db.SaveChanges();
+            eventService.AddTransmittalEvent(trans);
         }
 
       

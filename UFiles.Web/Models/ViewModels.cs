@@ -32,7 +32,7 @@ namespace UFiles.Web.Models
                 using (var context = new UFileContext())
                 {
 
-                    fileService = new FileService(context);
+                    fileService = new FileService(context, new EventService(context));
 
                     User thisUser = context.Users.Where<User>(u => u.Email == email).Single();
 
