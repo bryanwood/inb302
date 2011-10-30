@@ -49,7 +49,17 @@ namespace UFiles.Web
         {
             if (oldPassword != newPassword)
             {
-                return userService.ChangePassword(username, newPassword); ;
+
+                string current = userService.GetUserByEmail(username).PasswordHash;
+
+                if (current == oldPassword)
+                {
+                    return userService.ChangePassword(username, newPassword);
+                }
+                else
+                {
+                    return false;
+                }
             }
             return false;
         }
@@ -63,6 +73,7 @@ namespace UFiles.Web
             var user = new User();
             user.Email = email;
             user.PasswordHash = password;
+            user.Role = new Role();
             userService.CreateUser(user);
             
             var membershipUser = new MembershipUser("UFilesMembershipProvider",email,user.UserId,email,"","",true,false,DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);

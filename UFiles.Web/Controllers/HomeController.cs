@@ -27,7 +27,7 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            OverviewModel overviewModel = new OverviewModel(userService, fileService, User.Identity.Name);
+            OverviewModel overviewModel = new OverviewModel(userService, fileService, User.Identity.Name, Request.UserHostAddress);
 
             // End test data
 
