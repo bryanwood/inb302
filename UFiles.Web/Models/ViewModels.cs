@@ -51,10 +51,8 @@ namespace UFiles.Web.Models
             {
                 if (t.Sent)
                 {
-                    
                         TransmittalListingModel temp = new TransmittalListingModel(t, false);
                         RecentlySentTransmittals.Add(temp);
-                    
                 }
             }
         }
@@ -76,10 +74,6 @@ namespace UFiles.Web.Models
 
                 foreach (Group thisGroup in groupService.GetGroupsByOwner(thisUser))
                 {
-                    thisGroup.Users = (from g in context.Groups
-                                       where g.GroupId == thisGroup.GroupId
-                                       select g.Users).Single();
-
                     GroupListingModel temp = new GroupListingModel(thisGroup);
                     this.groupList.Add(temp);
                 }

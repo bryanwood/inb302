@@ -25,7 +25,7 @@ namespace UFiles.Domain.Concrete
 
         public Entities.Group GetGroup(int id)
         {
-            return db.Groups.Where(g => g.GroupId == id).Single();
+            return db.Groups.Include(x=>x.Owner).Include(x=>x.Users).Where(g => g.GroupId == id).Single();
         }
 
         public void CreateGroup(Entities.User owner, Group group)
