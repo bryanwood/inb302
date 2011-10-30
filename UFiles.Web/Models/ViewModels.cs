@@ -18,7 +18,7 @@ namespace UFiles.Web.Models
 
         public TransmittalOverviewModel preloadedOverview { get; set; }
 
-        public OverviewModel(IUserService userService, ITransmittalService transmittalService,
+        public OverviewModel(IUserService userService, IFileService fileService,
             string email)
             : base(userService, email)
         {
@@ -31,6 +31,9 @@ namespace UFiles.Web.Models
             {
                 using (var context = new UFileContext())
                 {
+
+                    fileService = new FileService(context);
+
                     User thisUser = context.Users.Where<User>(u => u.Email == email).Single();
 
                     IEnumerable<Transmittal> receivedTransmittals = (from transmittal in context.Transmittals
@@ -39,25 +42,32 @@ namespace UFiles.Web.Models
 
                     foreach (Transmittal t in receivedTransmittals)
                     {
-                        t.Files = (from transmittal in context.Transmittals
-                                   where transmittal.TransmittalId == t.TransmittalId
-                                   select transmittal.Files).First();
 
-                        IEnumerable<ICollection<Restriction>> r = (from transmittal in context.Transmittals
-                                                                   where transmittal.TransmittalId == t.TransmittalId
-                                                                   select transmittal.Files.FirstOrDefault().Restrictions);
-
-                        t.Files.ToArray()[0].Restrictions = r.ToArray()[0];
-                        t.Sender = (from transmittal in context.Transmittals
-                                    where transmittal.TransmittalId == t.TransmittalId
-                                    select transmittal.Sender).First();
-
-                        TransmittalListingModel temp = new TransmittalListingModel(t, true);
-                        RecentlyReceivedTransmittals.Add(temp);
-
-                        if (preloadedOverview == null)
+                        if (fileService.UserCanAccessFile(t.TransmittalId, thisUser.UserId, 4051, "127.0.0.1"))
                         {
-                            preloadedOverview = new TransmittalOverviewModel(t);
+
+
+
+                            t.Files = (from transmittal in context.Transmittals
+                                       where transmittal.TransmittalId == t.TransmittalId
+                                       select transmittal.Files).First();
+
+                            IEnumerable<ICollection<Restriction>> r = (from transmittal in context.Transmittals
+                                                                       where transmittal.TransmittalId == t.TransmittalId
+                                                                       select transmittal.Files.FirstOrDefault().Restrictions);
+
+                            t.Files.ToArray()[0].Restrictions = r.ToArray()[0];
+                            t.Sender = (from transmittal in context.Transmittals
+                                        where transmittal.TransmittalId == t.TransmittalId
+                                        select transmittal.Sender).First();
+
+                            TransmittalListingModel temp = new TransmittalListingModel(t, true);
+                            RecentlyReceivedTransmittals.Add(temp);
+
+                            if (preloadedOverview == null)
+                            {
+                                preloadedOverview = new TransmittalOverviewModel(t);
+                            }
                         }
 
                     }
@@ -66,16 +76,20 @@ namespace UFiles.Web.Models
                                                where transmittal.Sender.Email == email
                                                select transmittal).OrderByDescending(t => t.TransmittalId))
                     {
-                        t.Files = (from transmittal in context.Transmittals
-                                   where transmittal.TransmittalId == t.TransmittalId
-                                   select transmittal.Files).ToArray()[0];
+                        if (fileService.UserCanAccessFile(t.TransmittalId, thisUser.UserId, 4051, "127.0.0.1"))
+                        {
 
-                        t.Recipients = (from transmittal in context.Transmittals
-                                        where transmittal.TransmittalId == t.TransmittalId
-                                        select transmittal.Recipients).ToList()[0];
+                            t.Files = (from transmittal in context.Transmittals
+                                       where transmittal.TransmittalId == t.TransmittalId
+                                       select transmittal.Files).ToArray()[0];
 
-                        TransmittalListingModel temp = new TransmittalListingModel(t, true);
-                        RecentlySentTransmittals.Add(temp);
+                            t.Recipients = (from transmittal in context.Transmittals
+                                            where transmittal.TransmittalId == t.TransmittalId
+                                            select transmittal.Recipients).ToList()[0];
+
+                            TransmittalListingModel temp = new TransmittalListingModel(t, true);
+                            RecentlySentTransmittals.Add(temp);
+                        }
                     }
 
                 }

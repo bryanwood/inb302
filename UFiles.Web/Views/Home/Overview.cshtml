@@ -25,19 +25,13 @@
             <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
     </div>
     <div class="sidebarTabGroup">
-        <div class="sidebarTab" id="tabMyFiles">
-            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
-        <div class="sidebarTab" id="tabOtherFiles">
-            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
-    </div>
-    <div class="sidebarTabGroup">
         <div class="sidebarTab" id="tabSettings">
             <a href="@Url.Action("Settings", "Account")">settings</a></div>
     </div>
 }
 <div class="homeView floatFix">
     <div class="contentBarMain floatLeft">
-        <div class="contentPanel floatLeft">
+        <div class="contentPanel" id="transmittalOverview">
             @{ if (@Model.preloadedOverview != null)
                {
                 <div class="detailsSection" id="fileDetails">
@@ -148,6 +142,10 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <a class="coreButtonAccept boxButton" href="@Url.Action("Download", "Transmittal", new { id = Model.preloadedOverview.DownloadLink })">
+                        Download</a>
+                </div>
                }
                else
                {
@@ -164,7 +162,7 @@
         <div class="contentPanel floatRight">
             <div class="panelHeading floatFix">
                 <a href="#" onclick="swapTab('received', 'sent');">
-                    <div class="panelTab coreTabSelected floatLeft" id="recievedTab">
+                    <div class="panelTab coreTabSelected floatLeft" id="receivedTab">
                         recently recieved</div>
                 </a><a href="#" onclick="swapTab('sent', 'received');">
                     <div class="panelTab floatRight" id="sentTab">
@@ -186,16 +184,18 @@
                          {
                              foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlyReceivedTransmittals.AsEnumerable())
                              {
-                        <div class="panelMiniSection floatFix">
-                            <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                                @t.FileName</div>
-                            <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                                @t.Email</div>
-                            <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                                @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
-                            <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                                <a href="#">download</a></div>
-                        </div>
+                        <a href='#' onclick="showTransmittal(@t.DownloadLink);">
+                            <div class="panelMiniSection floatFix">
+                                <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                                    @t.FileName</div>
+                                <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
+                                    @t.Email</div>
+                                <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
+                                    @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
+                                <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
+                                    <a href="@Url.Action("Download", "Transmittal", new { id = t.DownloadLink })">download</a></div>
+                            </div>
+                        </a>
                              }
                          }
                     }
@@ -215,16 +215,18 @@
                         {
                             foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlySentTransmittals.AsEnumerable())
                             {
-                        <div class="panelMiniSection floatFix">
-                            <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                                @t.FileName</div>
-                            <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                                @t.Email</div>
-                            <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                                @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
-                            <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                                <a href="#">download</a></div>
-                        </div>
+                        <a href='#' onclick="showTransmittal(@t.DownloadLink);">
+                            <div class="panelMiniSection floatFix">
+                                <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                                    @t.FileName</div>
+                                <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
+                                    @t.Email</div>
+                                <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
+                                    @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
+                                <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
+                                    <a href="@Url.Action("Download", "Transmittal", new { id = @t.DownloadLink })">download</a></div>
+                            </div>
+                        </a>
                             }
                         }
                     }
@@ -235,7 +237,21 @@
 </div>
 @section InPageJavascript
 {
-function swapTab(to, from) { $('#' + to + 'tab').addClass('coreTabSelected'); $('#'
-+ from + 'tab').removeClass('coreTabSelected'); $('#' + to).css('display', 'block');
-$('#' + from).css('display', 'none'); }
+    function swapTab(to, from) { $('#' + to + 'Tab').addClass('coreTabSelected'); $('#'
+    + from + 'Tab').removeClass('coreTabSelected'); $('#' + to).css('display', 'block');
+    $('#' + from).css('display', 'none'); } 
+    
+    function showTransmittal(id) { 
+    $.ajax({
+    type: "POST", 
+    url: "@Url.Action("GetDetailedTransmittalInfo", "Home")/" + id,
+
+     statusCode:
+{ 200: function(data) { $('#transmittalOverview').html(data); }
 }
+
+    });
+
+    }
+
+    }

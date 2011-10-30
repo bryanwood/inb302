@@ -34,7 +34,7 @@ namespace UFiles.Web.Models
                     this.Email = t.Recipients.ToArray()[0].Email;
                 }
             }
-
+            this.DownloadLink = t.TransmittalId.ToString();
             this.SentDate = t.Files.ToArray()[0].DateCreated;
         }
     }
@@ -56,6 +56,7 @@ namespace UFiles.Web.Models
             this.FileName = t.Files.ToArray()[0].Name;
             this.Sender = t.Sender.Email;
             this.SentDate = t.Files.ToArray()[0].DateCreated;
+            this.DownloadLink = t.TransmittalId.ToString();
             // Restrictions
 
             using (var context = new UFileContext())
