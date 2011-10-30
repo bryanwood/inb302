@@ -20,16 +20,14 @@ namespace UFiles.Web
         private IEmailService emailService;
         private IUserService userService;
         private ITransmittalService transmittalService;
-
-        public UFileService()
-        {
-            
-        }
-        public UFileService(IEmailService emailService, IUserService userService, ITransmittalService transmittalService)
+        private IFileService fileService;
+       
+        public UFileService(IEmailService emailService, IUserService userService, ITransmittalService transmittalService, IFileService fileService)
         {
             this.emailService = emailService;
             this.userService = userService;
             this.transmittalService = transmittalService;
+            this.fileService = fileService;
         }
         public int Login(string email, string password)
         {
@@ -99,7 +97,6 @@ namespace UFiles.Web
                     transmittalService.AddRecipient(transmittalId, u.UserId);
                 }
             }
-            db.SaveChanges();
         }
 
         public void SendTransmittal(int transmittalId)
@@ -110,7 +107,7 @@ namespace UFiles.Web
 
         public void AddUserRestriction(int fileId, string[] emails)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void AddIPRestriction(int fileId, string[] IPs)
