@@ -10,9 +10,12 @@ namespace UFiles.Domain.Concrete
     public class RestrictionService : IRestrictionService
     {
         private IUFileContext db;
-        public RestrictionService(IUFileContext context)
+        private IEventService eventService;
+
+        public RestrictionService(IUFileContext context, IEventService eventService)
         {
             db = context;
+            this.eventService = eventService;
         }
 
         public void AddUserRestriction(int fileId, int[] userIds)
@@ -25,6 +28,7 @@ namespace UFiles.Domain.Concrete
             }
             file.Restrictions.Add(userRestriction);
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
 
         public void AddGroupRestriction(int fileId, int[] groupIds)
@@ -38,6 +42,7 @@ namespace UFiles.Domain.Concrete
             }
             file.Restrictions.Add(groupRestriction);
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
 
         public void AddTimeRangeRestriction(int fileId, TimeRange[] timeRanges)
@@ -51,6 +56,7 @@ namespace UFiles.Domain.Concrete
             }
             file.Restrictions.Add(timeRestriction);
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
         public void AddIPRestriction(int fileId, string[] ips)
         {
@@ -67,6 +73,7 @@ namespace UFiles.Domain.Concrete
             }
             file.Restrictions.Add(ipRestriction);
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
     }
 }
