@@ -8,23 +8,33 @@ using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
 using UFiles.Web.Models;
 using UFiles.Domain.Concrete;
+using System.Net;
 
 namespace UFiles.Web.Controllers
 {
-
+    public class JsonReply
+    {
+        public string ReplyingFor { get; set; }
+        public string FailureReason { get; set; }
+        public string Success { get; set; }
+        public string GoTo { get; set; }
+    }
     public class TransmittalController : Controller
     {
-        private UFileContext db = new UFileContext();
         private ITransmittalService transmittalService;
         private IUserService userService;
         private IFileService fileService;
+        private IRestrictionService restrictionService;
+        private IGroupService groupService;
 
-        public TransmittalController(ITransmittalService transmittalService, IUserService userService, 
+        public TransmittalController(IGroupService groupService, IRestrictionService restrictionService, ITransmittalService transmittalService, IUserService userService, 
             IFileService fileService)
         {
+            this.restrictionService = restrictionService;
             this.transmittalService = transmittalService;
             this.userService = userService;
             this.fileService = fileService;
+            this.groupService = groupService;
         }
 
         [Authorize]
@@ -38,29 +48,28 @@ namespace UFiles.Web.Controllers
         public JsonResult Upload(TransmittalSendModel model)
         {
             const int successStatusCode = 200;
+            var response = new JsonReply();
 
-            Dictionary<String, String> jsonDictionary = new Dictionary<string, string>();
-
-            jsonDictionary.Add("ReplyingFor", "SendFile");
+            response.ReplyingFor = "SendFile";
 
             if (Request.Files.Count < 1)
             {
                 {
-                    jsonDictionary.Add("FailureReason", "<p>You must select a file to send.</p>");
-                    jsonDictionary.Add("Success", "false");
+                    response.FailureReason = "<p>You must select a file to send.</p>";
+                    response.Success = "false";
                     Response.StatusCode = successStatusCode;
 
-                    return Json(jsonDictionary); ;
+                    return Json(response);
                 }
             }
 
             if (String.IsNullOrWhiteSpace(model.recipientEmail) && String.IsNullOrWhiteSpace(model.recipientGroups))
             {
-                jsonDictionary.Add("FailureReason", "<p>You must fill out either an email address or a group to send to.</p>");
-                jsonDictionary.Add("Success", "false");
+                response.FailureReason = "<p>You must fill out either an email address or a group to send to.</p>";
+                response.Success = "false";
                 Response.StatusCode = successStatusCode;
 
-                return Json(jsonDictionary); ;
+                return Json(response);
             }
 
             if (!ModelState.IsValid)
@@ -76,20 +85,19 @@ namespace UFiles.Web.Controllers
                     }
                 }
 
-                jsonDictionary.Add("FailureReason", errorTemp);
-                jsonDictionary.Add("Success", "false");
+                response.FailureReason = errorTemp;
+                response.Success="false";
                 Response.StatusCode = successStatusCode;
 
-                return Json(jsonDictionary);
+                return Json(response);
 
             }
 
-            try
-            {
-                using (var context = new UFileContext())
-                {
+            //try
+            //{
+            
 
-                    User thisUser = context.Users.Where(u => u.Email == User.Identity.Name).Single();
+                    User thisUser = userService.GetUserByEmail(User.Identity.Name);
 
                     File file = new File();
                     file.FileData = new byte[Request.Files[0].ContentLength];
@@ -97,37 +105,127 @@ namespace UFiles.Web.Controllers
                     file.Size = Request.Files[0].ContentLength;
                     file.ContentType = Request.Files[0].ContentType;
                     file.DateCreated = DateTime.Now;
-                    file.Owner = thisUser;
                     file.OwnerId = thisUser.UserId;
 
-                    IAsyncResult result = Request.Files[0].InputStream.BeginRead(file.FileData, 0,
-                        Request.Files[0].ContentLength, null, file);
-                    Request.Files[0].InputStream.EndRead(result);
+                    Request.Files[0].InputStream.Read(file.FileData, 0, Request.Files[0].ContentLength);
+                    
+                    var transmittal = new Transmittal{
+                        SenderId = thisUser.UserId
+                    };
 
-                    file = context.Files.Add(file);
-                    context.SaveChanges();
+                    transmittalService.CreateNewTransmittal(transmittal);
+                    
+                    #region AddRecipient
+                    var r = model.recipientEmail.Trim();
+                    User recipient;
+                    try
+                    {
+                        recipient = userService.GetUserByEmail(r);
+                    }
+                    catch
+                    {
+                        recipient = new User
+                        {
+                            Email = r,
+                            FirstName = "",
+                            LastName = "",
+                            PasswordHash = new Random().Next(1000, 9999).ToString(),
+                            Verified = false,
+                            VerifiedHash = new Random().Next(100000, 999999).ToString(),
+                            RoleId = 1
+                        };
+                        userService.CreateUser(recipient);
+                    }
+                            
+                    #endregion
 
-                    Transmittal t = model.getTransmittal(file, thisUser, context);
-                    t.Sent = true;
-                    context.Transmittals.Add(t);
-                    context.SaveChanges();
-                }
+                    transmittalService.AddRecipient(transmittal.TransmittalId, recipient.UserId);
+                    transmittalService.AddFile(transmittal.TransmittalId, file);
 
-            }
-            catch (Exception e)
-            {
-                jsonDictionary.Add("FailureReason", "<p>Something went wrong</p><p>Please confirm the details entered before attempting to submit again.</p>");
-                jsonDictionary.Add("Success", "false");
-                Response.StatusCode = successStatusCode;
+                    #region UserRestrictions
+                    if (!string.IsNullOrEmpty(model.emailRestriction))
+                    {
+                        List<int> userIds = new List<int>();
+                        foreach (var email in model.emailRestriction.Split(';'))
+                        {
+                            var s = email.Trim().Replace(";", "");
+                            User user;
+                            try
+                            {
+                                user = userService.GetUserByEmail(s);
+                            }
+                            catch
+                            {
+                                user = new User
+                                {
+                                    Email = s,
+                                    FirstName = "",
+                                    LastName = "",
+                                    PasswordHash = new Random().Next(1000, 9999).ToString(),
+                                    Verified = false,
+                                    VerifiedHash = new Random().Next(100000, 999999).ToString(),
+                                    RoleId = 1
+                                };
 
-                return Json(jsonDictionary);
-            }
+                                userService.CreateUser(user);
+                            }
+                            userIds.Add(user.UserId);
 
-            jsonDictionary.Add("Success", "true");
-            jsonDictionary.Add("GoTo", Url.Action("Index", "Home"));
+                        }
+                        restrictionService.AddUserRestriction(file.FileId, userIds.ToArray());
+                    }
+                    #endregion
+                    
+                    #region GroupRestrictions
+                    if (!string.IsNullOrEmpty(model.groupRestriction))
+                    {
+                        List<int> groupIds = new List<int>();
+                        foreach (var group in model.groupRestriction.Split(';'))
+                        {
+                            var g = group.Trim().Replace(";", "");
+                            var grp = groupService.GetGroupByName(g);
+                            groupIds.Add(grp.GroupId);
+                        }
+                        restrictionService.AddGroupRestriction(file.FileId, groupIds.ToArray());
+                    }
+                    #endregion
+
+                    #region TimeRangeRestrictions
+                    if (model.timeIsEnabled.Contains("on"))
+                    {
+                        DateTime start = DateTime.Parse(model.startTimeDate);
+                        start = new DateTime(start.Year, start.Month, start.Day, model.startTimeHour, model.startTimeMinute, 0);
+
+                        DateTime end = DateTime.Parse(model.endTimeDate);
+                        end = new DateTime(end.Year, end.Month, end.Day, model.endTimeHour, model.endTimeMinute, 0);
+
+                        var timeRange = new TimeRange()
+                        {
+                            End = end,
+                            Start = start,
+                        };
+                        restrictionService.AddTimeRangeRestriction(file.FileId, new TimeRange[] { timeRange });
+                    }
+                    #endregion
+
+                    transmittalService.SendTransmittal(transmittal.TransmittalId);
+                
+
+            //}
+            //catch
+            //{
+            //    response.FailureReason="<p>Something went wrong</p><p>Please confirm the details entered before attempting to submit again.</p>";
+            //    response.Success = "false";
+            //    Response.StatusCode = successStatusCode;
+
+            //    return Json(response);
+            //}
+
+            response.Success = "true";
+            response.GoTo = Url.Action("Index", "Home");
 
             Response.StatusCode = successStatusCode;
-            return Json(jsonDictionary);
+            return Json(response);
 
         }
 
@@ -182,20 +280,19 @@ namespace UFiles.Web.Controllers
         public ActionResult CreatePost()
         {
             var transmittal = new Transmittal();
-            transmittal.Sender = db.Users.Where(u => u.Email == User.Identity.Name).Single();
-            db.Transmittals.Add(transmittal);
-            db.SaveChanges();
+            transmittal.Sender = userService.GetUserByEmail(User.Identity.Name);
+            transmittalService.CreateNewTransmittal(transmittal);
             return RedirectToAction("AddFile", new { id = transmittal.TransmittalId });
         }
         public ActionResult AddFile(int id)
         {
-            return View(db.Transmittals.Find(id));
+            return View(transmittalService.GetTransmittalById(id));
         }
         [HttpPost]
         public ActionResult AddFile(Transmittal transmittal, HttpPostedFileBase file)
         {
             var dfile = new File();
-            dfile.Owner = db.Users.Where(u => u.Email == User.Identity.Name).Single();
+            dfile.Owner = userService.GetUserByEmail(User.Identity.Name);
             dfile.Revoked = false;
             dfile.Name = file.FileName;
             dfile.DateCreated = DateTime.Now;
@@ -205,9 +302,8 @@ namespace UFiles.Web.Controllers
             dfile.FileData = new byte[file.ContentLength];
 
             file.InputStream.Read(dfile.FileData, 0, file.ContentLength);
+            transmittalService.AddFile(transmittal.TransmittalId, dfile);
 
-            db.Files.Add(dfile);
-            db.SaveChanges();
             return RedirectToAction("AddRestriction", new { id = dfile.FileId });
         }
         public ActionResult AddRestriction(int id)
@@ -225,9 +321,7 @@ namespace UFiles.Web.Controllers
         public ActionResult Send(int id)
         {
             //TODO: Email notifications
-            var transmittal = db.Transmittals.Find(id);
-            transmittal.Sent = true;
-            db.SaveChanges();
+            transmittalService.SendTransmittal(id);
             return RedirectToAction("Index");
         }
 

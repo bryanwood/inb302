@@ -18,7 +18,7 @@ namespace UFiles.Domain.Concrete
             client.EnableSsl = true;
             client.Host = "smtp.live.com";
             client.Port = 587;
-            client.Credentials = new NetworkCredential("friendly-robot@bryanwood.com.au", "ufiles");
+            client.Credentials = new NetworkCredential("friendly-robot@bryanwood.com.au", "ufilesbot");
             
         }
         public void SendEmail(string[] recipients, string message){

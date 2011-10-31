@@ -17,7 +17,6 @@ namespace UFiles.Web.Models
 
         public TransmittalListingModel(Transmittal t, bool recieved)
         {
-            this.FileName = t.Files.ToArray()[0].Name;
 
             if (recieved)
             {
