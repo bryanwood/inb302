@@ -1,0 +1,31 @@
+﻿@model IEnumerable<UFiles.Domain.Entities.FileAccessEvent>
+@{
+    ViewBag.Title = "File Events";
+    Layout = "../shared/_Layout.cshtml";
+}
+
+<h2>File Event Log</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Sender</th>
+            <th>File</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eve in Model)
+        {
+            <tr>
+                <td>@eve.EventId</td>
+                <td>@eve.Occurred</td>
+                <td>Description</td>
+                <td>@Html.ActionLink(eve.File.Owner.FirstName + " " + eve.File.Owner.LastName, "Edit", "User", new { id = eve.File.Owner.UserId }, new { })</td>
+                <td>@Html.ActionLink("View File: "+eve.File.Name, "Edit", "File", new { id = eve.File.FileId }, new { })</td>
+            </tr>
+        }
+    </tbody>
+</table>
