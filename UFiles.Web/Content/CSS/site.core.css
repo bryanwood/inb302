@@ -5,7 +5,21 @@
     font-family: Arial;
     font-size: 12px;
 }
-
+div#loader
+{
+    color:#FFFFFF;
+    position:absolute;
+    right:6px;
+    top:6px;
+    width:150px;
+    height:30px;
+    line-height:30px;
+    font-size:16px;
+    font-weight:bold;
+    background:#404040;
+    border-left:2px solid #DDDD00   ;
+    padding-left:6px;
+}
 .floatFix
 {
     overflow: hidden;
