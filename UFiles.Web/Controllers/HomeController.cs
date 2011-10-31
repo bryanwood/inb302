@@ -14,10 +14,13 @@ namespace UFiles.Web.Controllers
     {
         private IUserService userService;
         private IFileService fileService;
-        public HomeController(IUserService userService, IFileService fileService)
+        private ITransmittalService transmittalService;
+
+        public HomeController(IUserService userService, IFileService fileService, ITransmittalService transmittalService)
         {
             this.userService = userService;
             this.fileService = fileService;
+            this.transmittalService = transmittalService;
         }
         public ActionResult Index()
         {
@@ -27,7 +30,7 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            OverviewModel overviewModel = new OverviewModel(userService, fileService, User.Identity.Name, Request.UserHostAddress);
+            OverviewModel overviewModel = new OverviewModel(userService, fileService, transmittalService, User.Identity.Name, Request.UserHostAddress);
 
             // End test data
 

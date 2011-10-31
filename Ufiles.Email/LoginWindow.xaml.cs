@@ -20,10 +20,10 @@ namespace UFiles.Email
     public partial class LoginWindow : Window
     {
         private LoginViewModel ViewModel;
-        public LoginWindow()
+        public LoginWindow(UFilesHandler handler)
         {
             InitializeComponent();
-            this.ViewModel = new LoginViewModel();
+            this.ViewModel = new LoginViewModel(handler);
             ViewModel.LoginComplete += new LoginViewModel.LoginCompleteHandler(ViewModel_LoginComplete);
             DataContext = ViewModel;
         }

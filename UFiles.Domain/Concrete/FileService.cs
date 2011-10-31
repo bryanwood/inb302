@@ -11,13 +11,17 @@ namespace UFiles.Domain.Concrete
     public class FileService : IFileService
     {
         private IUFileContext db;
-        public FileService(IUFileContext context)
+        private IEventService eventService;
+        public FileService(IUFileContext context, IEventService eventService)
         {
+            this.eventService = eventService;
             db = context;
         }
         public File GetFileById(int id)
         {
-            return db.Files.Find(id);
+            var file = db.Files.Find(id);
+            eventService.AddFileAccessEvent(file, file.Owner);
+            return file;
         }
 
         public bool UserCanAccessFile(int id, int userId, int locationId, string iPAddress)
@@ -104,7 +108,7 @@ namespace UFiles.Domain.Concrete
                     canAccess = true;
                 }
             }
-
+            eventService.AddFileAccessEvent(file, user);
             return canAccess;
         }
        
@@ -112,6 +116,7 @@ namespace UFiles.Domain.Concrete
         {
             db.Files.Add(file);
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
      
         public void RevokeFile(int id)
@@ -119,6 +124,7 @@ namespace UFiles.Domain.Concrete
             var file = db.Files.Find(id);
             file.Revoked = true;
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
     }
 }

@@ -10,6 +10,8 @@
     @RenderSection("AdditionalHeaderContent", false)
 </head>
 <body>
+<div id="loader">Loading...</div>
+<script>    $(function () { $("#loader").hide(); });</script>
     @RenderBody()
     <div class="footer">
         <div class="footerContainer floatFix">

@@ -74,7 +74,6 @@ namespace UFiles.Web
             user.Email = email;
             user.PasswordHash = password;
             user.Role = new Role();
-            user.Role.RoleId = 2;
             userService.CreateUser(user);
             
             var membershipUser = new MembershipUser("UFilesMembershipProvider",email,user.UserId,email,"","",true,false,DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);

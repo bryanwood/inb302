@@ -9,8 +9,10 @@ namespace UFiles.Email
     public class LoginViewModel : INotifyPropertyChanged
     {
         private UFilesService.UFileServiceClient client;
-        public LoginViewModel()
+        private UFilesHandler handler;
+        public LoginViewModel(UFilesHandler handler)
         {
+            this.handler = handler;
             this.client = ClientSingleton.Client;
         }
         private string username;
@@ -49,7 +51,7 @@ namespace UFiles.Email
         {
             if (username != null && password != null)
             {
-                client.Login(username, password);
+                handler.UserId = client.Login(username, password);
                 LoginComplete();
                 return;
             }

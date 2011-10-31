@@ -211,7 +211,7 @@ namespace UFiles.Web.Controllers
                 if (Membership.GetUser(regModel.Email) == null)
                 {
                     Membership.CreateUser(regModel.Email, regModel.Password, regModel.Email, null, null, true, null, out createStatus);
-                    //Roles.AddUsersToRole(new string[] { regModel.Email }, "Standard");
+                    Roles.AddUsersToRole(new string[] { regModel.Email }, "Standard");
                     if (createStatus == MembershipCreateStatus.Success)
                     {
                         FormsAuthentication.SetAuthCookie(regModel.Email, false /* createPersistentCookie */);
@@ -232,6 +232,8 @@ namespace UFiles.Web.Controllers
                             // Give up on giving the user a first name and last name.
                         }
 
+                        UrlHelper url = new UrlHelper(Request.RequestContext);
+                        jsonDictionary.Add("GoTo", url.RouteUrl("Home"));
                     }
                     else
                     {
