@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
 using UFiles.Domain.Concrete;
+using System.Collections;
 
 namespace UFiles.Web.Models
 {
@@ -17,38 +18,23 @@ namespace UFiles.Web.Models
 
         public TransmittalOverviewModel preloadedOverview { get; set; }
 
-        public OverviewModel(IUserService userService, ITransmittalService transmittalService,
-            string email)
+        public OverviewModel(IUserService userService, IFileService fileService, ITransmittalService transmittalService,
+            string email, string ipAddress)
             : base(userService, email)
         {
             RecentlySentTransmittals = new List<TransmittalListingModel>();
             RecentlyReceivedTransmittals = new List<TransmittalListingModel>();
             RestrictionClassList = new List<Type>();
+            User thisUser = userService.GetUserByEmail(email);
 
-
-            try
+                   
+            var receivedTransmittals = transmittalService.GetTransmittalsByRecipient(thisUser.UserId);
+            foreach (Transmittal t in receivedTransmittals)
             {
-                using (var context = new UFileContext())
+                if (t.Sent)
                 {
-                    User thisUser = context.Users.Where<User>(u => u.Email == email).Single();
-
-                    IEnumerable<Transmittal> receivedTransmittals = (from transmittal in context.Transmittals
-                                                                     where transmittal.Recipients.FirstOrDefault().Email == email
-                                                                     select transmittal);
-
-
-                    foreach (Transmittal t in receivedTransmittals)
+                    if (fileService.UserCanAccessFile(t.Files.First().FileId, thisUser.UserId, 4051, ipAddress))
                     {
-                        t.Files = (from transmittal in context.Transmittals
-                                   where transmittal.TransmittalId == t.TransmittalId
-                                   select transmittal.Files).First();
-
-                        IEnumerable<ICollection<Restriction>> r = (from transmittal in context.Transmittals
-                                                             where transmittal.TransmittalId == t.TransmittalId
-                                                             select transmittal.Files.FirstOrDefault().Restrictions);
-
-                        t.Files.ToArray()[0].Restrictions = r.ToArray()[0];
-
                         TransmittalListingModel temp = new TransmittalListingModel(t, true);
                         RecentlyReceivedTransmittals.Add(temp);
 
@@ -56,25 +42,18 @@ namespace UFiles.Web.Models
                         {
                             preloadedOverview = new TransmittalOverviewModel(t);
                         }
-
                     }
-
-                    foreach (Transmittal t in (from transmittal in context.Transmittals
-                                               where transmittal.Sender.Email == email
-                                               select transmittal))
-                    {
-                        t.Files = (from transmittal in context.Transmittals
-                                   where transmittal.TransmittalId == t.TransmittalId
-                                   select transmittal.Files).ToArray()[0];
-
-                        TransmittalListingModel temp = new TransmittalListingModel(t, true);
-                        RecentlySentTransmittals.Add(temp);
-                    }
-
                 }
 
             }
-            catch (Exception e) { 
+
+            foreach (Transmittal t in transmittalService.GetTransmittalsBySender(thisUser.UserId))
+            {
+                if (t.Sent)
+                {
+                        TransmittalListingModel temp = new TransmittalListingModel(t, false);
+                        RecentlySentTransmittals.Add(temp);
+                }
             }
         }
     }
@@ -91,14 +70,10 @@ namespace UFiles.Web.Models
 
             using (var context = new UFileContext())
             {
-                User thisUser = context.Users.Where(u => u.Email == email).Single();
+                User thisUser = userService.GetUserByEmail(email);
 
-                foreach (Group thisGroup in context.Groups.Where(g => g.Owner.UserId == thisUser.UserId))
+                foreach (Group thisGroup in groupService.GetGroupsByOwner(thisUser))
                 {
-                    thisGroup.Users = (from g in context.Groups
-                                       where g.GroupId == thisGroup.GroupId
-                                       select g.Users).Single();
-
                     GroupListingModel temp = new GroupListingModel(thisGroup);
                     this.groupList.Add(temp);
                 }

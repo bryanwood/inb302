@@ -21,9 +21,6 @@ namespace UFiles.Email.UFilesService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/GetGroups", ReplyAction="http://tempuri.org/IUFileService/GetGroupsResponse")]
         UFiles.Domain.Entities.Group[] GetGroups(int userId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/GetLocations", ReplyAction="http://tempuri.org/IUFileService/GetLocationsResponse")]
-        UFiles.Domain.Entities.Location[] GetLocations();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUFileService/NewTransmittal", ReplyAction="http://tempuri.org/IUFileService/NewTransmittalResponse")]
         int NewTransmittal(int userId);
         
@@ -85,10 +82,6 @@ namespace UFiles.Email.UFilesService {
         
         public UFiles.Domain.Entities.Group[] GetGroups(int userId) {
             return base.Channel.GetGroups(userId);
-        }
-        
-        public UFiles.Domain.Entities.Location[] GetLocations() {
-            return base.Channel.GetLocations();
         }
         
         public int NewTransmittal(int userId) {

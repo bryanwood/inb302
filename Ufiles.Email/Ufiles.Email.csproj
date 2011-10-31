@@ -264,17 +264,17 @@
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="Service References\UFilesService\UFileService.wsdl" />
-    <None Include="Service References\UFilesService\UFileService.xsd">
+    <None Include="Service References\UFilesService\UFileService1.wsdl" />
+    <None Include="Service References\UFilesService\UFileService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UFilesService\UFileService1.xsd">
+    <None Include="Service References\UFilesService\UFileService41.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UFilesService\UFileService2.xsd">
+    <None Include="Service References\UFilesService\UFileService42.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UFilesService\UFileService3.xsd">
+    <None Include="Service References\UFilesService\UFileService43.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ThisAddIn.Designer.xml">
@@ -291,9 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\UFilesService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\UFilesService\UFileService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\UFilesService\configuration91.svcinfo" />
@@ -330,6 +327,9 @@
       <Project>{6BFCF97F-D97F-42B3-8E93-BE748F881D8D}</Project>
       <Name>UFiles.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UFilesService\UFileService1.disco" />
   </ItemGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

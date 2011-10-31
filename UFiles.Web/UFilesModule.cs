@@ -20,6 +20,7 @@ namespace UFiles.Web
             Bind<IUserService>().To<UserService>();
             Bind<IGroupService>().To<GroupService>();
             Bind<IFileService>().To<FileService>();
+            Bind<IEventService>().To<EventService>();
             Bind<ITransmittalService>().To<TransmittalService>();
             Bind<IUFileService>().To<UFileService>();
         }

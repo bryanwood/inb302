@@ -86,20 +86,10 @@ namespace UFiles.Web.Models
             IUserService userService, string email)
             : base(userService, email)
         {
-            Group thisGroup = null;
+            Group thisGroup = groupService.GetGroup(groupID);
 
-            using (var context = new UFileContext())
-            {
 
-                thisGroup = context.Groups.Where(group => group.GroupId == groupID).Single();
-                thisGroup.Owner = (from g in context.Groups
-                                   where g.GroupId == thisGroup.GroupId
-                                   select g.Owner).Single();
-                thisGroup.Users = (from g in context.Groups
-                                   where g.GroupId == thisGroup.GroupId
-                                   select g.Users).Single();
-
-            }
+            
 
             if (thisGroup == null)
             {

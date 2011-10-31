@@ -110,8 +110,16 @@ namespace UFiles.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public JsonResult ChangePassword(ChangePasswordModel model)
         {
+
+            const int errorStatusCode = 400;
+            const int successStatusCode = 201;
+
+            Dictionary<String, String> jsonDictionary = new Dictionary<string, string>();
+
+            jsonDictionary.Add("ReplyingFor", "ChangePassword");
+
             if (ModelState.IsValid)
             {
 
@@ -130,16 +138,25 @@ namespace UFiles.Web.Controllers
 
                 if (changePasswordSucceeded)
                 {
-                    return RedirectToAction("ChangePasswordSuccess");
+                    jsonDictionary.Add("Success", "True");
+                    jsonDictionary.Add("GoTo", Url.Action("Settings"));
+                    Response.StatusCode = successStatusCode;
+
+                    return Json(jsonDictionary);
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    jsonDictionary.Add("FailureReason", "<p>Either the old password was incorrect, or you haven't entered a valid new password.</p>");
+                    Response.StatusCode = errorStatusCode;
+
+                    return Json(jsonDictionary); ;
                 }
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            jsonDictionary.Add("FailureReason", "<p>Either the old password was incorrect, or you haven't entered a valid new password.</p>");
+            Response.StatusCode = errorStatusCode;
+
+            return Json(jsonDictionary); ;
         }
 
         #region Status Codes

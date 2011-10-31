@@ -41,17 +41,33 @@ namespace UFiles.Domain.Concrete
 
         public void AddFileAccessEvent(Entities.File file, Entities.User user)
         {
-            throw new NotImplementedException();
+            db.Events.Add(new FileAccessEvent
+            {
+                FileId = file.FileId,
+                UserId = user.UserId,
+                Occurred = DateTime.Now
+            });
+            db.SaveChanges();
         }
 
         public void AddTransmittalEvent(Entities.Transmittal transmittal)
         {
-            throw new NotImplementedException();
+            db.Events.Add(new TransmittalEvent
+            {
+                TransmittalId = transmittal.TransmittalId,
+                Occurred = DateTime.Now
+            });
+            db.SaveChanges();
         }
 
         public void AddUserEvent(Entities.User user)
         {
-            throw new NotImplementedException();
+            db.Events.Add(new UserEvent
+            {
+                Occurred = DateTime.Now,
+                UserId = user.UserId
+            });
+            db.SaveChanges();
         }
     }
 }

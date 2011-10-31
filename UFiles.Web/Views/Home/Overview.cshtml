@@ -25,32 +25,16 @@
             <a href="@Url.Action("MyGroups", "Group")">my groups</a></div>
     </div>
     <div class="sidebarTabGroup">
-        <div class="sidebarTab" id="tabMyFiles">
-            <a href="@Url.Action("FilesByMe", "Transmittal")">my files</a></div>
-        <div class="sidebarTab" id="tabOtherFiles">
-            <a href="@Url.Action("FilesToMe", "Transmittal")">files sent to me</a></div>
-    </div>
-    <div class="sidebarTabGroup">
         <div class="sidebarTab" id="tabSettings">
             <a href="@Url.Action("Settings", "Account")">settings</a></div>
     </div>
 }
-<div class="contentBarFull">
-    <div class="contentPanel floatFix floatLeft">
-        <div class="uploadHeading floatLeft">
-            send a file</div>
-        <div class="uploadSectionMajor floatLeft floatFix">
-            <input type="button" class="uploadSendButton coreButtonAccept floatRight" value="Send" />
-            <input type="file" class="uploadUploadButton floatRight" />
-        </div>
-    </div>
-</div>
 <div class="homeView floatFix">
     <div class="contentBarMain floatLeft">
-        <div class="contentPanel floatLeft">
+        <div class="contentPanel" id="transmittalOverview">
             @{ if (@Model.preloadedOverview != null)
                {
-                <div class="detailsSection">
+                <div class="detailsSection" id="fileDetails">
                     <div class="detailsMajor">
                         <div class="detailsInnerSection">
                             <span class="detailsHighlight detailsHeader" id="fileName">@Model.preloadedOverview.FileName</span>
@@ -63,14 +47,111 @@
                         </div>
                     </div>
                 </div>
-                <div class="detailsSection">
+                <div class="detailsSection" id="userRestrictions">
+                    <div class="detailsInnerSection">
+                        <div class="detailsMinor">
+                            @{ if (Model.preloadedOverview.UserRestrictions.Count < 1 &&
+                                Model.preloadedOverview.GroupRestrictions.Count < 1)
+                               {
+                                <p>
+                                    This file can be viewed by anyone with the link</p>
+
+                               }
+                               else
+                               {
+                                <p>
+                                    <span>This file can be viewed by the following users</span>
+                                    <br />
+                                    @foreach (UFiles.Domain.Entities.UserRestriction r in @Model.preloadedOverview.UserRestrictions)
+                                    {
+                                        foreach (UFiles.Domain.Entities.User u in r.Users)
+                                        {
+                                        <span class="detailsHighlight">@u.FirstName @u.LastName, </span>
+                                        }
+                                    }
+                                </p>
+                                <p>
+                                    <span>This file can be viewed by the following groups</span>
+                                    <br />
+                                    @foreach (UFiles.Domain.Entities.GroupRestriction r in @Model.preloadedOverview.GroupRestrictions)
+                                    {
+                                        foreach (UFiles.Domain.Entities.Group g in r.Groups)
+                                        {
+                                        <span class="detailsHighlight">@g.Name, </span>
+                                        }
+                                    }
+                                </p>
+                                        
+                               }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="detailsSection" id="otherRestrictions">
+                    <div class="detailsInnerSection">
+                        <div class="detailsMinor">
+                            @{ if (Model.preloadedOverview.TimeRangeRestrictions.Count > 0)
+                               {
+                                <p>
+                                    <span>This file can be viewed from</span>
+                                    <br />
+                                    <span class="detailsHighlight" id="startTime">@Model.preloadedOverview.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].Start.ToShortTimeString()
+                                        @Model.preloadedOverview.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].Start.ToShortDateString()</span>
+                                    to <span class="detailsHighlight" id="endTime">@Model.preloadedOverview.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].End.Value.ToShortTimeString()
+                                        @Model.preloadedOverview.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].End.Value.ToShortDateString()</span>
+                                </p>
+                                        
+                               }
+                            }
+                        </div>
+                        <div class="detailsMinor">
+                            @{ if (Model.preloadedOverview.LocationRestrictions.Count > 0)
+                               {
+                                <p>
+                                    <span>Whilst at a location with a post code of</span>
+                                    <br />
+                                    @foreach (UFiles.Domain.Entities.LocationRestriction lR in Model.preloadedOverview.LocationRestrictions)
+                                    {
+                                        foreach (UFiles.Domain.Entities.Location location in lR.Locations)
+                                        {
+                                        <span class="detailsHighlight">@location.PostCode, </span>
+                                        }
+                                    }
+                                </p>
+                                        
+                               }
+                            }
+                        </div>
+                        <div class="detailsMinor">
+                            @{ if (Model.preloadedOverview.IPRestrictions.Count > 0)
+                               {
+                                <p>
+                                    <span>With an IP Address of</span>
+                                    <br />
+                                    @foreach (UFiles.Domain.Entities.IPRestriction ipR in Model.preloadedOverview.IPRestrictions)
+                                    {
+                                        foreach (UFiles.Domain.Entities.IPAddress ip in ipR.IPAddress)
+                                        {
+                                        <span class="detailsHighlight">@ip.IP, </span>
+                                        }
+                                    }
+                                </p>
+                                        
+                               }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a class="coreButtonAccept boxButton" href="@Url.Action("Download", "Transmittal", new { id = Model.preloadedOverview.DownloadLink })">
+                        Download</a>
                 </div>
                }
                else
                {
                 <div class="detailsSection">
                     <div class="detailsMajor">
-                    You don't have any recieved files at the moment.
+                        You don't have any recieved files at the moment.
                     </div>
                 </div>
                }
@@ -80,74 +161,111 @@
     <div class="contentBarMini floatRight">
         <div class="contentPanel floatRight">
             <div class="panelHeading floatFix">
-                <a href="#">
-                    <div class="panelTab panelTabSelected floatLeft" id="recievedTab">
+                <a href="#" onclick="swapTab('received', 'sent');">
+                    <div class="panelTab coreTabSelected floatLeft" id="receivedTab">
                         recently recieved</div>
-                </a><a href="#">
+                </a><a href="#" onclick="swapTab('sent', 'received');">
                     <div class="panelTab floatRight" id="sentTab">
                         recently sent</div>
                 </a>
             </div>
-            <div class="floatFix" id="recentlySent">
-                @{ 
-                    if (Model.RecentlySentTransmittals == null || Model.RecentlySentTransmittals.Count < 1)
-                    {
-                    <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            <p>
-                                You don't have any recently sent files.</p>
+            <div class="contentPanel overviewListingBar floatRight" id="transmittalListing">
+                <div class="floatFix" id="received">
+                    @{   if (Model.RecentlyReceivedTransmittals == null || Model.RecentlyReceivedTransmittals.Count < 1)
+                         {
+                        <div class="panelMiniSection floatFix">
+                            <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                                <p>
+                                    You don't have any recently received files.</p>
+                            </div>
                         </div>
-                    </div>
+                         }
+                         else
+                         {
+                             foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlyReceivedTransmittals.AsEnumerable())
+                             {
+                        <a href='#' onclick="showTransmittal(@t.DownloadLink);">
+                            <div class="panelMiniSection floatFix" id="@t.DownloadLink">
+                                <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                                    @t.FileName</div>
+                                <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
+                                    @t.Email</div>
+                                <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
+                                    @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
+                                <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
+                                    <a href="@Url.Action("Download", "Transmittal", new { id = t.DownloadLink })">download</a></div>
+                            </div>
+                        </a>
+                             }
+                         }
                     }
-                    else
-                    {
-                        foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlySentTransmittals.AsEnumerable())
+                </div>
+                <div class="floatFix" id="sent" style="display: none;">
+                    @{ 
+                        if (Model.RecentlySentTransmittals == null || Model.RecentlySentTransmittals.Count < 1)
                         {
-                    <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            @t.FileName</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            @t.Email</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">download</a></div>
-                    </div>
+                        <div class="panelMiniSection floatFix">
+                            <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                                <p>
+                                    You don't have any recently sent files.</p>
+                            </div>
+                        </div>
+                        }
+                        else
+                        {
+                            foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlySentTransmittals.AsEnumerable())
+                            {
+                        <a href='#' onclick="showTransmittal(@t.DownloadLink);">
+                            <div class="panelMiniSection floatFix"  id="@t.DownloadLink">
+                                <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
+                                    @t.FileName</div>
+                                <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
+                                    @t.Email</div>
+                                <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
+                                    @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
+                                <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
+                                    <a href="@Url.Action("Download", "Transmittal", new { id = @t.DownloadLink })">download</a></div>
+                            </div>
+                        </a>
+                            }
                         }
                     }
-                }
-            </div>
-        </div>
-        <div class="contentPanel floatRight" id="recentlyRecieved" style="display: none;
-            opacity: 0.0;">
-            <div class="floatFix" id="recentlyReceived">
-                @{   if (Model.RecentlyReceivedTransmittals == null || Model.RecentlyReceivedTransmittals.Count < 1)
-                     {
-                    <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            <p>
-                                You don't have any recently received files.</p>
-                        </div>
-                    </div>
-                     }
-                     else
-                     {
-                         foreach (UFiles.Web.Models.TransmittalListingModel t in Model.RecentlyReceivedTransmittals.AsEnumerable())
-                         {
-                    <div class="panelMiniSection floatFix">
-                        <div class="panelMiniSectionMajorDetail panelDetailHighlight floatLeft">
-                            @t.FileName</div>
-                        <div class="panelMiniSectionEmail panelMiniSectionMinorDetail floatLeft">
-                            @t.Email</div>
-                        <div class="panelMiniSectionTime panelMiniSectionMinorDetail floatLeft">
-                            @t.SentDate.ToShortTimeString() @t.SentDate.ToShortDateString()</div>
-                        <div class="panelMiniSectionLink panelMiniSectionMinorDetail floatLeft">
-                            <a href="#">download</a></div>
-                    </div>
-                         }
-                     }
-                }
+                </div>
             </div>
         </div>
     </div>
 </div>
+@section InPageJavascript
+{
+@if(@Model.preloadedOverview!=null){
+    <text>var selectedTransmittalID = @Model.preloadedOverview.DownloadLink;</text>
+}
+    
+    $(document).ready(function() {
+    $('#' + selectedTransmittalID).addClass('panelMiniSectionSelected');
+    });
+
+
+    function swapTab(to, from) { $('#' + to + 'Tab').addClass('coreTabSelected'); $('#'
+    + from + 'Tab').removeClass('coreTabSelected'); $('#' + to).css('display', 'block');
+    $('#' + from).css('display', 'none'); } 
+    
+    function showTransmittal(id) { 
+    $.ajax({
+    type: "POST", 
+    url: "@Url.Action("GetDetailedTransmittalInfo", "Home")/" + id,
+
+     statusCode:
+{ 200: function(data) { 
+$('#transmittalOverview').html(data);
+$('#' + id).addClass('panelMiniSectionSelected');
+$('#' + selectedTransmittalID).removeClass('panelMiniSectionSelected');
+selectedTransmittalID = id;
+ }
+}
+
+    });
+
+    }
+
+    }
