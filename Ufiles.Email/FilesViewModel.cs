@@ -62,6 +62,20 @@ namespace UFiles.Email
                 }
             }
         }
+        public bool AddFileEnabled
+        {
+            get
+            {
+                if (Files.Count == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         public ObservableCollection<UploadFile> Files
         {
             get
@@ -94,6 +108,7 @@ namespace UFiles.Email
                 var file = SelectedFile;
                 SelectedFile = null;
                 Files.Remove(file);
+                NotifyPropertyChanged("AddFileEnabled");
             }
         }
 

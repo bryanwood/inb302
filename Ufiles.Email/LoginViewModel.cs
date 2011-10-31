@@ -49,13 +49,19 @@ namespace UFiles.Email
         }
         public void Login()
         {
-            if (username != null && password != null)
+            if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
-                handler.UserId = client.Login(username, password);
-                LoginComplete();
+                try
+                {
+                    handler.UserId = client.Login(username, password);
+                    LoginComplete();
+                }
+                catch
+                {
+                    handler.UserId = 0;
+                }
                 return;
             }
-            throw new InvalidOperationException();
         }
         public delegate void LoginCompleteHandler();
         public event LoginCompleteHandler LoginComplete;

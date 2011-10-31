@@ -67,7 +67,14 @@
                             </ComboBox>
                             <Button Content="Add" Click="Button_Click_6"></Button>
                         </StackPanel>
-                        <ListBox Grid.Row="1" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}"></ListBox>
+                        <ListBox Grid.Row="1" ItemsSource="{Binding Groups}" SelectedItem="{Binding SelectedGroup}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                                
+                        </ListBox>
                         <Button Content="Remove" Grid.Row="2" Click="Button_Click_4"></Button>
                     </Grid>
                 </TabItem>
@@ -103,7 +110,7 @@
                         <Button Content="Remove" Grid.Row="2" Click="Button_Click_5"></Button>
                     </Grid>
                 </TabItem>
-                <TabItem Header="IP Address" Name="tabIP">
+                <TabItem Header="IP Address" Name="tabIP" IsEnabled="false">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"></RowDefinition>
@@ -119,6 +126,7 @@
                         <Button Grid.Row="2" Content="Remove" Click="Button_Click_8"></Button>
                     </Grid>
                 </TabItem>
+                <TabItem IsEnabled="false" Header="Location"></TabItem>
 
             </TabControl>
         </DockPanel>
