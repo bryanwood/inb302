@@ -13,14 +13,14 @@ namespace UFiles.Domain.Abstract
         /// </summary>
         /// <param name="user">the user</param>
         /// <returns>list of transmittal</returns>
-        IQueryable<Transmittal> GetTransmittalsBySender(User user);
+        IQueryable<Transmittal> GetTransmittalsBySender(int userId);
 
         /// <summary>
         /// gets all the transmittals recieved by the user
         /// </summary>
         /// <param name="user">the user</param>
         /// <returns>list of transmittal</returns>
-        IQueryable<Transmittal> GetTransmittalsByRecipient(User user);
+        IQueryable<Transmittal> GetTransmittalsByRecipient(int userId);
 
         /// <summary>
         /// get a specific transmittal by its id
