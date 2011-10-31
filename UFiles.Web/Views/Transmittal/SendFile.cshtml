@@ -225,6 +225,7 @@
 <div class="coreSectionContainer floatRight" id="fileUpload">
     <div class="coreContent floatFix">
         <div class="uploadSectionMajor floatFix">
+        <span id="sent">File has been sent.</span>
             <input type="submit" class="uploadSendButton coreButtonAccept floatRight" onclick="uploader.start(); return false;"
                 value="send" />
         </div>
@@ -237,6 +238,7 @@
 </div>
 </form>
 @section inPageJavascript {
+$("#sent").hide();
     $('[name="startTimeHour"]').val(@DateTime.Now.Hour); $('[name="startTimeMinute"]').val(@DateTime.Now.Minute);
     $('[name="startTimeDate"]').val('@DateTime.Now.ToShortDateString()'); $('[name="endTimeHour"]').val(@DateTime.Now.Hour);
     $('[name="endTimeMinute"]').val(@DateTime.Now.Minute); $('[name="endTimeDate"]').val('@DateTime.Now.ToShortDateString()');
@@ -257,7 +259,7 @@
     '', 'endTimeDate': '' }, url: '@Url.Action("Upload")' }); uploader.init(); uploader.bind('FilesAdded',
     function(up, files) { $('#fileUploadContainer').html('<span class="boxSpanLabel">' +
         files[0].name + '</span>'); }); uploader.bind('BeforeUpload', function(up,
-file) { up.settings.multipart_params.recipientEmail = $('input[name="recipientEmail"]').val();
+file) { $("#loader").fadeIn(); up.settings.multipart_params.recipientEmail = $('input[name="recipientEmail"]').val();
 up.settings.multipart_params.recipientGroups = $('input[name="recipientGroups"]').val();
 up.settings.multipart_params.sendTo = $('input[name="sendTo"]').val(); up.settings.multipart_params.emailRestriction
 = $('[name="emailRestriction"]').val(); up.settings.multipart_params.groupRestriction
@@ -270,7 +272,7 @@ up.settings.multipart_params.startTimeDate = $('[name="startTimeDate"]').val();
 up.settings.multipart_params.endTimeHour = $('[name="endTimeHour"]').val(); up.settings.multipart_params.endTimeMinute
 = $('[name="endTimeMinute"]').val(); up.settings.multipart_params.endTimeDate =
 $('[name="endTimeDate"]').val(); }); uploader.bind('FileUploaded', function(up,
-file, response) { var reply = $.parseJSON(response.response); if(reply.Success ==
+file, response) { $("#loader").fadeOut();$("#sent").show(); var reply = $.parseJSON(response.response); if(reply.Success ==
 'false') { $('#validateFail').html(reply.FailureReason); $('#validateFail').slideDown(500);
 $('#validateFail').animate({ opacity: 1.0 }, 500); } });
 }
