@@ -76,7 +76,8 @@ namespace UFiles.Test
         public void FileServiceConstructorTest()
         {
             IUFileContext context = null; // TODO: Initialize to an appropriate value
-            FileService target = new FileService(context);
+            IEventService eventService = null;
+            FileService target = new FileService(context, eventService);
             Assert.IsInstanceOfType(target, typeof(FileService));
         }
 
@@ -88,7 +89,8 @@ namespace UFiles.Test
         {
 
             IUFileContext context = new UFileContext(); // TODO: Initialize to an appropriate value
-            FileService target = new FileService(context); // TODO: Initialize to an appropriate value
+            IEventService eventService = null;
+            FileService target = new FileService(context, eventService);
             File file = new File
             {
                 ContentType = "image/jpg",
@@ -111,7 +113,8 @@ namespace UFiles.Test
         public void GetFileByIdTest()
         {
             IUFileContext context = new UFileContext(); // TODO: Initialize to an appropriate value
-            FileService target = new FileService(context); // TODO: Initialize to an appropriate value
+            IEventService eventService = null;
+            FileService target = new FileService(context, eventService);
 
             var file = new File
             {
@@ -139,7 +142,8 @@ namespace UFiles.Test
         public void RevokeFileTest()
         {
             IUFileContext context = new UFileContext(); // TODO: Initialize to an appropriate value
-            FileService target = new FileService(context); // TODO: Initialize to an appropriate value
+            IEventService eventService = null;
+            FileService target = new FileService(context, eventService);
             var file = new File
             {
                 DateCreated = DateTime.Now,
@@ -164,7 +168,8 @@ namespace UFiles.Test
         public void UserCanAccessFileTest()
         {
             IUFileContext context = new UFileContext(); // TODO: Initialize to an appropriate value
-            FileService target = new FileService(context); // TODO: Initialize to an appropriate value
+            IEventService eventService = null;
+            FileService target = new FileService(context, eventService);
             var user = context.Users.First();
             var user2 = context.Users.Where(u=>u.UserId!=user.UserId).First();
 

@@ -235,17 +235,12 @@
         </div>
     </div>
 </div>
-
-    @if(@Model.preloadedOverview != null)
-    {
-        <script type="text/javascript">var selectedTransmittalID = @Model.preloadedOverview.DownloadLink;</script>
-    } else {
-        <script type="text/javascript">var selectedTransmittalID = 0;</script>
-    }
-
 @section InPageJavascript
 {
-
+@if(@Model.preloadedOverview!=null){
+    <text>var selectedTransmittalID = @Model.preloadedOverview.DownloadLink;</text>
+}
+    
     $(document).ready(function() {
     $('#' + selectedTransmittalID).addClass('panelMiniSectionSelected');
     });
