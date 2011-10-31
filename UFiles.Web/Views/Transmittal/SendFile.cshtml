@@ -34,7 +34,7 @@
 <div class="coreSectionHeader floatRight">
     attach file
 </div>
-<div class="coreSectionContainer floatRight" id="fileUpload">
+<div class="coreSectionContainer floatRight">
     <div class="coreContent floatFix">
         <div class="uploadSectionMajor floatFix">
             <div id="fileUploadContainer">
@@ -70,7 +70,7 @@
         </div>
         <div class="boxSection floatFix" style="display: none;" id="groupSection">
             <div class="boxMinorSection floatFix">
-                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="emailLabel">
+                <div class="boxLabel loginAuthBoxLabelOverride floatLeft" id="groupLabel">
                     Group</div>
                 <input type="text" class="boxInput floatRight" onblur="hasInput(this, 'group');"
                     name="recipientGroups" />
@@ -264,7 +264,16 @@ up.settings.multipart_params.startTimeDate = $('[name="startTimeDate"]').val();
 up.settings.multipart_params.endTimeHour = $('[name="endTimeHour"]').val(); up.settings.multipart_params.endTimeMinute
 = $('[name="endTimeMinute"]').val(); up.settings.multipart_params.endTimeDate =
 $('[name="endTimeDate"]').val(); }); uploader.bind('FileUploaded', function(up,
-file, response) { var reply = $.parseJSON(response.response); if(reply.Success ==
-'false') { $('#validateFail').html(reply.FailureReason); $('#validateFail').slideDown(500);
-$('#validateFail').animate({ opacity: 1.0 }, 500); } });
+file, response) { var reply = $.parseJSON(response.response); 
+
+if(reply.Success == 'false') { 
+
+$('#validateFail').html(reply.FailureReason); 
+$('#validateFail').slideDown(500);
+$('#validateFail').animate({ opacity: 1.0 }, 500);
+ } else {
+     window.location.assign(reply.GoTo);
+ } 
+ 
+ });
 }
