@@ -227,6 +227,7 @@ namespace UFiles.Web.Models
                     }
                     catch (Exception e)
                     {
+                        throw new Exception();
                     }
                 }
 
@@ -254,6 +255,7 @@ namespace UFiles.Web.Models
                     }
                     catch (Exception e)
                     {
+                        throw new Exception();
                     }
                 }
 
@@ -281,6 +283,7 @@ namespace UFiles.Web.Models
                     }
                     catch (Exception e)
                     {
+                        throw new Exception();
                     }
                 }
 
@@ -310,6 +313,7 @@ namespace UFiles.Web.Models
                     }
                     catch (Exception e)
                     {
+                        throw new Exception();
                     }
                 }
 
@@ -321,7 +325,7 @@ namespace UFiles.Web.Models
 
             #region Time Restriction
 
-            if (!String.IsNullOrWhiteSpace(timeIsEnabled))
+            if (!String.IsNullOrWhiteSpace(timeIsEnabled) && timeIsEnabled.Contains("checked"))
             {
 
                 TimeRangeRestriction trR = new TimeRangeRestriction();
@@ -330,12 +334,10 @@ namespace UFiles.Web.Models
                 TimeRange tR = new TimeRange();
 
                 DateTime start = DateTime.Parse(startTimeDate);
-                start = start.AddHours(startTimeHour);
-                start = start.AddMinutes(startTimeMinute);
+                start = new DateTime(start.Year, start.Month, start.Day, startTimeHour, startTimeMinute, 0);
 
                 DateTime end = DateTime.Parse(endTimeDate);
-                end = end.AddHours(endTimeHour);
-                end = end.AddMinutes(endTimeHour);
+                end = new DateTime(end.Year, end.Month, end.Day, endTimeHour, endTimeMinute, 0);
 
                 tR.Start = start;
                 tR.End = end;
@@ -373,6 +375,7 @@ namespace UFiles.Web.Models
                     }
                     catch (Exception e)
                     {
+                        throw new Exception();
                     }
                 }
             }
@@ -396,6 +399,7 @@ namespace UFiles.Web.Models
                     }
                     catch (Exception e)
                     {
+                        throw new Exception();
                     }
                 }
             }

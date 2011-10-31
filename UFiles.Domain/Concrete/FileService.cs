@@ -35,7 +35,7 @@ namespace UFiles.Domain.Concrete
             }
             else
             {
-                if (file.OwnerId == userId)
+                if (file.OwnerId != userId)
                 {
                     if (file.Restrictions.Count > 0)
                     {
@@ -76,7 +76,7 @@ namespace UFiles.Domain.Concrete
                             var now = DateTime.Now;
                             foreach (var timeRange in res.TimeRanges)
                             {
-                                if (now < timeRange.End.Value.ToLocalTime() && now > timeRange.Start.ToLocalTime())
+                                if (now.CompareTo(timeRange.End.Value) < 0 && now.CompareTo(timeRange.Start) > 0)
                                 {
                                     t = true;
                                 }

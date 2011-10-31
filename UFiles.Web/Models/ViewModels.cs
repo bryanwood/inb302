@@ -42,8 +42,11 @@ namespace UFiles.Web.Models
 
                     foreach (Transmittal t in receivedTransmittals)
                     {
+                        t.Files = (from transmittal in context.Transmittals
+                                   where transmittal.TransmittalId == t.TransmittalId
+                                   select transmittal.Files).Single();
 
-                        if (fileService.UserCanAccessFile(t.TransmittalId, thisUser.UserId, 4051, ipAddress))
+                        if (fileService.UserCanAccessFile(t.Files.ToArray()[0].FileId, thisUser.UserId, 4000, ipAddress))
                         {
 
 
