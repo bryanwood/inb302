@@ -198,36 +198,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UserRestriction" nillable="true" type="tns:UserRestriction" />
-  <xs:complexType name="ArrayOfLocation">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Location" nillable="true" type="tns:Location" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfLocation" nillable="true" type="tns:ArrayOfLocation" />
-  <xs:complexType name="Location">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="LocationId" type="xs:int" />
-      <xs:element minOccurs="0" name="LocationRestrictions" nillable="true" type="tns:ArrayOfLocationRestriction" />
-      <xs:element minOccurs="0" name="PostCode" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Location" nillable="true" type="tns:Location" />
-  <xs:complexType name="ArrayOfLocationRestriction">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="LocationRestriction" nillable="true" type="tns:LocationRestriction" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfLocationRestriction" nillable="true" type="tns:ArrayOfLocationRestriction" />
-  <xs:complexType name="LocationRestriction">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Restriction">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Locations" nillable="true" type="tns:ArrayOfLocation" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="LocationRestriction" nillable="true" type="tns:LocationRestriction" />
   <xs:complexType name="ArrayOfTimeRange">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TimeRange" nillable="true" type="tns:TimeRange" />

@@ -11,13 +11,17 @@ namespace UFiles.Domain.Concrete
     public class FileService : IFileService
     {
         private IUFileContext db;
-        public FileService(IUFileContext context)
+        private IEventService eventService;
+        public FileService(IUFileContext context, IEventService eventService)
         {
+            this.eventService = eventService;
             db = context;
         }
         public File GetFileById(int id)
         {
-            return db.Files.Find(id);
+            var file = db.Files.Find(id);
+            eventService.AddFileAccessEvent(file, file.Owner);
+            return file;
         }
 
         public bool UserCanAccessFile(int id, int userId, int locationId, string iPAddress)
@@ -41,7 +45,8 @@ namespace UFiles.Domain.Concrete
                     {
                         foreach (var restriction in file.Restrictions.OfType<UserRestriction>())
                         {
-                            if (restriction.Users.Contains(user))
+                            var res = db.Restrictions.OfType<UserRestriction>().Include(x => x.Users).Where(r => r.RestrictionId == restriction.RestrictionId).Single();
+                            if(res.Users.Contains(user))
                             {
                                 userAccess.Add(true);
                             }
@@ -53,10 +58,14 @@ namespace UFiles.Domain.Concrete
                         foreach (var restriction in file.Restrictions.OfType<GroupRestriction>())
                         {
                             bool t = false;
-                            foreach (var group in restriction.Groups)
-                            {
+                            var res = db.Restrictions.OfType<GroupRestriction>().Include(x => x.Groups).Where(r => r.RestrictionId == restriction.RestrictionId).Single();
 
-                                if (group.Users.Contains(user))
+                            foreach (var g in res.Groups)
+                            {
+                                g.Users = (from groups in db.Groups
+                                           where groups.GroupId == g.GroupId
+                                           select groups.Users).Single();
+                                if (g.Users.Contains(user))
                                 {
                                     t = true;
                                 }
@@ -66,10 +75,12 @@ namespace UFiles.Domain.Concrete
                         foreach (var time in file.Restrictions.OfType<TimeRangeRestriction>())
                         {
                             bool t = false;
+                            var res = db.Restrictions.OfType<TimeRangeRestriction>().Include(x => x.TimeRanges).Where(r => r.RestrictionId == time.RestrictionId).Single();
+
                             var now = DateTime.Now;
-                            foreach (var timeRange in time.TimeRanges)
+                            foreach (var timeRange in res.TimeRanges)
                             {
-                                if (now < timeRange.End && now > timeRange.Start)
+                                if (now < timeRange.End.Value.ToLocalTime() && now > timeRange.Start.ToLocalTime())
                                 {
                                     t = true;
                                 }
@@ -97,7 +108,7 @@ namespace UFiles.Domain.Concrete
                     canAccess = true;
                 }
             }
-
+            eventService.AddFileAccessEvent(file, user);
             return canAccess;
         }
        
@@ -105,6 +116,7 @@ namespace UFiles.Domain.Concrete
         {
             db.Files.Add(file);
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
      
         public void RevokeFile(int id)
@@ -112,6 +124,7 @@ namespace UFiles.Domain.Concrete
             var file = db.Files.Find(id);
             file.Revoked = true;
             db.SaveChanges();
+            eventService.AddFileAccessEvent(file, file.Owner);
         }
     }
 }

@@ -13,10 +13,13 @@ namespace UFiles.Web.Controllers
     public class HomeController : Controller
     {
         private IUserService userService;
+        private IFileService fileService;
         private ITransmittalService transmittalService;
-        public HomeController(IUserService userService, ITransmittalService transmittalService)
+
+        public HomeController(IUserService userService, IFileService fileService, ITransmittalService transmittalService)
         {
             this.userService = userService;
+            this.fileService = fileService;
             this.transmittalService = transmittalService;
         }
         public ActionResult Index()
@@ -27,7 +30,7 @@ namespace UFiles.Web.Controllers
         [Authorize]
         public ActionResult Overview()
         {
-            OverviewModel overviewModel = new OverviewModel(userService, transmittalService, User.Identity.Name);
+            OverviewModel overviewModel = new OverviewModel(userService, fileService, transmittalService, User.Identity.Name, Request.UserHostAddress);
 
             // End test data
 
@@ -35,16 +38,29 @@ namespace UFiles.Web.Controllers
         }
 
         [Authorize, HttpPost]
-        public JsonResult GetDetailedTransmittalInfo(int transmittalID)
+        public ActionResult GetDetailedTransmittalInfo(int id)
         {
             using (var context = new UFileContext())
             {
                 Transmittal t = context.Transmittals
-                    .Where(transmittal => transmittal.TransmittalId == transmittalID).Single();
+                    .Where(transmittal => transmittal.TransmittalId == id).Single();
 
-                TransmittalOverviewModel model = new TransmittalOverviewModel(t);
+                t.Files = (from transmittal in context.Transmittals
+                           where transmittal.TransmittalId == t.TransmittalId
+                           select transmittal.Files).First();
 
-                return Json(model);
+                IEnumerable<ICollection<Restriction>> r = (from transmittal in context.Transmittals
+                                                           where transmittal.TransmittalId == t.TransmittalId
+                                                           select transmittal.Files.FirstOrDefault().Restrictions);
+
+                t.Files.ToArray()[0].Restrictions = r.ToArray()[0];
+                t.Sender = (from transmittal in context.Transmittals
+                            where transmittal.TransmittalId == t.TransmittalId
+                            select transmittal.Sender).First();
+
+                 var model = new TransmittalOverviewModel(t);
+
+                return View(model);
             }
 
         }

@@ -7,6 +7,7 @@ using UFiles.Domain.Abstract;
 using UFiles.Domain.Entities;
 using UFiles.Web.Models;
 using UFiles.Domain.Concrete;
+using System.Data.Entity;
 
 namespace UFiles.Web.Controllers
 {
@@ -125,31 +126,23 @@ namespace UFiles.Web.Controllers
             using (var context = new UFileContext())
             {
 
-                Group thisGroup = context.Groups.Where(g => g.GroupId == model.GroupID).Single();
-                thisGroup.Users = (from g in context.Groups
-                                   where g.GroupId == thisGroup.GroupId
-                                   select g.Users).Single();
+                Group thisGroup = context.Groups.Include(x=>x.Users).Where(g => g.GroupId == model.GroupID).Single();
 
-                foreach (User u in thisGroup.Users)
-                {
-                    foreach (string e in model.EmailAddressList)
-                    {
-                        if (String.Equals(e, u.Email, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            break;
-                        }
-                        thisGroup.Users.Remove(u);
-                        model.EmailAddressList.Remove(e);
-                    }
-                }
+
+                thisGroup.Users = new List<User>();
 
                 foreach (string e in model.EmailAddressList)
                 {
+                    
                     try
                     {
-                        thisGroup.Users.Add(context.Users.Where<User>(u => u.Email == e).Single());
+                        var userToAdd = context.Users.Where(u => u.Email == e).Single();
+                        if (!thisGroup.Users.Contains(userToAdd))
+                        {
+                            thisGroup.Users.Add(userToAdd);
+                        }
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         jsonDictionary.Add("FailureReason", "<p>There is no registered user with " +
                         "the email address of: " + e + "</p>");

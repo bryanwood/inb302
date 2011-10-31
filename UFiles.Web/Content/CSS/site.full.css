@@ -67,6 +67,13 @@
     border-width: 0 0 0 1px;
 }
 
+.overviewListingBar
+{
+    height: 480px;
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+
 .contentBarFull
 {
     width: 795px;
@@ -125,10 +132,11 @@
 
 .panelTab
 {
-    width: 175px;
+    width: 195px;
+    height: 20px;
     border-color: #333333;
     border-style: solid;
-    border-width: 0 0 3px 0;
+    border-width: 0 0 2px 0;
     text-align: center;
     padding: 5px 0 5px 0;
 }
@@ -138,14 +146,35 @@
     border-color: #48abf7;
 }
 
+.panelTab:hover
+{
+    height: 21px;
+    border-width: 0 0 1px 0;
+    border-color: #48abf7;
+}
+
 .panelMiniSection
 {
     color: #707070;
-    width: 380px;
+    width: 370px;
     padding: 0 5px 0 5px;
     border-color: #e5e5e5;
     border-style: solid;
     border-width: 0 0 1px 0;
+}
+
+.panelMiniSection:hover
+{
+    border-left-width: 1px !important;
+    padding-left: 4px !important;
+    border-left-color: #48abf7;
+}
+
+.panelMiniSectionSelected
+{
+    border-left-width: 2px !important;
+    padding-left: 3px !important;
+    border-left-color: #48abf7;
 }
 
 .panelSectionSelectedHighlight
@@ -162,7 +191,7 @@
 .panelMiniSectionMajorDetail
 {
     padding-top: 5px;
-    width: 380px;
+    width: 365px;
 }
 
 .panelMiniSectionMinorDetail
@@ -172,7 +201,7 @@
 
 .panelMiniSectionEmail
 {
-    width: 200px;
+    width: 180px;
     margin-right: 5px;
 }
 
@@ -251,6 +280,11 @@
     color: #707070;
 }
 
+.detailsMinor
+{
+    color: #707070;
+}
+
 .detailsHighlight
 {
     color: #000000;
@@ -299,7 +333,11 @@
     margin: 0 0 5px 0;
     text-align: center;
 }
-
+a.boxButton
+{
+    margin-top:10px;
+    padding:10px 20px;
+}
 .boxButton
 {
     width: 125px;
