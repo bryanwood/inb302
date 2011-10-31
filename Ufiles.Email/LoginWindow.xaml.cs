@@ -23,6 +23,7 @@ namespace UFiles.Email
         public LoginWindow(UFilesHandler handler)
         {
             InitializeComponent();
+           
             this.ViewModel = new LoginViewModel(handler);
             ViewModel.LoginComplete += new LoginViewModel.LoginCompleteHandler(ViewModel_LoginComplete);
             DataContext = ViewModel;
@@ -36,7 +37,14 @@ namespace UFiles.Email
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Password = passwordBox1.Password;
+            this.DialogResult = true;
             ViewModel.Login();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
         }
     }
 }

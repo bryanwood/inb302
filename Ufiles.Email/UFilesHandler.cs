@@ -59,14 +59,16 @@ namespace UFiles.Email
 
         public UFilesHandler()
         {
-            //UserId = 2; //For Debugging, skips login
-            client = new UFileServiceClient();
-            Files = new ObservableCollection<UploadFile>();
-            worker = new BackgroundWorker();
-            worker.WorkerReportsProgress = true;
-            worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
-            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
-            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+
+                //UserId = 2; //For Debugging, skips login
+                client = new UFileServiceClient();
+                Files = new ObservableCollection<UploadFile>();
+                worker = new BackgroundWorker();
+                worker.WorkerReportsProgress = true;
+                worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
+                worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+                worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+            
         }
 
         void worker_DoWork(object sender, DoWorkEventArgs e)
@@ -95,6 +97,13 @@ namespace UFiles.Email
                 progress++;
                 worker.ReportProgress((int)(((double)progress / (double)total)*100));
             }
+           
+            e.Result = transmittalId;
+        }
+
+        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            var transmittalId = (int)e.Result;
             List<string> emails = new List<string>();
             ThisAddIn.MailItem.Save();
             foreach (Recipient r in ThisAddIn.MailItem.Recipients)
@@ -103,12 +112,7 @@ namespace UFiles.Email
             }
             client.AddRecipients(transmittalId, emails.ToArray());
             client.SendTransmittal(transmittalId);
-            e.Result = transmittalId;
-        }
-
-        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            Complete((int)e.Result);
+            Complete(transmittalId);
         }
 
         void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -122,17 +126,38 @@ namespace UFiles.Email
         }
         public void Start()
         {
+            var bad = false;
             ThisAddIn.MailItem.Save();
-            if (UserId == 0)
+            if (ThisAddIn.MailItem.Recipients.Count > 0)
             {
-                loginWindow = new LoginWindow(this);
-                
-                loginWindow.ShowDialog();
+                foreach (Recipient r in ThisAddIn.MailItem.Recipients)
+                {
+                    if (r.Address == null) { bad = true; }
+                }
             }
-            fileWindow = new FilesWindow(this);
-            fileWindow.ViewModel.AddFileClick += new FilesViewModel.AddFileClickHandler(ViewModel_AddFileClick);
-            fileWindow.ViewModel.UploadFileClick += new FilesViewModel.UploadFileClickHandler(ViewModel_UploadFileClick);
-            fileWindow.ShowDialog();
+            if (ThisAddIn.MailItem.Recipients.Count == 0)
+            {
+                bad = true;
+            }
+            if(bad){
+                    MessageBox.Show("You need to enter a recipient, if the To: field is populated already try clicking check names.", "Recipient");
+            }
+            else
+            {
+                while (UserId == 0)
+                {
+                    loginWindow = new LoginWindow(this);
+
+                    if (!loginWindow.ShowDialog().Value)
+                    {
+                        return;
+                    }
+                }
+                fileWindow = new FilesWindow(this);
+                fileWindow.ViewModel.AddFileClick += new FilesViewModel.AddFileClickHandler(ViewModel_AddFileClick);
+                fileWindow.ViewModel.UploadFileClick += new FilesViewModel.UploadFileClickHandler(ViewModel_UploadFileClick);
+                fileWindow.ShowDialog();
+            }
 
         }
 
@@ -170,6 +195,7 @@ namespace UFiles.Email
                 IPs = new List<string>()
             };
             this.Files.Add(file);
+            this.fileWindow.ViewModel.NotifyPropertyChanged("AddFileEnabled");
             this.CurrentFile = file;
             var rw = new RestrictionWindow(this);
             rw.ShowDialog();

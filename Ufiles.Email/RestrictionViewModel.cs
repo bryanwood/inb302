@@ -19,6 +19,8 @@ namespace UFiles.Email
             Groups = new ObservableCollection<Group>();
             TimeRanges = new ObservableCollection<TimeRange>();
             IPs = new ObservableCollection<string>();
+            endDateToAdd = DateTime.Now;
+            startDateToAdd = DateTime.Now.AddMinutes(5);
         }
 
         public ObservableCollection<Group> PossibleGroups
@@ -188,8 +190,11 @@ namespace UFiles.Email
         public ObservableCollection<string> IPs { get; private set; }
         public void AddEmail()
         {
-            Emails.Add(emailToAdd);
-            EmailToAdd = null;
+            if (!string.IsNullOrWhiteSpace(emailToAdd))
+            {
+                Emails.Add(emailToAdd);
+                EmailToAdd = null;
+            }
         }
         public void RemoveEmail()
         {
