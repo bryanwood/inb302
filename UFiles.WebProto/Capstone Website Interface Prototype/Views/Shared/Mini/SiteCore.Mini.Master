@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" MasterPageFile="~/Views/Shared/SiteCore.Master" %>
+
+<asp:Content ID="miniMasterTitle" ContentPlaceHolderID="masterTitle" runat="server">
+    <asp:ContentPlaceHolder ID="pageTitle" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="miniMasterCSS" ContentPlaceHolderID="masterCSS" runat="server">
+    <link rel="Stylesheet" type="text/css" href="../../../static/css/core.mini.css" />
+    <asp:ContentPlaceHolder ID="pageCSS" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="miniMasterJS" ContentPlaceHolderID="masterJS" runat="server">
+    <asp:ContentPlaceHolder ID="pageJS" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="masterContent" runat="server">
+    <div class="coreMiniContainer">
+        <div class="coreMiniHeader">
+            <asp:ContentPlaceHolder ID="pageHeading" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="coreMiniBox" id="miniBox">
+            <asp:ContentPlaceHolder ID="pageContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="masterInnerJS" runat="server">
+    <asp:contentplaceholder id="pageInnerJS" runat="server">
+    </asp:contentplaceholder>
+</asp:Content>

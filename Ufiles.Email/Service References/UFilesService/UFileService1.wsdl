@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="UFileService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/UFiles.Domain.Entities" />
+      <xsd:import schemaLocation="http://ufiles.bryanwood.com.au/UFileService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IUFileService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_GetGroups_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroups" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_GetGroups_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_NewTransmittal_InputMessage">
+    <wsdl:part name="parameters" element="tns:NewTransmittal" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_NewTransmittal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NewTransmittalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddFile" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddTimeRangeRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTimeRangeRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddTimeRangeRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTimeRangeRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddUserRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddUserRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddIPRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddIPRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddIPRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddIPRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddGroupRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddGroupRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddGroupRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddGroupRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddLocationRestriction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddLocationRestriction" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddLocationRestriction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddLocationRestrictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddRecipients_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRecipients" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_AddRecipients_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRecipientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_SendTransmittal_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendTransmittal" />
+  </wsdl:message>
+  <wsdl:message name="IUFileService_SendTransmittal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendTransmittalResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IUFileService">
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/Login" message="tns:IUFileService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/LoginResponse" message="tns:IUFileService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGroups">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/GetGroups" message="tns:IUFileService_GetGroups_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/GetGroupsResponse" message="tns:IUFileService_GetGroups_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NewTransmittal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/NewTransmittal" message="tns:IUFileService_NewTransmittal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/NewTransmittalResponse" message="tns:IUFileService_NewTransmittal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddFile" message="tns:IUFileService_AddFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddFileResponse" message="tns:IUFileService_AddFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTimeRangeRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddTimeRangeRestriction" message="tns:IUFileService_AddTimeRangeRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddTimeRangeRestrictionResponse" message="tns:IUFileService_AddTimeRangeRestriction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddUserRestriction" message="tns:IUFileService_AddUserRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddUserRestrictionResponse" message="tns:IUFileService_AddUserRestriction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddIPRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddIPRestriction" message="tns:IUFileService_AddIPRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddIPRestrictionResponse" message="tns:IUFileService_AddIPRestriction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddGroupRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddGroupRestriction" message="tns:IUFileService_AddGroupRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddGroupRestrictionResponse" message="tns:IUFileService_AddGroupRestriction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddLocationRestriction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddLocationRestriction" message="tns:IUFileService_AddLocationRestriction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddLocationRestrictionResponse" message="tns:IUFileService_AddLocationRestriction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipients">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/AddRecipients" message="tns:IUFileService_AddRecipients_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/AddRecipientsResponse" message="tns:IUFileService_AddRecipients_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendTransmittal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUFileService/SendTransmittal" message="tns:IUFileService_SendTransmittal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUFileService/SendTransmittalResponse" message="tns:IUFileService_SendTransmittal_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IUFileService_EndPoint" type="tns:IUFileService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGroups">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/GetGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewTransmittal">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/NewTransmittal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddFile">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTimeRangeRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddTimeRangeRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddUserRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddIPRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddIPRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddGroupRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddGroupRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddLocationRestriction">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddLocationRestriction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRecipients">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/AddRecipients" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTransmittal">
+      <soap:operation soapAction="http://tempuri.org/IUFileService/SendTransmittal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UFileService">
+    <wsdl:port name="IUFileService_EndPoint" binding="tns:IUFileService_EndPoint">
+      <soap:address location="http://ufiles.bryanwood.com.au/UFileService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

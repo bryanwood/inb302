@@ -1,0 +1,116 @@
+﻿@model UFiles.Web.Models.TransmittalOverviewModel
+@{
+    Layout = null;
+}
+<div class="detailsSection" id="fileDetails">
+    <div class="detailsMajor">
+        <div class="detailsInnerSection">
+            <span class="detailsHighlight detailsHeader" id="fileName">@Model.FileName</span>
+        </div>
+        <div class="detailsInnerSection">
+            sent by <span class="detailsHighlight" id="fileSender">@Model.Sender</span>
+        </div>
+        <div class="detailsInnerSection">
+            on <span class="detailsHighlight" id="fileDate">@Model.SentDate</span>
+        </div>
+    </div>
+</div>
+<div class="detailsSection" id="userRestrictions">
+    <div class="detailsInnerSection">
+        <div class="detailsMinor">
+            @{ if (Model.UserRestrictions.Count < 1 &&
+                                Model.GroupRestrictions.Count < 1)
+               {
+                <p>
+                    This file can be viewed by anyone with the link</p>
+
+               }
+               else
+               {
+                <p>
+                    <span>This file can be viewed by the following users</span>
+                    <br />
+                    @foreach (UFiles.Domain.Entities.UserRestriction r in @Model.UserRestrictions)
+                    {
+                        foreach (UFiles.Domain.Entities.User u in r.Users)
+                        {
+                        <span class="detailsHighlight">@u.FirstName @u.LastName, </span>
+                        }
+                    }
+                </p>
+                <p>
+                    <span>This file can be viewed by the following groups</span>
+                    <br />
+                    @foreach (UFiles.Domain.Entities.GroupRestriction r in @Model.GroupRestrictions)
+                    {
+                        foreach (UFiles.Domain.Entities.Group g in r.Groups)
+                        {
+                        <span class="detailsHighlight">@g.Name, </span>
+                        }
+                    }
+                </p>
+                                        
+               }
+            }
+        </div>
+    </div>
+</div>
+<div class="detailsSection" id="otherRestrictions">
+    <div class="detailsInnerSection">
+        <div class="detailsMinor">
+            @{ if (Model.TimeRangeRestrictions.Count > 0)
+               {
+                <p>
+                    <span>This file can be viewed from</span>
+                    <br />
+                    <span class="detailsHighlight" id="startTime">@Model.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].Start.ToShortTimeString()
+                        @Model.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].Start.ToShortDateString()</span>
+                    to <span class="detailsHighlight" id="endTime">@Model.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].End.Value.ToShortTimeString()
+                        @Model.TimeRangeRestrictions[0].TimeRanges.ToArray()[0].End.Value.ToShortDateString()</span>
+                </p>
+                                        
+               }
+            }
+        </div>
+        <div class="detailsMinor">
+            @{ if (Model.LocationRestrictions.Count > 0)
+               {
+                <p>
+                    <span>Whilst at a location with a post code of</span>
+                    <br />
+                    @foreach (UFiles.Domain.Entities.LocationRestriction lR in Model.LocationRestrictions)
+                    {
+                        foreach (UFiles.Domain.Entities.Location location in lR.Locations)
+                        {
+                        <span class="detailsHighlight">@location.PostCode, </span>
+                        }
+                    }
+                </p>
+                                        
+               }
+            }
+        </div>
+        <div class="detailsMinor">
+            @{ if (Model.IPRestrictions.Count > 0)
+               {
+                <p>
+                    <span>With an IP Address of</span>
+                    <br />
+                    @foreach (UFiles.Domain.Entities.IPRestriction ipR in Model.IPRestrictions)
+                    {
+                        foreach (UFiles.Domain.Entities.IPAddress ip in ipR.IPAddress)
+                        {
+                        <span class="detailsHighlight">@ip.IP, </span>
+                        }
+                    }
+                </p>
+                                        
+               }
+            }
+        </div>
+    </div>
+</div>
+<div>
+    <a class="coreButtonAccept boxButton" href="@Url.Action("Download", "Transmittal", new { id = Model.DownloadLink })">
+        Download</a>
+</div>
