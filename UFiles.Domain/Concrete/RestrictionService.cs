@@ -20,7 +20,7 @@ namespace UFiles.Domain.Concrete
 
         public void AddUserRestriction(int fileId, int[] userIds)
         {
-            var file = db.Files.Include(x=>x.Restrictions).Where(x=>x.FileId==fileId).Single();
+            var file = db.Files.Include(x=>x.Restrictions).Where(x=>x.FileId==fileId).Include(x=>x.Owner).Single();
             var userRestriction = new UserRestriction();
             userRestriction.Users = new List<User>();
             foreach(var userId in userIds){
@@ -33,7 +33,7 @@ namespace UFiles.Domain.Concrete
 
         public void AddGroupRestriction(int fileId, int[] groupIds)
         {
-            var file = db.Files.Include(x => x.Restrictions).Where(x=>x.FileId==fileId).Single();
+            var file = db.Files.Include(x => x.Restrictions).Where(x => x.FileId == fileId).Include(x => x.Owner).Single();
             var groupRestriction = new GroupRestriction();
             groupRestriction.Groups = new List<Group>();
             foreach (var groupId in groupIds)
@@ -47,7 +47,7 @@ namespace UFiles.Domain.Concrete
 
         public void AddTimeRangeRestriction(int fileId, TimeRange[] timeRanges)
         {
-            var file = db.Files.Include(x => x.Restrictions).Where(x=>x.FileId==fileId).Single();
+            var file = db.Files.Include(x => x.Restrictions).Where(x => x.FileId == fileId).Include(x => x.Owner).Single();
             var timeRestriction = new TimeRangeRestriction();
             timeRestriction.TimeRanges = new List<TimeRange>();
             foreach (var timeRange in timeRanges)
@@ -60,7 +60,7 @@ namespace UFiles.Domain.Concrete
         }
         public void AddIPRestriction(int fileId, string[] ips)
         {
-            var file = db.Files.Include(x => x.Restrictions).Where(x => x.FileId==fileId).Single();
+            var file = db.Files.Include(x => x.Restrictions).Where(x => x.FileId == fileId).Include(x => x.Owner).Single();
             var ipRestriction = new IPRestriction();
             ipRestriction.IPAddress = new List<IPAddress>();
             var ipz = ips.Select(x => new IPAddress

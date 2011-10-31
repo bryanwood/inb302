@@ -128,6 +128,7 @@ namespace UFiles.Web.Controllers
 
                 Group thisGroup = context.Groups.Include(x=>x.Users).Where(g => g.GroupId == model.GroupID).Single();
 
+                thisGroup.Name = model.GroupName;
 
                 thisGroup.Users = new List<User>();
 
@@ -136,10 +137,13 @@ namespace UFiles.Web.Controllers
                     
                     try
                     {
-                        var userToAdd = context.Users.Where(u => u.Email == e).Single();
-                        if (!thisGroup.Users.Contains(userToAdd))
+                        if (!string.IsNullOrWhiteSpace(e))
                         {
-                            thisGroup.Users.Add(userToAdd);
+                            var userToAdd = context.Users.Where(u => u.Email == e).Single();
+                            if (!thisGroup.Users.Contains(userToAdd))
+                            {
+                                thisGroup.Users.Add(userToAdd);
+                            }
                         }
                     }
                     catch

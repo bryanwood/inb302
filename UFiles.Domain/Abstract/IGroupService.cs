@@ -22,6 +22,7 @@ namespace UFiles.Domain.Abstract
         /// <returns>a group</returns>
         Group GetGroup(int id);
 
+        Group GetGroupByName(string name);
         /// <summary>
         /// Creates a new group for a specified user
         /// </summary>

@@ -22,7 +22,10 @@ namespace UFiles.Domain.Concrete
         {
             return db.Groups.Include(x=>x.Users).Include(x=>x.Owner).Where(g => g.Owner.UserId == owner.UserId);
         }
-
+        public Entities.Group GetGroupByName(string name)
+        {
+            return db.Groups.Include(x => x.Owner).Include(x => x.Users).Where(g => g.Name == name).Single();
+        }
         public Entities.Group GetGroup(int id)
         {
             return db.Groups.Include(x=>x.Owner).Include(x=>x.Users).Where(g => g.GroupId == id).Single();

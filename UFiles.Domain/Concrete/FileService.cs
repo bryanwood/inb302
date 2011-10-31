@@ -80,7 +80,7 @@ namespace UFiles.Domain.Concrete
                             var now = DateTime.Now;
                             foreach (var timeRange in res.TimeRanges)
                             {
-                                if (now.CompareTo(timeRange.End.Value) < 0 && now.CompareTo(timeRange.Start) > 0)
+                                if (now < timeRange.End.Value && now > timeRange.Start)
                                 {
                                     t = true;
                                 }

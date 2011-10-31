@@ -37,32 +37,12 @@ namespace UFiles.Web.Controllers
             return View(overviewModel);
         }
 
-        [Authorize, HttpPost]
+        [Authorize]
         public ActionResult GetDetailedTransmittalInfo(int id)
         {
-            using (var context = new UFileContext())
-            {
-                Transmittal t = context.Transmittals
-                    .Where(transmittal => transmittal.TransmittalId == id).Single();
-
-                t.Files = (from transmittal in context.Transmittals
-                           where transmittal.TransmittalId == t.TransmittalId
-                           select transmittal.Files).First();
-
-                IEnumerable<ICollection<Restriction>> r = (from transmittal in context.Transmittals
-                                                           where transmittal.TransmittalId == t.TransmittalId
-                                                           select transmittal.Files.FirstOrDefault().Restrictions);
-
-                t.Files.ToArray()[0].Restrictions = r.ToArray()[0];
-                t.Sender = (from transmittal in context.Transmittals
-                            where transmittal.TransmittalId == t.TransmittalId
-                            select transmittal.Sender).First();
-
-                 var model = new TransmittalOverviewModel(t);
-
-                return View(model);
-            }
-
+            var t = transmittalService.GetTransmittalById(id);
+            var model = new TransmittalOverviewModel(t);
+            return View(model);
         }
     }
 }

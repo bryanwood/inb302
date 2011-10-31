@@ -8,7 +8,7 @@
 div#loader
 {
     color:#FFFFFF;
-    position:absolute;
+    position:fixed;
     right:6px;
     top:6px;
     width:150px;
@@ -99,6 +99,10 @@ a:hover
     background-color: #48abf7;
     border-style: none;
     color: #FFFFFF;
+}
+.coreButtonAccept:hover
+{
+    background-color:#59bcf8;
 }
 
 .coreContainer
