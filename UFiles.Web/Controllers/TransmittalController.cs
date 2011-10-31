@@ -116,7 +116,7 @@ namespace UFiles.Web.Controllers
             }
             catch (Exception e)
             {
-                jsonDictionary.Add("FailureReason", "Something went wrong");
+                jsonDictionary.Add("FailureReason", "<p>Something went wrong</p><p>Please confirm the details entered before attempting to submit again.</p>");
                 jsonDictionary.Add("Success", "false");
                 Response.StatusCode = successStatusCode;
 
@@ -124,6 +124,7 @@ namespace UFiles.Web.Controllers
             }
 
             jsonDictionary.Add("Success", "true");
+            jsonDictionary.Add("GoTo", Url.Action("Index", "Home"));
 
             Response.StatusCode = successStatusCode;
             return Json(jsonDictionary);
